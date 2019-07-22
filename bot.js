@@ -1,6 +1,7 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
 const bot = new Discord.Client({disableEveryone: true});
+var request = require ("request");
 
 bot.login(botconfig.token);
 
@@ -34,6 +35,23 @@ bot.on("message", async message => {
   if(cmd === `${prefix}ping`){
 	  return message.channel.send("Pong!");
   }
+  
+  if(cmd === `${prefix}random`){
+	  request.get('https://duckduckdoc.tk/redirect', {},
+	  function(error, response, body){
+	if(response.statusCode == 200){
+		const embed = new Discord.RichEmbed()
+		.setColor('#0099ff')
+		.setTitle('隨機圖片')
+		.setURL(response.request.uri.href)
+		.setDescription('MCwind 隨機圖片API')
+		.setImage(response.request.uri.href);
+		message.channel.send(embed);
+	}
+	else {}
+	return;
+  })}
+ 
 });
 
 // 如果想自動刪除觸發指令的信息，加入這句-->   message.delete().catch(O_o=>{}); 
