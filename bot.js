@@ -42,10 +42,11 @@ bot.on("message", async message => {
 	if(response.statusCode == 200){
 		const embed = new Discord.RichEmbed()
 		.setColor('#0099ff')
-		.setTitle('隨機圖片')
+		.setTitle('MCwind 隨機圖片API')
 		.setURL(response.request.uri.href)
-		.setDescription('MCwind 隨機圖片API')
+		.setDescription(`${message.author}` + '要求的隨機圖片')
 		.setImage(response.request.uri.href);
+		message.delete().catch(O_o=>{});
 		message.channel.send(embed);
 	}
 	else {}
