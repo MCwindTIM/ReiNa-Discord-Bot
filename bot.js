@@ -31,7 +31,7 @@ bot.on("message", async message => {
 		.setColor('#0099ff')
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
-		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201907241836\n```\n--實用指令--\nrn!clear [數目]    清除信息\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!img            請求隨機動漫圖片！\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
+		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201907262016\n```\n--實用指令--\nrn!clear [數目]    清除信息\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
 		.setFooter('ReiNa By MCwind#9801', 'https://i.imgur.com/99GMP6a.png');
                 try {
                     util.sendDeletableMessage(message.channel, { embed }, message.author, message);
@@ -516,6 +516,25 @@ bot.on("message", async message => {
 		.setURL("https://youtu.be/ouchD3lTs58?t=1m33s")
 		.setColor('#0099ff')
 		.setDescription("這是" + `${message.author}` + " 的請求")
+		.setFooter('ReiNa By MCwind#9801', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+	}
+	
+	if(cmd === `${prefix}invite`){
+		message.delete();
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setColor('#0099ff')
+		.setDescription("這是" + `${message.author}` + " 的請求，你可以用以下鏈接邀請機械人\n\n\nReiNa Bot\n<https://discordapp.com/api/oauth2/authorize?client_id=418095978273570846&permissions=8&scope=bot>\n\nReiNa-AntiSpam\n<https://discordapp.com/api/oauth2/authorize?client_id=454324523571871754&permissions=8&scope=bot>\n\nReiNa-Cards\n<https://discordapp.com/api/oauth2/authorize?client_id=418363084508495872&permissions=8&scope=bot>\n\nReiNa-Music\n<https://discordapp.com/api/oauth2/authorize?client_id=423846938467762187&permissions=8&scope=bot>\n\nReiNa-WebSocket\n<https://discordapp.com/api/oauth2/authorize?client_id=580129877953609739&permissions=8&scope=bot>\n\nReiNa-LocalMusic\n<https://discordapp.com/api/oauth2/authorize?client_id=440968183277682708&permissions=8&scope=bot>\n\n飆車之鬼\n<https://discordapp.com/api/oauth2/authorize?client_id=601861890036989983&permissions=8&scope=bot>")
 		.setFooter('ReiNa By MCwind#9801', 'https://i.imgur.com/99GMP6a.png');
                 try {
                     util.sendDeletableMessage(message.channel, { embed }, message.author, message);
