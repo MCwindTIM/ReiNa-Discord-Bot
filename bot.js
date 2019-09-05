@@ -2,6 +2,7 @@ const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
 const bot = new Discord.Client({disableEveryone: true});
 const util = require('./util.js');
+var wincmd = require('node-cmd');
 var request = require ("request");
 
 bot.login(botconfig.token);
@@ -16,12 +17,17 @@ bot.on("message", async message => {
   if(message.author.bot) return;
   if(message.channel.type === "dm") return;
 
+  let OwnID = botconfig.OwnerID;
   let prefix = botconfig.prefix;
   let messageArray = message.content.split(" ");
   let cmd = messageArray[0];
   let args = messageArray.slice(1);
   let cont = message.content.slice(prefix.length).split(" ");
   let argsclear = cont.slice(1);
+  
+	function getRandomInt(max) {
+	return Math.floor(Math.random() * Math.floor(max));
+	}
 
   if(cmd === `${prefix}help`){
 	  message.delete(); 
@@ -31,7 +37,7 @@ bot.on("message", async message => {
 		.setColor('#0099ff')
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
-		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201909060053\n```\n--實用指令--\nrn!clear [數目]    清除信息\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\nrn!ebase [信息]     加密信息\nrn!dbase [信息]     解密信息\nrn!dec [十進制數值]    輸入數值轉換至其他進制\nrn!hex [十六進制數值]  輸入數值轉換至其他進制\nrn!bin [二進制數值]    輸入數值轉換至其他進制\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
+		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201909060122\n```\n--實用指令--\nrn!clear [數目]  清除信息\nrn!roll [最大數值]    隨機抽出一個數字!\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\nrn!ebase [信息]     加密信息\nrn!dbase [信息]     解密信息\nrn!dec [十進制數值]    輸入數值轉換至其他進制\nrn!hex [十六進制數值]  輸入數值轉換至其他進制\nrn!bin [二進制數值]    輸入數值轉換至其他進制\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
 		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
                 try {
                     util.sendDeletableMessage(message.channel, { embed }, message.author, message);
@@ -701,6 +707,69 @@ bot.on("message", async message => {
                 return;
             }
   }
+  
+	  if(cmd === `${prefix}roll`){
+	  message.delete();
+	  rndnum = args.join(" ");
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot 隨機數字')
+		.setURL("https://mcwind.tk")
+		.setDescription(getRandomInt(rndnum))
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
+  
+	  if(cmd === `${prefix}restart` ){
+		  if(message.author.id === OwnID){
+	  message.delete();
+			const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setDescription("重新啟動中...:wave:")
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message)
+					.then(msg => bot.destroy())
+					.then(console.log("提示:重新啟動"))
+					.then(
+					wincmd.run("node " + botconfig.botPath + "/bot.js")
+					);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+	  }else{
+	  message.delete();
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot 錯誤')
+		.setURL("https://mcwind.tk")
+		.setDescription("權限不足!")
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+		}
+	  }
   
 	
 	  if(message.content.includes('discord.gg/'||'discordapp.com/invite/')) {
