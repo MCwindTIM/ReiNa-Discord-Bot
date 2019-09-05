@@ -8,7 +8,7 @@
 如果不清楚你的Discord ID, 請先不要輸入
 在成功啟動bot後使用**myid**指令獲得ID**(預設為rn!myid)** 然後填上OwnerID 欄目, 重啟bot即可 
 這影響需要權限的指令 例如**restart**指令**(預設為rn!restart)**
-
+- 歡迎自行修改代碼並加入新功能
 ![](https://i.imgur.com/cw6fSer.png)
 
 ![](https://img.shields.io/github/stars/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/forks/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/tag/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/release/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/issues/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/license/MCwindTIM/ReiNa-Discord-Bot)
