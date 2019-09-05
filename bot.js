@@ -4,7 +4,7 @@ const bot = new Discord.Client({disableEveryone: true});
 const util = require('./util.js');
 var wincmd = require('node-cmd');
 var request = require ("request");
-
+process.title = 'ReiNaBot'
 bot.login(botconfig.token);
 
 bot.on("ready", async () => {
@@ -744,7 +744,7 @@ bot.on("message", async message => {
 					.then(msg => bot.destroy())
 					.then(console.log("提示:重新啟動"))
 					.then(
-					wincmd.run("node " + botconfig.botPath + "/bot.js")
+					wincmd.run("start restart.bat")
 					);
 			}   catch (err) {
                     console.error(err);
