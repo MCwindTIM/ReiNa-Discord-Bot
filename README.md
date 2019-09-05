@@ -11,6 +11,6 @@
 
 ![](https://i.imgur.com/cw6fSer.png)
 
-![](https://img.shields.io/github/stars/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/forks/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/tag/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/release/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/issues/MCwindTIM/ReiNa-Discord-Bot)![](https://img.shields.io/github/license/MCwindTIM/ReiNa-Discord-Bot)
+![](https://img.shields.io/github/stars/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/forks/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/tag/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/release/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/issues/MCwindTIM/ReiNa-Discord-Bot) ![](https://img.shields.io/github/license/MCwindTIM/ReiNa-Discord-Bot)
 
 ###End
