@@ -689,7 +689,7 @@ bot.on("message", async message => {
             if ( 1 === 1 ) {
                 embed
 		.setColor('#0099ff')
-		.setTitle('ReiNa Bot 加密信息')
+		.setTitle('ReiNa Bot 解密信息')
 		.setURL("https://mcwind.tk")
 		.setDescription(data)
 		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
