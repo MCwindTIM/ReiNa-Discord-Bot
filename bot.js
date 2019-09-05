@@ -31,7 +31,7 @@ bot.on("message", async message => {
 		.setColor('#0099ff')
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
-		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201908200332\n```\n--實用指令--\nrn!clear [數目]    清除信息\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
+		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201909060053\n```\n--實用指令--\nrn!clear [數目]    清除信息\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\nrn!ebase [信息]     加密信息\nrn!dbase [信息]     解密信息\nrn!dec [十進制數值]    輸入數值轉換至其他進制\nrn!hex [十六進制數值]  輸入數值轉換至其他進制\nrn!bin [二進制數值]    輸入數值轉換至其他進制\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
 		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
                 try {
                     util.sendDeletableMessage(message.channel, { embed }, message.author, message);
@@ -568,6 +568,159 @@ bot.on("message", async message => {
 	}
 	return;
   })}
+  
+    if(cmd === `${prefix}dec`){
+	  message.delete();
+	  let num = parseInt (args, 10);
+	  let hex = num.toString(16).toUpperCase();
+	  let bin = num.toString(2).toUpperCase();
+	  let dec = num.toString(10).toUpperCase();
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot 十進制轉換')
+		.setURL("https://mcwind.tk")
+		.setDescription("Demical =" + dec + "\nBinary =" + bin + "\nHexadecimal =" + hex)
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
+  
+      if(cmd === `${prefix}hex`){
+	  message.delete();
+	  let num = parseInt (args, 16);
+	  let dec = num.toString(10).toUpperCase();
+	  let bin = num.toString(2).toUpperCase();
+	  let hex = num.toString(16).toUpperCase();
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot 十六進制轉換')
+		.setURL("https://mcwind.tk")
+		.setDescription("Demical =" + dec + "\nBinary =" + bin + "\nHexadecimal =" + hex)
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
+  
+        if(cmd === `${prefix}bin`){
+	  message.delete();
+	  let num = parseInt (args, 2);
+	  let dec = num.toString(10).toUpperCase();
+	  let hex = num.toString(16).toUpperCase();
+	  let bin = num.toString(2).toUpperCase();
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot 二進制轉換')
+		.setURL("https://mcwind.tk")
+		.setDescription("Demical =" + dec + "\nBinary =" + bin + "\nHexadecimal =" + hex)
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
+  
+      if(cmd === `${prefix}alt`){
+	  message.delete();
+	  let tString = Buffer.from(args, 'utf8');
+	  let tvar = tString.toString('binary');
+	  let output = tvar.toString('utf-8');
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot Alt Code ')
+		.setURL("https://mcwind.tk")
+		.setDescription(output)
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
+  
+	  if(cmd === `${prefix}ebase`){
+	  message.delete();
+	  let mString = args.join(" ");
+	  let tString = new Buffer(mString).toString('base64');
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot 加密信息')
+		.setURL("https://mcwind.tk")
+		.setDescription(tString)
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
+  
+	  if(cmd === `${prefix}dbase`){
+	  message.delete();
+	  let mString = args.join(" ");
+	  let data = new Buffer(mString, 'base64').toString();
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setColor('#0099ff')
+		.setTitle('ReiNa Bot 加密信息')
+		.setURL("https://mcwind.tk")
+		.setDescription(data)
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
+  
 	
+	  if(message.content.includes('discord.gg/'||'discordapp.com/invite/')) {
+	  message.delete(); 
+	  const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+                embed
+		.setDescription(`這裡不允許發送Discord邀請連結!`)
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+                .setTimestamp()
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+  }
 	
 });
