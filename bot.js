@@ -47,7 +47,7 @@ bot.on("message", async message => {
                 return;
             }
 }
-  
+
   if(cmd === `${prefix}ping`){
 	  message.delete(); 
 	  const embed = new Discord.RichEmbed()
@@ -842,5 +842,26 @@ bot.on("message", async message => {
                 return;
             }
   }
+  
+	if(cmd === `${prefix}avatar`){
+		message.delete();
+		const embed = new Discord.RichEmbed()
+            if ( 1 === 1 ) {
+            embed
+			.setDescription(`${message.author}` + "Senpai, 這是你的Discord使用者頭像。")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot 你的Discord頭像')
+			.setURL(message.author.avatarURL)
+			.setImage(message.author.avatarURL)
+            .setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+                return;
+            }
+	}
 	
 });
