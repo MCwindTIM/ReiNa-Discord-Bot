@@ -934,7 +934,7 @@ bot.on("message", async message => {
 						if (timer[message.author.id] < 10) timer[message.author.id] = "0" + timer[message.author.id];
 							const embed = new Discord.RichEmbed()
 							embed
-							.setDescription(`${message.author}` + "你未開始計時, 請使用`timer`指令加上`start`變數開始計時")
+							.setDescription(`${message.author}` + "你未開始計時, 請使用`timer`指令加上`start`參數開始計時")
 							.setColor(0xcc0000)
 							.setTitle('ReiNa Bot 計時器')
 							.setURL("https://mcwind.tk")
