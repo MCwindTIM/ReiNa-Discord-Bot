@@ -38,7 +38,7 @@ bot.on("message", async message => {
 		.setColor('#0099ff')
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
-		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201909061627\n```\n--實用指令--\nrn!clear [數目]  清除信息\nrn!myid       查看ID\nrn!avatar     獲取你的Discord頭像\nrn!avatar [@某使用者]    獲得該使用者頭像\nrn!roll [最大數值]    隨機抽出一個數字!\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\nrn!ebase [信息]     加密信息\nrn!dbase [信息]     解密信息\nrn!dec [十進制數值]    輸入數值轉換至其他進制\nrn!hex [十六進制數值]  輸入數值轉換至其他進制\nrn!bin [二進制數值]    輸入數值轉換至其他進制\nrn!flux [數值]    輸入港幣獲得可以購買的flux數量!\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
+		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201909071830\n```\n--實用指令--\nrn!clear [數目]  清除信息\nrn!myid       查看ID\nrn!timer [start/stop]   計時器指令\nrn!avatar     獲取你的Discord頭像\nrn!avatar [@某使用者]    獲得該使用者頭像\nrn!roll [最大數值]    隨機抽出一個數字!\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\nrn!ebase [信息]     加密信息\nrn!dbase [信息]     解密信息\nrn!dec [十進制數值]    輸入數值轉換至其他進制\nrn!hex [十六進制數值]  輸入數值轉換至其他進制\nrn!bin [二進制數值]    輸入數值轉換至其他進制\nrn!flux [數值]    輸入港幣獲得可以購買的flux數量!\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
 		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
                 try {
                     util.sendDeletableMessage(message.channel, { embed }, message.author, message);
@@ -923,12 +923,28 @@ bot.on("message", async message => {
 					delete timer[message.author.id];
 			 }
 			 })
+			}else{
+					if (timer[message.author.id] < 10) timer[message.author.id] = "0" + timer[message.author.id];
+					const embed = new Discord.RichEmbed()
+					embed
+					.setDescription(`${message.author}` + "你未開始計時, 請使用`timer`指令加上`start`變數開始計時")
+					.setColor(0xcc0000)
+					.setTitle('ReiNa Bot 計時器')
+					.setURL("https://mcwind.tk")
+					.setTimestamp()
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+					try {
+						await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+						console.error(err);
+					}
+					return;
 			}
 		}else{
 			if (1 === 1){
 					const embed = new Discord.RichEmbed()
 					embed
-					.setDescription(`${message.author}` + "請在timer指令後加入變數 `start` 或者 `stop`")
+					.setDescription(`${message.author}` + "請在`timer`指令後加入變數 `start` 或者 `stop`")
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot 計時器')
 					.setURL("https://mcwind.tk")
