@@ -6,6 +6,7 @@ var wincmd = require('node-cmd');
 var request = require ("request");
 process.title = 'ReiNaBot'
 bot.login(botconfig.token);
+let timer = {};
 
 bot.on("ready", async () => {
 	console.log(`${bot.user.username} 上線!`);
@@ -861,5 +862,89 @@ bot.on("message", async message => {
                 }
                 return;
 		}
+		
+	if(cmd === `${prefix}timer`){
+	message.delete();
+	let controller = args.slice(0, 1).toString();
+		if (controller === "start"){
+		timer[message.author.id] = Date.now();
+			const embed = new Discord.RichEmbed()
+            embed
+			.setDescription(`${message.author}` + "開始計時。")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot 計時器')
+			.setURL("https://mcwind.tk")
+            .setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			}   catch (err) {
+                    console.error(err);
+                }
+				return;
+		}else {
+		if (controller === "stop"){
+			 if (timer[message.author.id]) {
+				var rightNow = new Date();
+				var res = rightNow.toISOString().slice(0,10).replace();
+				var hkd2cny = "http://currencies.apps.grandtrunk.net/getrate/" + res + "/HKD/CNY";
+				request.get(hkd2cny, {},
+				async function(error, response, body){
+				if(response.statusCode == 200){
+				timer[message.author.id] = Date.now() - timer[message.author.id];
+					var HKD = timer[message.author.id] / 1000 * (60 / 3600);
+					var CNY = parseFloat(body)
+					var calc = HKD * CNY / 0.23;
+					var flux = Math.floor(calc);
+				h = Math.floor(timer[message.author.id] / 3600000);
+				if (h < 10) h = "0" + h;
+				timer[message.author.id] = timer[message.author.id] % 3600000;
+				m = Math.floor(timer[message.author.id] / 60000);
+				if (m < 10) m = "0" + m;
+				timer[message.author.id] = timer[message.author.id] % 60000;
+				s = Math.floor(timer[message.author.id] / 1000);
+				if (s < 10) s = "0" + s;
+				timer[message.author.id] = timer[message.author.id] % 1000;
+				if (timer[message.author.id] < 10) timer[message.author.id] = "0" + timer[message.author.id];
+					const embed = new Discord.RichEmbed()
+					embed
+					.setDescription(`${message.author}` + "計時結束。\n\n" + h + ":" + m + ":" + s + "\n\n如果以每小時60HKD薪金計算, 將會是 `" + flux + "` 萬Flux!")
+					.setColor(0xcc0000)
+					.setTitle('ReiNa Bot 計時器')
+					.setURL("https://mcwind.tk")
+					.setTimestamp()
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+					try {
+						await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+						console.error(err);
+					}
+					return;
+					delete timer[message.author.id];
+			 }
+			 })
+			}
+		}else{
+			if (1 === 1){
+					const embed = new Discord.RichEmbed()
+					embed
+					.setDescription(`${message.author}` + "請在timer指令後加入變數 `start` 或者 `stop`")
+					.setColor(0xcc0000)
+					.setTitle('ReiNa Bot 計時器')
+					.setURL("https://mcwind.tk")
+					.setTimestamp()
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+					try {
+						await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+						console.error(err);
+					}
+					return;
+			}
+		}
+		
+		}
+	}
+	
 
 });
