@@ -846,7 +846,7 @@ bot.on("message", async message => {
                 return;
             }
 	}
-  
+    
 	if(cmd === `${prefix}avatar`){
 		message.delete();
 		let user = message.mentions.users.first();
