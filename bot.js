@@ -908,7 +908,7 @@ bot.on("message", async message => {
 				if (timer[message.author.id] < 10) timer[message.author.id] = "0" + timer[message.author.id];
 					const embed = new Discord.RichEmbed()
 					embed
-					.setDescription(`${message.author}` + "計時結束。\n\n" + h + ":" + m + ":" + s + "\n\n如果以每小時60HKD薪金計算, 將會是 `" + flux + "` 萬Flux!")
+					.setDescription(`${message.author}` + "計時結束。\n格式:`小時:分鐘:秒`\n\n" + h + ":" + m + ":" + s + "\n\n如果以每小時60HKD薪金計算, 將會是 `" + flux + "` 萬Flux!")
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot 計時器')
 					.setURL("https://mcwind.tk")
