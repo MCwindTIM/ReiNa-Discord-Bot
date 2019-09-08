@@ -1,9 +1,7 @@
 # ReiNa-Discord-Bot
 ### 使用說明
 
-- npm i discord.js
-- npm i node-cmd
-- npm i request
+- npm install discord.js ffmpeg-binaries opusscript ytdl-core node-cmd request --save
 - 在botconfig中設定bot token, prefix 和 OwnerID
 - bot token 可以在Discord Developer Portal 中取得機械人的token
 - prefix預設是 **rn!** (可以隨意修改)
