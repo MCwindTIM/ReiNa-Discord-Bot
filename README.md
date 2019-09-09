@@ -2,7 +2,7 @@
 ### 使用說明
 
 - npm install discord.js ffmpeg-binaries opusscript ytdl-core node-cmd request --save
-- 在botconfig中設定bot token, prefix 和 OwnerID
+- 在botconfig中設定bot token, prefix, YoutubeAPI 和 OwnerID
 - bot token 可以在Discord Developer Portal 中取得機械人的token
 - prefix預設是 **rn!** (可以隨意修改)
 - 擁有者ID 則是你的Discord ID
