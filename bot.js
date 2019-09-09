@@ -1076,17 +1076,23 @@ bot.on("message", async message => {
 				try {
 					var videos = await youtube.searchVideos(searchString, 10);
 					let index = 0;
-					message.channel.send(`
-__**歌曲選擇:**__
-${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
-請Senpai在1到10號結果中選擇想播放的音樂哦!
-					`);
+					const embed = new Discord.RichEmbed()
+					embed
+					.setDescription(`${message.author}` + "\n**歌曲選擇:**\n" + `${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}` + "\n\n請Senpai在1到10號結果中選擇想播放的音樂哦!\n\n")
+					.setColor(0xcc0000)
+					.setTitle('ReiNa Bot')
+					.setURL("https://mcwind.tk")
+					.setTimestamp()
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+					util.sendDeletableMessage(message.channel, { embed }, message.author, message);
 					try {
 						var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
 							maxMatches: 1,
 							time: 10000,
 							errors: ['time']
 						});
+						const fetched = await message.channel.fetchMessages({limit: 1});
+						message.channel.bulkDelete(fetched)
 					} catch (err) {
 						console.error(err);
 						const embed = new Discord.RichEmbed()
@@ -1098,6 +1104,7 @@ ${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
 						.setTimestamp()
 						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
 						util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+						return;
 						}
 					const videoIndex = parseInt(response.first().content);
 					var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
