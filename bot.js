@@ -1535,14 +1535,14 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
 			queue.delete(message.guild.id);
 			const embed = new Discord.RichEmbed()
 			embed
-			.setDescription("在進入語音頻道時發生錯誤! 嗚嗚嗚~\n\n\n**此信息將會在5秒後自動刪除**\n")
+			.setDescription("在進入語音頻道時發生錯誤! 嗚嗚嗚~\n\n\n**此信息將會在15秒後自動刪除**\n")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot 錯誤')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
 			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
 			message.channel.send(embed).then(function(message){
-			message.delete(5000);
+			message.delete(15000);
 			}).catch(function(err){
 			throw err;
 			});
@@ -1554,14 +1554,14 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
 		else {
 			const embed = new Discord.RichEmbed()
 			embed
-			.setDescription("✅ 將" + `**${song.title}**` + "加入到播放列表中!\n\n\n**此信息將會在5秒後自動刪除**\n")
+			.setDescription("✅ 將" + `**${song.title}**` + "加入到播放列表中!\n\n\n**此信息將會在15秒後自動刪除**\n")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
 			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
 			message.channel.send(embed).then(function(message){
-			message.delete(5000);
+			message.delete(15000);
 			}).catch(function(err){
 			throw err;
 			});
@@ -1577,14 +1577,14 @@ function play(guild, song) {
 	if (!song) {
 		const embed = new Discord.RichEmbed()
 		embed
-		.setDescription("各位Senpai, 全部音樂已經播放完畢, 這裡就沒有我的事情了 需要我的時候再叫我吧!\n\n\n**此信息將會在5秒後自動刪除**\n")
+		.setDescription("各位Senpai, 全部音樂已經播放完畢, 這裡就沒有我的事情了 需要我的時候再叫我吧!\n\n\n**此信息將會在15秒後自動刪除**\n")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
 		.setTimestamp()
 		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
 		serverQueue.textChannel.send(embed).then(function(message){
-		message.delete(5000);
+		message.delete(15000);
 		}).catch(function(err){
 			throw err;
 		});
@@ -1604,14 +1604,14 @@ function play(guild, song) {
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 	
 	const embed = new Discord.RichEmbed()
-	.setDescription(`🎶 開始播放: **${song.title}**` + "\n\n\n**此信息將會在5秒後自動刪除**\n")
+	.setDescription(`🎶 開始播放: **${song.title}**` + "\n\n\n**此信息將會在15秒後自動刪除**\n")
 	.setColor(0xcc0000)
 	.setTitle('ReiNa Bot')
 	.setURL("https://mcwind.tk")
 	.setTimestamp()
 	.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
 	serverQueue.textChannel.send(embed).then(function(message){
-	message.delete(5000);
+	message.delete(15000);
 	}).catch(function(err){
 		throw err;
 	});
