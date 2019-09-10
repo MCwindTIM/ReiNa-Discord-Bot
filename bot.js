@@ -953,8 +953,8 @@ bot.on("message", async message => {
 							}   catch (err) {
 								console.error(err);
 							}
-					return;
 					delete timer[message.author.id];
+					return;
 						}
 					})
 					}
