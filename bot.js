@@ -20,7 +20,9 @@ bot.on("ready", async () => {
   	bot.user.setPresence({ game: { name: 'rn!help | ReiNa Is Here! Nya~~~~' , type: 3 } });
 });
 bot.on('reconnecting', () => {
- console.log('重新連接中!');
+	console.log(`${bot.user.username} 上線!`);
+    console.log(`加入了 ${bot.guilds.size} 個伺服器.`);
+  	bot.user.setPresence({ game: { name: 'rn!help | ReiNa Is Here! Nya~~~~' , type: 3 } });
 });
 bot.on('disconnect', () => {
  console.log('斷開連接!');
