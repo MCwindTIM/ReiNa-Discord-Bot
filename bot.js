@@ -6,6 +6,8 @@ const bot = new Discord.Client({disableEveryone: true});
 const util = require('./util.js');
 const youtube = new YouTube(botconfig.YoutubeAPI);
 const queue = new Map();
+const client = require('nekos.life');
+const neko = new client();
 var wincmd = require('node-cmd');
 var request = require ("request");
 process.title = 'ReiNaBot'
@@ -1508,6 +1510,467 @@ bot.on("message", async message => {
 		}
 		return;
 		}
+	}
+	
+	if(cmd === `${prefix}neko`){
+	  message.delete();
+	  neko.sfw.neko().then(neko => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + ' Senpai, 你要求的neko在這。')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL(neko.url)
+				.setImage(neko.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}hug`){
+	  message.delete();
+	  neko.sfw.hug().then(hug => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + ' 給你一個大大的擁抱。')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(hug.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}slap`){
+	  message.delete();
+	  neko.sfw.slap().then(slap => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + ' 給你一巴掌。')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(slap.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}kiss`){
+	  message.delete();
+	  neko.sfw.kiss().then(kiss => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + ' Mua~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(kiss.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}pat`){
+	  message.delete();
+	  neko.sfw.pat().then(pat => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + '拍拍~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(pat.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}fox`){
+	  message.delete();
+	  neko.sfw.foxGirl().then(fox => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + '你要求的foxGirl 隨機圖片到啦~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(fox.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}meow`){
+	  message.delete();
+	  neko.sfw.meow().then(meow => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Meow~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(meow.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+
+	if(cmd === `${prefix}woof`){
+	  message.delete();
+	  neko.sfw.woof().then(woof => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Woof~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(woof.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nekoGif`){
+	  message.delete();
+	  neko.sfw.nekoGif().then(nekoGif => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + '會動的neko ~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(nekoGif.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nfsw-neko`){
+	  message.delete();
+	  neko.nsfw.neko().then(neko => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! neko ~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(neko.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-nekoGif`){
+	  message.delete();
+	  neko.nsfw.nekoGif().then(nekoGif => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! 會動的neko ~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(nekoGif.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-avatar`){
+	  message.delete();
+	  neko.nsfw.avatar().then(avatar => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Avatar ~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(avatar.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-feet`){
+	  message.delete();
+	  neko.nsfw.feet().then(feet => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Avatar ~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(feet.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-eroNeko`){
+	  message.delete();
+	  neko.nsfw.eroNeko().then(eroNeko => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(eroNeko.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-ero`){
+	  message.delete();
+	  neko.nsfw.ero().then(ero => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(ero.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-eroFeet`){
+	  message.delete();
+	  neko.nsfw.eroFeet().then(eroFeet => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(eroFeet.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-eroKitsune`){
+	  message.delete();
+	  neko.nsfw.eroKitsune().then(eroKitsune => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(eroKitsune.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-hentai`){
+	  message.delete();
+	  neko.nsfw.hentai().then(hentai => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(hentai.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+
+	if(cmd === `${prefix}nsfw-feetGif`){
+	  message.delete();
+	  neko.nsfw.feetGif().then(feetGif => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(feetGif.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-kitsune`){
+	  message.delete();
+	  neko.nsfw.kitsune().then(kitsune => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(kitsune.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-holo`){
+	  message.delete();
+	  neko.nsfw.holo().then(holo => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(holo.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-eroHolo`){
+	  message.delete();
+	  neko.nsfw.holoEro().then(holoEro => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(holoEro.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
+	}
+	
+	if(cmd === `${prefix}nsfw-blowJob`){
+	  message.delete();
+	  neko.nsfw.blowJob().then(blowJob => {
+	  const embed = new Discord.RichEmbed()
+                embed
+				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setImage(blowJob.url)
+                .setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+	  });
 	}
 	
 });
