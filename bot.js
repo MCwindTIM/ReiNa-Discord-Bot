@@ -1054,8 +1054,18 @@ bot.on("message", async message => {
 			const playlist = await youtube.getPlaylist(url);
 			const videos = await playlist.getVideos();
 			for (const video of Object.values(videos)) {
-				const video2 = await youtube.getVideoByID(video.id);
-				await handleVideo(video2, message, voiceChannel, true);
+				console.log(video.raw.status.privacyStatus);
+				if (video.raw.status.privacyStatus === 'public'){
+					const video2 = await youtube.getVideoByID(video.id);
+					await handleVideo(video2, message, voiceChannel, true);
+				}else{
+					if (video.raw.status.privacyStatus === 'unlisted'){
+						const video2 = await youtube.getVideoByID(video.id);
+						await handleVideo(video2, message, voiceChannel, true);
+					}else{
+						if (video.raw.status.privacyStatus === 'private'){}
+					}
+				}
 			}
 			const embed = new Discord.RichEmbed()
 			embed
