@@ -1054,7 +1054,6 @@ bot.on("message", async message => {
 			const playlist = await youtube.getPlaylist(url);
 			const videos = await playlist.getVideos();
 			for (const video of Object.values(videos)) {
-				console.log(video.raw.status.privacyStatus);
 				if (video.raw.status.privacyStatus === 'public'){
 					const video2 = await youtube.getVideoByID(video.id);
 					await handleVideo(video2, message, voiceChannel, true);
@@ -1353,7 +1352,7 @@ bot.on("message", async message => {
 		} else {
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ ${song.title}`).slice(0, 25).join('\n')}` + "\n\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
+			.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ ${song.title}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
