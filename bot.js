@@ -1,6 +1,7 @@
 const botconfig = require("./botconfig.json");
 const Discord = require("discord.js");
 const YouTube = require('simple-youtube-api');
+const flip = require('upsidedown');
 const ytdl = require('ytdl-core');
 const bot = new Discord.Client({disableEveryone: true});
 const util = require('./util.js');
@@ -15,8 +16,12 @@ process.title = 'ReiNaBot'
 bot.login(botconfig.token);
 let timer = {};
 
-bot.on('warn', console.warn);
-bot.on('error', console.error);
+bot.on('warn', async () => {
+	console.warn;
+});
+bot.on('error', async () =>{
+	console.log(err);
+});
 bot.on("ready", async () => {
 	console.log(`${bot.user.username} 上線!`);
     console.log(`加入了 ${bot.guilds.size} 個伺服器.`);
@@ -49,19 +54,52 @@ bot.on("message", async message => {
 	  const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
-				.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201909091523\n```\n--實用指令--\nrn!clear [數目]  清除信息\nrn!myid       查看ID\nrn!timer [start/stop]   計時器指令\nrn!avatar     獲取你的Discord頭像\nrn!avatar [@某使用者]    獲得該使用者頭像\nrn!roll [最大數值]    隨機抽出一個數字!\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\nrn!ebase [信息]     加密信息\nrn!dbase [信息]     解密信息\nrn!dec [十進制數值]    輸入數值轉換至其他進制\nrn!hex [十六進制數值]  輸入數值轉換至其他進制\nrn!bin [二進制數值]    輸入數值轉換至其他進制\nrn!flux [數值]    輸入港幣獲得可以購買的flux數量!\nrn!play [Youtube 連結/關鍵字]   播放音樂\nrn!stop   停止播放音樂並退出語音頻道\nrn!pause   暫停播放音樂\nrn!resume   繼續播放音樂\nrn!volume [數值]   調整音量\nrn!db[數值]   以分貝調整音量\nrn!skip   跳過正在播放中的音樂\nrn!np   顯示現在播放中的音樂\nrn!queue   顯示播放列表\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png')
+				.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + " 耐心看完 最後更新201910200257\n```\n--實用指令--\nrn!clear [數目]  清除信息\nrn!myid       查看ID\nrn!timer [start/stop]   計時器指令\nrn!avatar     獲取你的Discord頭像\nrn!avatar [@某使用者]    獲得該使用者頭像\nrn!roll [最大數值]    隨機抽出一個數字!\nrn!say [單字/句子] 能讓我乖乖的跟著你說一次\nrn!me [單字/句子]  用自己做句 例:rn!me nya 輸出:@自己 nya\nrn!invite         邀請由MCwind製作/更新的Discord機械人！\nrn!r6 [平台] [玩家UID]   查詢R6玩家資料!\nrn!img            請求隨機動漫圖片！\nrn!hentai         請求隨機本子\nrn!img-glasses    請求隨機眼睛娘圖片！\nrn!img-nsfw       可能含有18+內容！\nrn!ebase [信息]     加密信息\nrn!dbase [信息]     解密信息\nrn!dec [十進制數值]    輸入數值轉換至其他進制\nrn!hex [十六進制數值]  輸入數值轉換至其他進制\nrn!bin [二進制數值]    輸入數值轉換至其他進制\nrn!flux [數值]    輸入港幣獲得可以購買的flux數量!\nrn!play [Youtube 連結/關鍵字]   播放音樂\nrn!stop   停止播放音樂並退出語音頻道\nrn!pause   暫停播放音樂\nrn!resume   繼續播放音樂\nrn!volume [數值]   調整音量\nrn!db[數值]   以分貝調整音量\nrn!skip   跳過正在播放中的音樂\nrn!np   顯示現在播放中的音樂\nrn!queue   顯示播放列表\n-------------------------------------------------------\n\n--圖片--\nrn!no\nrn!green\nrn!$\nrn!$$\nrn!$$$\nrn!tea\nrn!onemanarmy\nrn!bb\nrn!非洲\nrn!money\nrn!loading\nrn!drug\nrn!stella!\n-----------\n\n--特殊指令--\nrn!mememe\nrn!課金課曬佢\n------------------------------------------------```")
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
 				.setTimestamp();
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
 				}
                 return;
             }
+	}
+	
+	if(cmd === `${prefix}report`){
+		let rUser = message.guild.member(message.mentions.users.first() || message.guild.members.get(args[0]));
+		if(!rUser) { 
+		message.delete();
+		message.channel.send("找不到該使用者");}
+		
+		let reason = args.join(" ").slice(22);
+
+		let reportEmbed = new Discord.RichEmbed()
+		.setDescription("檢舉記錄")
+		.setColor("#15f153")
+		.addField("懷疑違規用戶",`${rUser}, 用戶ID ${rUser.id}`)
+		.addField("檢舉人",`${message.author}, 用戶ID: ${message.author.id}`)
+		.addField("頻道", message.channel)
+		.addField("檢舉時間", message.createdAt)
+		.addField("原因", reason);
+		
+		let finishEmbed = new Discord.RichEmbed()
+		.setDescription("成功發起檢舉!")
+		.setColor("#15f153")
+		.addField("發起人",`${message.author}, 用戶Discord唯一ID: ${message.author.id}`);
+
+		let reportschannel = message.guild.channels.find(`name`, "reports");
+		if(!reportschannel) return message.channel.send("找不到該頻道");
+
+		message.delete().catch(O_o=>{});
+		reportschannel.send(reportEmbed);
+		message.channel.send(finishEmbed);
+
+		return;
 	}
 
 	if(cmd === `${prefix}ping`){
@@ -69,14 +107,15 @@ bot.on("message", async message => {
 	  const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`Pong!`)
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -89,14 +128,15 @@ bot.on("message", async message => {
 	  const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription("你的Discord使用者ID是: " + message.author.id)
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -112,15 +152,16 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('MCwind 隨機圖片API')
 				.setURL(response.request.uri.href)
 				.setDescription(`${message.author}` + ' Senpai, 你要求的隨機圖片在這。')
 				.setImage(response.request.uri.href)
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
                     console.error(err);
                 }
@@ -139,14 +180,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
 			if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('MCwind 隨機圖片API [NSFW]')
 				.setURL(response.request.uri.href)
 				.setDescription(`${message.author}` + ' Senpai, 你要求的隨機圖片在這。')
 				.setImage(response.request.uri.href)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
 				}
@@ -165,14 +207,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
 			if ( 1 === 1 ) {
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('MCwind 眼鏡娘API')
 				.setURL(response.request.uri.href)
 				.setDescription(`${message.author}` + ' Senpai, 你要求的眼鏡娘在這。')
 				.setImage(response.request.uri.href)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
 					console.error(err);
                 }
@@ -189,14 +232,15 @@ bot.on("message", async message => {
 		if(args[0] > 100){
 			const embed = new Discord.RichEmbed()
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "Senpai, 刪除信息不能大於100哦!")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png')
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
 				.setTimestamp();
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -209,10 +253,10 @@ bot.on("message", async message => {
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "Senpai, 至少要刪除2條信息哦!")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png')
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
 				.setTimestamp();
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -225,10 +269,10 @@ bot.on("message", async message => {
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "Senpai, 請輸入有效數目!")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png')
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
 				.setTimestamp();
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -247,10 +291,10 @@ bot.on("message", async message => {
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setDescription(`${message.author}` + "刪除了" + cont.slice(1) + "條信息" + "\n我只可以刪除14日內的信息")
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png')
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
 			.setTimestamp();
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
                     console.error(err);
                 }
@@ -268,13 +312,14 @@ bot.on("message", async message => {
 	  const embed = new Discord.RichEmbed()
         if ( 1 === 1 ) {
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setColor('#0099ff')
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setDescription(botmessage)
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -288,13 +333,14 @@ bot.on("message", async message => {
 		let botmessage = args.join(" ");
             if ( 1 === 1 ) {
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + " " + botmessage)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -307,14 +353,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/nonono.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-					util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+					util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -327,14 +374,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/green.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -347,14 +395,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/$.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -367,14 +416,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/$$.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -387,14 +437,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/$$$.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -407,14 +458,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/tea.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -427,14 +479,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/onemanarmy.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -447,14 +500,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/feizhou.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -467,14 +521,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/money.jpg")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -487,14 +542,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/loading.gif")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -507,14 +563,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/drug.gif")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -527,14 +584,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/stella.gif")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -547,14 +605,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setDescription(`${message.author}` + "表示")
 				.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/beautiful.png")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -567,13 +626,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setTitle('[GAY Youtube]')
 				.setURL("https://www.youtube.com/watch?v=OODugXYqyy4&feature=youtu.be")
 				.setColor('#0099ff')
 				.setDescription("這是" + `${message.author}` + " 的請求")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -586,13 +646,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setTitle('[課金課曬佢 Youtube]')
 				.setURL("https://youtu.be/ouchD3lTs58?t=1m33s")
 				.setColor('#0099ff')
 				.setDescription("這是" + `${message.author}` + " 的請求")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -605,13 +666,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setColor('#0099ff')
 				.setDescription("這是" + `${message.author}` + " 的請求，你可以用以下鏈接邀請機械人\n\n\nReiNa Bot\n<https://discordapp.com/api/oauth2/authorize?client_id=418095978273570846&permissions=8&scope=bot>\n\nReiNa-AntiSpam\n<https://discordapp.com/api/oauth2/authorize?client_id=454324523571871754&permissions=8&scope=bot>\n\nReiNa-Cards\n<https://discordapp.com/api/oauth2/authorize?client_id=418363084508495872&permissions=8&scope=bot>\n\nReiNa-Music\n<https://discordapp.com/api/oauth2/authorize?client_id=423846938467762187&permissions=8&scope=bot>\n\nReiNa-WebSocket\n<https://discordapp.com/api/oauth2/authorize?client_id=580129877953609739&permissions=8&scope=bot>\n\nReiNa-LocalMusic\n<https://discordapp.com/api/oauth2/authorize?client_id=440968183277682708&permissions=8&scope=bot>\n\n飆車之鬼\n<https://discordapp.com/api/oauth2/authorize?client_id=601861890036989983&permissions=8&scope=bot>")
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -627,13 +689,14 @@ bot.on("message", async message => {
 				const embed = new Discord.RichEmbed()
 					if ( 1 === 1 ) {
 						embed
+						.setAuthor(message.author.tag, message.author.avatarURL)
 						.setColor('#0099ff')
 						.setTitle('MCwind 隨機本子API-點擊我下載')
 						.setURL(response.request.uri.href)
 						.setDescription(`${message.author}` + ' Senpai, 你要求的隨機本子在這。')
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 						try {
-							util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+							util.sendDeletableMessage(message.channel, { embed }, message.author);
 						}   catch (err) {
 							console.error(err);
 						}
@@ -653,13 +716,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot 十進制轉換')
 				.setURL("https://mcwind.tk")
 				.setDescription("Demical =" + dec + "\nBinary =" + bin + "\nHexadecimal =" + hex)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -676,13 +740,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot 十六進制轉換')
 				.setURL("https://mcwind.tk")
 				.setDescription("Demical =" + dec + "\nBinary =" + bin + "\nHexadecimal =" + hex)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -699,13 +764,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot 二進制轉換')
 				.setURL("https://mcwind.tk")
 				.setDescription("Demical =" + dec + "\nBinary =" + bin + "\nHexadecimal =" + hex)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -721,13 +787,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot Alt Code ')
 				.setURL("https://mcwind.tk")
 				.setDescription(output)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -742,13 +809,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot 加密信息')
 				.setURL("https://mcwind.tk")
 				.setDescription(tString)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -763,13 +831,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot 解密信息')
 				.setURL("https://mcwind.tk")
 				.setDescription(data)
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -783,13 +852,14 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot 隨機數字')
 				.setURL("https://mcwind.tk")
 				.setDescription(getRandomInt(rndnum))
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -803,13 +873,14 @@ bot.on("message", async message => {
 			const embed = new Discord.RichEmbed()
 				if ( 1 === 1 ) {
 					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
 					.setColor('#0099ff')
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setDescription("重新啟動中...:wave:")
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 					try {
-						util.sendDeletableMessage(message.channel, { embed }, message.author, message)
+						util.sendDeletableMessage(message.channel, { embed }, message.author)
 						.then(msg => bot.destroy())
 						.then(console.log("提示:重新啟動"))
 						.then(
@@ -830,9 +901,9 @@ bot.on("message", async message => {
 					.setTitle('ReiNa Bot 錯誤')
 					.setURL("https://mcwind.tk")
 					.setDescription("權限不足!")
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 					try {
-						util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+						util.sendDeletableMessage(message.channel, { embed }, message.author);
 						}   catch (err) {
                     console.error(err);
 					}
@@ -857,13 +928,14 @@ bot.on("message", async message => {
 			const embed = new Discord.RichEmbed()
 				if ( 1 === 1 ) {
 					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
 					.setColor('#0099ff')
 					.setTitle("ReiNa Bot 點我購買Trove Flux")
 					.setURL("https://item.taobao.com/item.htm?spm=a1z09.2.0.0.6ce02e8dGSuOvJ&id=548238250656&_u=625udhqs9009")
 					.setDescription(`${message.author}` + " \nSenpai, 你可以使用 `" + HKD + "` HKD購買到大約 `" + flux + "` 萬flux! (向下取整)\n今天港幣兌換人民幣匯率是: `" + body + "`\n購買數量請填入: `" + HKD * CNY + "`")
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 					try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 					}   catch (err) {
                     console.error(err);
 					}
@@ -879,14 +951,15 @@ bot.on("message", async message => {
 		const embed = new Discord.RichEmbed()
             if ( 1 === 1 ) {
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`這裡不允許發送Discord邀請連結!`)
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -900,15 +973,16 @@ bot.on("message", async message => {
 			if(!user) user = message.author;
 				const embed = new Discord.RichEmbed()
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + "Senpai, 這是<@" + user.id + ">的使用者頭像。")
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot Discord頭像')
 				.setURL(user.avatarURL)
 				.setImage(user.avatarURL)
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -922,14 +996,15 @@ bot.on("message", async message => {
 				timer[message.author.id] = Date.now();
 				const embed = new Discord.RichEmbed()
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + "開始計時。")
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot 計時器')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -961,14 +1036,15 @@ bot.on("message", async message => {
 							if (timer[message.author.id] < 10) timer[message.author.id] = "0" + timer[message.author.id];
 							const embed = new Discord.RichEmbed()
 							embed
+							.setAuthor(message.author.tag, message.author.avatarURL)
 							.setDescription(`${message.author}` + "計時結束。\n格式:`小時:分鐘:秒`\n\n" + h + ":" + m + ":" + s + "\n\n如果以每小時60HKD薪金計算, 將會是 `" + flux + "` 萬Flux!")
 							.setColor(0xcc0000)
 							.setTitle('ReiNa Bot 計時器')
 							.setURL("https://mcwind.tk")
 							.setTimestamp()
-							.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+							.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 							try {
-								await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+								await util.sendDeletableMessage(message.channel, { embed }, message.author);
 							}   catch (err) {
 								console.error(err);
 							}
@@ -981,14 +1057,15 @@ bot.on("message", async message => {
 						if (timer[message.author.id] < 10) timer[message.author.id] = "0" + timer[message.author.id];
 							const embed = new Discord.RichEmbed()
 							embed
+							.setAuthor(message.author.tag, message.author.avatarURL)
 							.setDescription(`${message.author}` + "你未開始計時, 請使用`timer`指令加上`start`參數開始計時")
 							.setColor(0xcc0000)
 							.setTitle('ReiNa Bot 計時器')
 							.setURL("https://mcwind.tk")
 							.setTimestamp()
-							.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+							.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 							try {
-								await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+								await util.sendDeletableMessage(message.channel, { embed }, message.author);
 							}   catch (err) {
 							console.error(err);
 							}
@@ -999,14 +1076,15 @@ bot.on("message", async message => {
 					if (1 === 1){
 						const embed = new Discord.RichEmbed()
 						embed
+						.setAuthor(message.author.tag, message.author.avatarURL)
 						.setDescription(`${message.author}` + "請在`timer`指令後加入變數 `start` 或者 `stop`")
 						.setColor(0xcc0000)
 						.setTitle('ReiNa Bot 計時器')
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 						try {
-							await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+							await util.sendDeletableMessage(message.channel, { embed }, message.author);
 						}   catch (err) {
 							console.error(err);
 						}
@@ -1022,14 +1100,15 @@ bot.on("message", async message => {
 		if (!voiceChannel) {
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`${message.author}` + " Senpai,  我很抱歉不能播放音樂, 因為你需要在語音頻道內!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai,  我很抱歉不能播放音樂, 因為你需要在語音頻道內!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1039,14 +1118,15 @@ bot.on("message", async message => {
 		if(!permissions.has('CONNECT')){
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`${message.author}` + "我沒有權限進入語音頻道哇! 嗚嗚嗚😭~")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot 錯誤')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
             console.error(err);
 			}
@@ -1055,14 +1135,15 @@ bot.on("message", async message => {
 		if(!permissions.has('SPEAK')){
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`${message.author}` + "我沒有權限在語音頻道發話哇! 嗚嗚嗚😭~")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot 錯誤')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
             console.error(err);
 			}
@@ -1087,12 +1168,13 @@ bot.on("message", async message => {
 			}
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription("✅ 將整個播放清單: " + `**${playlist.title}**` + " 加入到播放列表中!\n\n\n**此信息將會在5秒後自動刪除**\n")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			message.channel.send(embed).then(function(message){
 			message.delete(5000);
 			}).catch(function(err){
@@ -1108,13 +1190,14 @@ bot.on("message", async message => {
 					let index = 0;
 					const embed = new Discord.RichEmbed()
 					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
 					.setDescription(`${message.author}` + "\n**歌曲選擇:**\n" + `${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}` + "\n\n請Senpai在1到10號結果中選擇想播放的音樂哦!\n\n")
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-					util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					util.sendDeletableMessage(message.channel, { embed }, message.author);
 					try {
 						var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
 							maxMatches: 1,
@@ -1127,13 +1210,14 @@ bot.on("message", async message => {
 						console.error(err);
 						const embed = new Discord.RichEmbed()
 						embed
+						.setAuthor(message.author.tag, message.author.avatarURL)
 						.setDescription(`${message.author}` + "沒有正確的參數或者超過輸入參數的時間!")
 						.setColor(0xcc0000)
 						.setTitle('ReiNa Bot 錯誤')
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-						util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+						util.sendDeletableMessage(message.channel, { embed }, message.author);
 						return;
 						}
 					const videoIndex = parseInt(response.first().content);
@@ -1142,13 +1226,14 @@ bot.on("message", async message => {
 					console.error(err);
 					const embed = new Discord.RichEmbed()
 					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
 					.setDescription(`${message.author}` + "我沒法取得任何搜尋結果!")
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot 錯誤')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-					util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					util.sendDeletableMessage(message.channel, { embed }, message.author);
 					return;
 				}
 			}
@@ -1161,14 +1246,15 @@ bot.on("message", async message => {
 		if (!message.member.voiceChannel){
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`${message.author}` + "你不在語音頻道呀!")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
             console.error(err);
         }
@@ -1177,14 +1263,15 @@ bot.on("message", async message => {
 		if (!serverQueue){
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`${message.author}` + " Senpai, 沒有在播放音樂, 所以沒有東西能跳過哦!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 沒有在播放音樂, 所以沒有東西能跳過哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1192,14 +1279,15 @@ bot.on("message", async message => {
 		} else {
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`${message.author}` + " Senpai, 已經為你跳過\n" + `**${serverQueue.songs[0].title}**` + "!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 已經為你跳過\n" + `**${serverQueue.songs[0].title}**` + "!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1213,14 +1301,15 @@ bot.on("message", async message => {
 		if (!message.member.voiceChannel){
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`${message.author}` + "你不在語音頻道呀!")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
             console.error(err);
         }
@@ -1229,14 +1318,15 @@ bot.on("message", async message => {
 		if (!serverQueue){
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1252,14 +1342,15 @@ bot.on("message", async message => {
 		if (!message.member.voiceChannel){
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`${message.author}` + "你不在語音頻道呀!")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
             console.error(err);
         }
@@ -1268,14 +1359,15 @@ bot.on("message", async message => {
 		if (!serverQueue){
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1284,14 +1376,15 @@ bot.on("message", async message => {
 		if (!messageArray[1]){
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`${message.author}` + " Senpai, 現在的音量是:" + `**${serverQueue.volume}**`)
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 現在的音量是:" + `**${serverQueue.volume}**`)
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1301,14 +1394,15 @@ bot.on("message", async message => {
 		serverQueue.connection.dispatcher.setVolumeLogarithmic(messageArray[1] / 5);
 		const embed = new Discord.RichEmbed()
 			embed
-		.setDescription(`${message.author}` + " 是的Senpai, 我把音量調整到: " + `**${messageArray[1]}**` + "了哦!")
-		.setColor(0xcc0000)
-		.setTitle('ReiNa Bot')
-		.setURL("https://mcwind.tk")
-		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`${message.author}` + " 是的Senpai, 我把音量調整到: " + `**${messageArray[1]}**` + "了哦!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		try {
-		await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+		await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
 			console.error(err);
 		}
@@ -1321,14 +1415,15 @@ bot.on("message", async message => {
 		if (!serverQueue) {
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1336,14 +1431,15 @@ bot.on("message", async message => {
 		} else {
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: **${serverQueue.songs[0].title}**` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: **${serverQueue.songs[0].title}**` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1356,14 +1452,15 @@ bot.on("message", async message => {
 		if (!serverQueue){
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1371,14 +1468,15 @@ bot.on("message", async message => {
 		} else {
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ ${song.title}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ ${song.title}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1393,14 +1491,15 @@ bot.on("message", async message => {
 			serverQueue.connection.dispatcher.pause();
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`⏸${message.author}` + " Senpai, 已經為你暫停音樂!")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
             console.error(err);
         }
@@ -1408,14 +1507,15 @@ bot.on("message", async message => {
 		} else {
 		const embed = new Discord.RichEmbed()
 			embed
-		.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-		.setColor(0xcc0000)
-		.setTitle('ReiNa Bot')
-		.setURL("https://mcwind.tk")
-		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
         try {
-        await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+        await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
 			console.error(err);
         }
@@ -1430,14 +1530,15 @@ bot.on("message", async message => {
 			serverQueue.connection.dispatcher.resume();
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`▶${message.author}` + " Senpai, 已經為你繼續播放音樂!")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
             console.error(err);
         }
@@ -1445,14 +1546,15 @@ bot.on("message", async message => {
 		} else {
 		const embed = new Discord.RichEmbed()
 			embed
-		.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-		.setColor(0xcc0000)
-		.setTitle('ReiNa Bot')
-		.setURL("https://mcwind.tk")
-		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
         try {
-        await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+        await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
 			console.error(err);
         }
@@ -1465,14 +1567,15 @@ bot.on("message", async message => {
 		if (!message.member.voiceChannel){
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`${message.author}` + "你不在語音頻道呀!")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
-            await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
             console.error(err);
         }
@@ -1481,14 +1584,15 @@ bot.on("message", async message => {
 		if (!serverQueue){
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1497,14 +1601,15 @@ bot.on("message", async message => {
 		if (!messageArray[1]){
 			const embed = new Discord.RichEmbed()
 				embed
-			.setDescription(`${message.author}` + " Senpai, 現在的分貝是:" + `**${serverQueue.volume}**`)
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 現在的分貝是:" + `**${serverQueue.volume}**`)
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -1514,14 +1619,15 @@ bot.on("message", async message => {
 		serverQueue.connection.dispatcher.setVolumeDecibels(messageArray[1] / 5);
 		const embed = new Discord.RichEmbed()
 			embed
-		.setDescription(`${message.author}` + " 是的Senpai, 我把分貝調整到: " + `**${messageArray[1]}**` + "了哦!")
-		.setColor(0xcc0000)
-		.setTitle('ReiNa Bot')
-		.setURL("https://mcwind.tk")
-		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`${message.author}` + " 是的Senpai, 我把分貝調整到: " + `**${messageArray[1]}**` + "了哦!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		try {
-		await util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+		await util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
 			console.error(err);
 		}
@@ -1534,15 +1640,16 @@ bot.on("message", async message => {
 	  neko.sfw.neko().then(neko => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + ' Senpai, 你要求的neko在這。')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setURL(neko.url)
 				.setImage(neko.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1555,14 +1662,15 @@ bot.on("message", async message => {
 	  neko.sfw.hug().then(hug => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + ' 給你一個大大的擁抱。')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(hug.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1575,14 +1683,15 @@ bot.on("message", async message => {
 	  neko.sfw.slap().then(slap => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + ' 給你一巴掌。')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(slap.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1595,14 +1704,15 @@ bot.on("message", async message => {
 	  neko.sfw.kiss().then(kiss => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + ' Mua~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(kiss.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1615,14 +1725,15 @@ bot.on("message", async message => {
 	  neko.sfw.pat().then(pat => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + '拍拍~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(pat.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1635,14 +1746,15 @@ bot.on("message", async message => {
 	  neko.sfw.foxGirl().then(fox => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + '你要求的foxGirl 隨機圖片到啦~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(fox.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1655,14 +1767,15 @@ bot.on("message", async message => {
 	  neko.sfw.meow().then(meow => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Meow~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(meow.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1675,14 +1788,15 @@ bot.on("message", async message => {
 	  neko.sfw.woof().then(woof => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Woof~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(woof.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1695,14 +1809,15 @@ bot.on("message", async message => {
 	  neko.sfw.nekoGif().then(nekoGif => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + '會動的neko ~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(nekoGif.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1715,14 +1830,15 @@ bot.on("message", async message => {
 	  neko.nsfw.neko().then(neko => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! neko ~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(neko.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1735,14 +1851,15 @@ bot.on("message", async message => {
 	  neko.nsfw.nekoGif().then(nekoGif => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! 會動的neko ~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(nekoGif.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1755,14 +1872,15 @@ bot.on("message", async message => {
 	  neko.nsfw.avatar().then(avatar => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Avatar ~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(avatar.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1775,14 +1893,15 @@ bot.on("message", async message => {
 	  neko.nsfw.feet().then(feet => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Avatar ~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(feet.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1795,14 +1914,15 @@ bot.on("message", async message => {
 	  neko.nsfw.eroNeko().then(eroNeko => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(eroNeko.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1815,14 +1935,15 @@ bot.on("message", async message => {
 	  neko.nsfw.ero().then(ero => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(ero.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1835,14 +1956,15 @@ bot.on("message", async message => {
 	  neko.nsfw.eroFeet().then(eroFeet => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(eroFeet.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1855,14 +1977,15 @@ bot.on("message", async message => {
 	  neko.nsfw.eroKitsune().then(eroKitsune => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(eroKitsune.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1875,14 +1998,15 @@ bot.on("message", async message => {
 	  neko.nsfw.hentai().then(hentai => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(hentai.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1895,14 +2019,15 @@ bot.on("message", async message => {
 	  neko.nsfw.feetGif().then(feetGif => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(feetGif.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1915,14 +2040,15 @@ bot.on("message", async message => {
 	  neko.nsfw.kitsune().then(kitsune => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(kitsune.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1935,14 +2061,15 @@ bot.on("message", async message => {
 	  neko.nsfw.holo().then(holo => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(holo.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1955,14 +2082,15 @@ bot.on("message", async message => {
 	  neko.nsfw.holoEro().then(holoEro => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(holoEro.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1975,14 +2103,15 @@ bot.on("message", async message => {
 	  neko.nsfw.blowJob().then(blowJob => {
 	  const embed = new Discord.RichEmbed()
                 embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setDescription(`${message.author}` + 'Not Save For Work! Woooooooooo~')
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setImage(blowJob.url)
                 .setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
-                    util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
                     console.error(err);
                 }
@@ -1995,13 +2124,14 @@ bot.on("message", async message => {
 		if (!args[0]) {
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setColor(0xffffff)
 			.setTitle('錯誤')
 			.setDescription(`${message.author}` + ' Senpai, 請輸入算式~')
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-				util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
@@ -2014,32 +2144,219 @@ bot.on("message", async message => {
 		} catch (e) {
 			const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setColor(0xffffff)
 			.setTitle('錯誤')
 			.setDescription(`${message.author}` + ' Senpai, 請輸入有效的算式!')
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-			util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			util.sendDeletableMessage(message.channel, { embed }, message.author);
 			return;
 		}
 
 		const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setColor(0xffffff)
 			.setTitle('算式計算')
 			.setDescription(`${message.author}` + ' Senpai, 我算好了~')
 			.addField('輸入', `\`\`\`js\n${args.join('')}\`\`\``)
 			.addField('結果', `\`\`\`js\n${resp}\`\`\``)
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-				util.sendDeletableMessage(message.channel, { embed }, message.author, message);
+				util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
 				console.error(err);
 			}
 			return;
 	}
 	
+	if(cmd === `${prefix}flip`){
+	  message.delete();
+	  let botmessage = args.join(" ");
+	  botmessage = flip(botmessage);
+	  const embed = new Discord.RichEmbed()
+        if ( 1 === 1 ) {
+			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setColor('#0099ff')
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setDescription(botmessage)
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
+				}   catch (err) {
+                    console.error(err);
+                }
+                return;
+        }
+  }
+  
+	if(cmd === `${prefix}reverse`){
+	  message.delete();
+	  let botmessage = args.join(" ");
+	  botmessage = botmessage.split("").reverse().join("");
+	  const embed = new Discord.RichEmbed()
+			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setColor('#0099ff')
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setDescription(botmessage)
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
+				}   catch(e){}
+                return;
+  }
+  
+  if(cmd === `${prefix}flip+reverse` || cmd === `${prefix}reverse+flip`){
+	  message.delete();
+	  let botmessage = args.join(" ");
+	  botmessage = botmessage.split("").reverse().join("");
+	  botmessage = flip(botmessage);
+	  const embed = new Discord.RichEmbed()
+        if ( 1 === 1 ) {
+			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setColor('#0099ff')
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setDescription(botmessage)
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                try {
+                    util.sendDeletableMessage(message.channel, { embed }, message.author);
+				}   catch (e) {}
+                return;
+        }
+  }
+
+    if(cmd === `${prefix}r6`){
+		if(messageArray.length === 3){
+		request.get('https://r6tab.com/api/search.php?platform=' + messageArray[1] + '&search=' + messageArray[2], {},
+		function(error, response, body){
+		if(response.statusCode == 200){
+			message.delete();
+			var obj = JSON.parse(body);
+			var rank = "";
+			info = Object.values(obj.results[0]).toString();
+			infoarray = info.split(",");
+			var mmr = parseInt(infoarray[5])
+			if(mmr >= 0 && mmr < 1100){
+				rank = "Copper V 紫銅V";
+			}
+			if(mmr >= 1100 && mmr < 1200){
+				rank = "Copper IV 紫銅IV";
+			}
+			if(mmr >= 1200 && mmr < 1300){
+				rank = "Copper III 紫銅III";
+			}
+			if(mmr >= 1300 && mmr < 1400){
+				rank = "Copper II 紫銅II";
+			}
+			if(mmr >= 1400 && mmr < 1500){
+				rank = "Copper I 紫銅I";
+			}
+			if(mmr >= 1500 && mmr < 1600){
+				rank = "Bronze V 黃銅V";
+			}
+			if(mmr >= 1600 && mmr < 1700){
+				rank = "Bronze IV 黃銅IV";
+			}
+			if(mmr >= 1700 && mmr < 1800){
+				rank = "Bronze III 黃銅III";
+			}
+			if(mmr >= 1800 && mmr < 1900){
+				rank = "Bronze II 黃銅II";
+			}
+			if(mmr >= 1900 && mmr < 2000){
+				rank = "Bronze I 黃銅I";
+			}
+			if(mmr >= 2000 && mmr < 2100){
+				rank = "Silver V 白銀V";
+			}
+			if(mmr >= 2100 && mmr < 2200){
+				rank = "Silver IV 白銀IV";
+			}
+			if(mmr >= 2200 && mmr < 2300){
+				rank = "Silver III 白銀III";
+			}
+			if(mmr >= 2300 && mmr < 2400){
+				rank = "Silver II 白銀II";
+			}
+			if(mmr >= 2400 && mmr < 2600){
+				rank = "Silver I 白銀I";
+			}
+			if(mmr >= 2600 && mmr < 2800){
+				rank = "Gold III 黃金III";
+			}
+			if(mmr >= 2800 && mmr < 3000){
+				rank = "Gold II 黃金II";
+			}
+			if(mmr >= 3000 && mmr < 3200){
+				rank = "Gold I 黃金I";
+			}
+			if(mmr >= 3200 && mmr < 3600){
+				rank = "Platinum III 白金III";
+			}
+			if(mmr >= 3600 && mmr < 4000){
+				rank = "Platinum II 白金II";
+			}
+			if(mmr >= 4000 && mmr < 4400){
+				rank = "Platinum I 白金I";
+			}
+			if(mmr >= 4400 && mmr < 5000){
+				rank = "Diamond!!! 鑽石階級"
+			}
+			if(mmr >= 5000){
+				rank = "Champion!!! 冠軍階級";
+			}
+			
+			const embed = new Discord.RichEmbed()
+				if ( 1 === 1 ) {
+					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
+					.setColor('#0099ff')
+					.setTitle("R6 玩家查詢 (詳細資料請點我 (=ﾟωﾟ)ﾉ)")
+					.setURL('https://r6tab.com/' + infoarray[0])
+					.setDescription(`${message.author}` + " Senpai, 你請求的R6 Siege 玩家資料找到了~")
+					.addField('玩家UID: ', infoarray[1], true)
+					.addField('玩家等級: ', infoarray[2], true)
+					.addField('平台: ', infoarray[3], true)
+					.addField('現時積分: ', infoarray[5], true)
+					.addField('玩家排位: ', rank, true)
+					.addField('玩家KD: ', parseInt(infoarray[8].toString()) / 100, true)
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					try {
+						util.sendDeletableMessage(message.channel, { embed }, message.author);
+					}   catch (err) {
+						console.error(err);
+					}
+				}
+	}
+	})
+	}
+	else{
+		const embed = new Discord.RichEmbed()
+		embed
+		.setDescription("請輸入正確資料")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot 錯誤')
+		.setURL("https://mcwind.tk")
+		.addField('使用方法: ', "rn!r6 [平台] [玩家UID]\n平台輸入 `uplay` `psn` `xbl` 分別為Uplay, PlayStationNetwork, Xbox", true)
+		.setTimestamp()
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		try {
+			util.sendDeletableMessage(message.channel, { embed }, message.author);
+		}   catch (err) {
+				console.error(err);
+		}
+		return;
+	}
+	}
+  
 });
 
 function getRandomInt(max) {
@@ -2074,17 +2391,16 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
 			queue.delete(message.guild.id);
 			const embed = new Discord.RichEmbed()
 			embed
-			.setDescription("在進入語音頻道時發生錯誤! 嗚嗚嗚~\n\n\n**此信息將會在15秒後自動刪除**\n")
+			.setDescription("在進入語音頻道時發生錯誤! 嗚嗚嗚~\n\n\n**此信息將會在5秒後自動刪除**\n")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot 錯誤')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-			message.channel.send(embed).then(function(message){
-			message.delete(15000);
-			}).catch(function(err){
-			throw err;
-			});
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			message.channel.send(embed)
+			.then(message => {
+				message.delete(5000);
+			}).catch();
 			return;
 		}
 	} else {
@@ -2093,17 +2409,16 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
 		else {
 			const embed = new Discord.RichEmbed()
 			embed
-			.setDescription("✅ 將" + `**${song.title}**` + "加入到播放列表中!\n\n\n**此信息將會在15秒後自動刪除**\n")
+			.setDescription("✅ 將" + `**${song.title}**` + "加入到播放列表中!\n\n\n**此信息將會在5秒後自動刪除**\n")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-			message.channel.send(embed).then(function(message){
-			message.delete(15000);
-			}).catch(function(err){
-			throw err;
-			});
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			message.channel.send(embed)
+			.then(message => {
+			message.delete(5000);
+			}).catch();
 			return;
 		}
 	}
@@ -2116,17 +2431,16 @@ function play(guild, song) {
 	if (!song) {
 		const embed = new Discord.RichEmbed()
 		embed
-		.setDescription("各位Senpai, 全部音樂已經播放完畢, 這裡就沒有我的事情了 需要我的時候再叫我吧!\n\n\n**此信息將會在15秒後自動刪除**\n")
+		.setDescription("各位Senpai, 全部音樂已經播放完畢, 這裡就沒有我的事情了 需要我的時候再叫我吧!\n\n\n**此信息將會在5秒後自動刪除**\n")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
 		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-		serverQueue.textChannel.send(embed).then(function(message){
-		message.delete(15000);
-		}).catch(function(err){
-			throw err;
-		});
+		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		serverQueue.textChannel.send(embed)
+		.then(message => {
+		message.delete(5000);
+		}).catch();
 		serverQueue.voiceChannel.leave();
 		queue.delete(guild.id);
 		return;
@@ -2143,15 +2457,14 @@ function play(guild, song) {
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 	
 	const embed = new Discord.RichEmbed()
-	.setDescription(`🎶 開始播放: **${song.title}**` + "\n\n\n**此信息將會在15秒後自動刪除**\n")
+	.setDescription(`🎶 開始播放: **${song.title}**` + "\n\n\n**此信息將會在5秒後自動刪除**\n")
 	.setColor(0xcc0000)
 	.setTitle('ReiNa Bot')
 	.setURL("https://mcwind.tk")
 	.setTimestamp()
-	.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://i.imgur.com/99GMP6a.png');
-	serverQueue.textChannel.send(embed).then(function(message){
-	message.delete(15000);
-	}).catch(function(err){
-		throw err;
-	});
+	.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+	serverQueue.textChannel.send(embed)
+	.then(message => {
+	message.delete(5000);
+	}).catch();
 }
