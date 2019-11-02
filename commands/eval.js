@@ -1,6 +1,5 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
-const wincmd = require('node-cmd');
 const { inspect } = require('util');
 const botconfig = require("../botconfig.json");
 module.exports.run = async (bot, message, args) =>{
