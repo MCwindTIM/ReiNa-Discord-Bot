@@ -20,7 +20,9 @@ module.exports.run = async (bot, message, args) =>{
                 .setColor('#0099ff')
                 .setTitle('ReiNa Bot Eval')
                 .setURL("https://mcwind.tk")
-                .setDescription(`*處理時間: ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.*\`\`\`javascript\n${evaluated}\n\`\`\``,{ maxLength:1900 })
+                .setDescription(`*處理時間: ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.*`)
+                .addField('輸入', toEval)
+                .addField('輸出', `\`\`\`javascript\n${evaluated}\n\`\`\``)
                 .setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 util.sendDeletableMessage(message.channel, { embed }, message.author);
                 return;
