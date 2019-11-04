@@ -292,7 +292,10 @@ bot.on("message", async message => {
 			}   catch (err) {
 				console.error(err);
 			}
-			serverQueue.Songs = shuffle(serverQueue.songs);
+			let nowplaying = serverQueue.songs[0];
+			serverQueue.songs.shift();
+			serverQueue.songs = shuffle(serverQueue.songs);
+			serverQueue.songs.unshift(nowplaying);
 			return undefined;
 		}
 	}
