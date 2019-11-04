@@ -836,9 +836,9 @@ function play(guild, song) {
 	.then(message => {
 	message.delete(5000);
 	}).catch();
-	let looping = "";
-	if(serverQueue.loop == true){looping = "開啟";}
-	if(serverQueue.loop == false){looping = "關閉";}
+	let looping = '';
+	if(serverQueue.loop == true){looping = "開啟"}
+	if(serverQueue.loop == false){looping = "關閉"}
 	bot.user.setPresence({ game: { name: `正在播放: ${song.title}, 單曲循環播放: ${looping}` , type: 2 } });
 }
 
