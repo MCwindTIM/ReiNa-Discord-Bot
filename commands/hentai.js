@@ -13,6 +13,7 @@ module.exports.run = async (bot, message, args) =>{
                     .setColor('#0099ff')
                     .setTitle('MCwind 隨機本子API-點擊我下載')
                     .setURL(response.request.uri.href)
+                    .setTimestamp()
                     .setDescription(`${message.author}` + ' Senpai, 你要求的隨機本子在這。')
                     .setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                     try {

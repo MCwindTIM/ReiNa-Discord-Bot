@@ -374,7 +374,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot 錯誤')
 		.setURL("https://mcwind.tk")
-		.addField('使用方法: ', "rn!r6 [平台] [玩家UID]\n平台輸入 `uplay` `psn` `xbl` 分別為Uplay, PlayStationNetwork, Xbox", true)
+		.addField('使用方法: ', "rn!r6 [平台] [玩家UID]\n平台輸入 `uplay` `psn` `xbl` 分別為Uplay, PlayStationNetwork, Xbox")
 		.setTimestamp()
 		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		try {

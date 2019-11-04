@@ -8,6 +8,7 @@ module.exports.run = async (bot, message, args) =>{
 			.setTitle('[GAY Youtube]')
 			.setURL("https://www.youtube.com/watch?v=OODugXYqyy4&feature=youtu.be")
 			.setColor('#0099ff')
+			.setTimestamp()
 			.setDescription("這是" + `${message.author}` + " 的請求")
 			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {

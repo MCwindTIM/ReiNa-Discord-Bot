@@ -13,6 +13,7 @@ module.exports.run = async (bot, message, args) =>{
                 .setAuthor(message.author.tag, message.author.avatarURL)
                 .setColor('#0099ff')
                 .setTitle('MCwind 隨機圖片API [NSFW]')
+                .setTimestamp()
                 .setURL(response.request.uri.href)
                 .setDescription(`${message.author}` + ' Senpai, 你要求的隨機圖片在這。')
                 .setImage(response.request.uri.href)

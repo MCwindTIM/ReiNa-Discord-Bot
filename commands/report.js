@@ -13,6 +13,7 @@ module.exports.run = async (bot, message, args) =>{
 	.setColor("#15f153")
 	.addField("懷疑違規用戶",`${rUser}, 用戶ID ${rUser.id}`)
 	.addField("檢舉人",`${message.author}, 用戶ID: ${message.author.id}`)
+	.setTimestamp()
 	.addField("頻道", message.channel)
 	.addField("檢舉時間", message.createdAt)
 	.addField("原因", reason);

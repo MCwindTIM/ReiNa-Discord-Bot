@@ -9,6 +9,7 @@ module.exports.run = async (bot, message, args) =>{
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setDescription(`${message.author}` + "表示")
+			.setTimestamp()
 			.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/$$$.jpg")
 			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
