@@ -349,7 +349,7 @@ bot.on("message", async message => {
 					console.error(err);
 				}
 				serverQueue.loop = true;
-				bot.user.setPresence({ game: { name: `正在播放: ${song.title}, 單曲循環播放: 開啟` , type: 2 } });
+				bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, 單曲循環播放: 開啟` , type: 2 } });
 				return undefined;
 			}else{
 				if(serverQueue.loop == true){
@@ -368,7 +368,7 @@ bot.on("message", async message => {
 					console.error(err);
 				}
 				serverQueue.loop = false;
-				bot.user.setPresence({ game: { name: `正在播放: ${song.title}, 單曲循環播放: 關閉` , type: 2 } });
+				bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, 單曲循環播放: 關閉` , type: 2 } });
 				return undefined;
 				}
 			}
