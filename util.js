@@ -6,9 +6,9 @@ module.exports = {
         collector.on('end', async collected => {
             if (collected.size) {
                 try {
-                    await sentMessage.delete().catch(err => { });
+                    await sentMessage.delete().catch((e) => { });
                     if (trigger) {
-                        await trigger.delete().catch(err => { });
+                        await trigger.delete().catch((e) => { });
                     }
                 } catch (err) { }
                 return;
