@@ -8,7 +8,8 @@ bot.commands = new Discord.Collection();
 const util = require('./util.js');
 const youtube = new YouTube(botconfig.YoutubeAPI);
 const queue = new Map();
-const request = require ("request");
+const request = require("request");
+const nHentai = require('./commands/napi.js')
 process.title = 'ReiNaBot'
 
 
@@ -24,7 +25,10 @@ fs.readdir("./commands/", (err, files) =>{
 
 	jsfile.forEach((f, i) =>{
 		let props = require(`./commands/${f}`);
-		console.log(`${f} 指令已載入!`);
+		let hrStart = process.hrtime()
+		let hrDiff;
+		hrDiff = process.hrtime(hrStart);
+		console.log(`${f} 指令已載入! 載入耗時: ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.`);
 		bot.commands.set(props.help.name, props);
 	});
 
@@ -68,9 +72,11 @@ bot.on("message", async message => {
   const searchString = messageArray.slice(1).join(' ');
   const url = messageArray[1] ? messageArray[1].replace(/<(.+)>/g, '$1') : '';
   const serverQueue = queue.get(message.guild.id);
+  const napiregex = /(?<=[\[{])(https?:\/\/nhentai\.net\/g\/)?(\d+)\/?.*?(?=[}\]])/gi;
   let commandfile = bot.commands.get(cmd.slice(prefix.length));
   if(commandfile) commandfile.run(bot,message,args);
-	
+  if(message.content.match(napiregex)) nHentai.run(bot,message,args);
+
 	if(message.content.includes('discord.gg/'||'discordapp.com/invite/')) {
 		message.delete(); 
 		const embed = new Discord.RichEmbed()
