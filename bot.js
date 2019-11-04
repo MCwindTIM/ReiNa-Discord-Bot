@@ -349,6 +349,7 @@ bot.on("message", async message => {
 					console.error(err);
 				}
 				serverQueue.loop = true;
+				bot.user.setPresence({ game: { name: `正在播放: ${song.title}, 單曲循環播放: 開啟` , type: 2 } });
 				return undefined;
 			}else{
 				if(serverQueue.loop == true){
@@ -367,6 +368,7 @@ bot.on("message", async message => {
 					console.error(err);
 				}
 				serverQueue.loop = false;
+				bot.user.setPresence({ game: { name: `正在播放: ${song.title}, 單曲循環播放: 關閉` , type: 2 } });
 				return undefined;
 				}
 			}
@@ -834,7 +836,10 @@ function play(guild, song) {
 	.then(message => {
 	message.delete(5000);
 	}).catch();
-	bot.user.setPresence({ game: { name: `正在播放: ${song.title}` , type: 2 } });
+	let looping = "";
+	if(serverQueue.loop == true){looping = "開啟";}
+	if(serverQueue.loop == false){looping = "關閉";}
+	bot.user.setPresence({ game: { name: `正在播放: ${song.title}, 單曲循環播放: ${looping}` , type: 2 } });
 }
 
 function CurrentTime() {
