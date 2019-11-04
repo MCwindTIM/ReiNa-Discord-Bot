@@ -811,10 +811,12 @@ function play(guild, song) {
 		.on('end', reason => {
 			if (reason === 'Stream is not generating quickly enough.');
 			else console.log(reason);
-			if(serverQueue.loop == "false"){serverQueue.songs.shift();}
+			if(serverQueue.loop == false){serverQueue.songs.shift();}
 			else {
-				serverQueue.songs.unshift(serverQueue.songs[0]);
-				serverQueue.songs.shift();
+				if(serverQueue.loop == true){
+					serverQueue.songs.unshift(serverQueue.songs[0]);
+					serverQueue.songs.shift();
+				}
 			}
 			play(guild, serverQueue.songs[0]);
 		})
