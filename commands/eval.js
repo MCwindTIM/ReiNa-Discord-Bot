@@ -44,10 +44,11 @@ module.exports.run = async (bot, message, args) =>{
             embed
             .setAuthor(message.author.tag, message.author.avatarURL)
             .setColor('#0099ff')
-            .setTitle('ReiNa Bot eval 錯誤')
+            .setTitle('ReiNa Bot 錯誤')
             .setURL("https://mcwind.tk")
             .setTimestamp()
-            .setDescription(`${e.message}`)
+            .setDescription(`${message.author} 哎呀, 出錯啦!`)
+            .addField("eval 錯誤", `${e.message}`)
             .setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             return util.sendDeletableMessage(message.channel, { embed }, message.author);
             }else{
