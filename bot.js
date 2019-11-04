@@ -241,6 +241,61 @@ bot.on("message", async message => {
 			return handleVideo(video, message, voiceChannel);
 		}
 	}
+
+	if (cmd === `${prefix}shuffle`){
+		message.delete();
+		if (!message.member.voiceChannel){
+			const embed = new Discord.RichEmbed()
+			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`${message.author}` + "你不在語音頻道呀!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+            try {
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
+		}   catch (err) {
+            console.error(err);
+        }
+        return;
+		}
+		if (!serverQueue){
+			const embed = new Discord.RichEmbed()
+				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 沒有在播放音樂, 所以沒有東西能隨機排列哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			try {
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
+			}   catch (err) {
+				console.error(err);
+			}
+			return;
+		} else {
+			const embed = new Discord.RichEmbed()
+				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 已經為你隨機排列播放清單" + "!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			try {
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
+			}   catch (err) {
+				console.error(err);
+			}
+			serverQueue.Songs = shuffle(serverQueue.songs);
+			return undefined;
+		}
+	}
 	
 	if (cmd === `${prefix}skip`){
 		message.delete();
@@ -349,7 +404,7 @@ bot.on("message", async message => {
 					console.error(err);
 				}
 				serverQueue.loop = true;
-				bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, 單曲循環播放: 開啟` , type: 2 } });
+				bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} ||[單曲循環播放: 開啟]||` , type: 2 } });
 				return undefined;
 			}else{
 				if(serverQueue.loop == true){
@@ -368,7 +423,7 @@ bot.on("message", async message => {
 					console.error(err);
 				}
 				serverQueue.loop = false;
-				bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, 單曲循環播放: 關閉` , type: 2 } });
+				bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, ||[單曲循環播放: 關閉]||` , type: 2 } });
 				return undefined;
 				}
 			}
@@ -839,7 +894,7 @@ function play(guild, song) {
 	let looping = '';
 	if(serverQueue.loop == true){looping = "開啟"}
 	if(serverQueue.loop == false){looping = "關閉"}
-	bot.user.setPresence({ game: { name: `正在播放: ${song.title}, 單曲循環播放: ${looping}` , type: 2 } });
+	bot.user.setPresence({ game: { name: `正在播放: ${song.title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
 }
 
 function CurrentTime() {
@@ -879,4 +934,12 @@ function GuildAllUser() {
 		let length = `${r.members.array().length}`;
 		bot.channels.get("637870044763652136").setName("伺服器人數-" + `${length}`);
 	});
+}
+
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
 }
