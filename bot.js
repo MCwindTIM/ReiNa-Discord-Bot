@@ -296,6 +296,82 @@ bot.on("message", async message => {
 			return undefined;
 		}
 	}
+
+	if (cmd === `${prefix}loop`){
+		message.delete();
+		if (!message.member.voiceChannel){
+			const embed = new Discord.RichEmbed()
+			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`${message.author}` + "你不在語音頻道呀!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+            try {
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
+		}   catch (err) {
+            console.error(err);
+        }
+        return;
+		}
+		if (!serverQueue){
+			const embed = new Discord.RichEmbed()
+				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 沒有在播放音樂, 所以沒有東西能循環播放哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			try {
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
+			}   catch (err) {
+				console.error(err);
+			}
+			return;
+		} else {
+			if(serverQueue.loop == false){
+				const embed = new Discord.RichEmbed()
+					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
+					.setDescription(`${message.author}` + " Senpai, 已經為你循環播放\n" + `**${serverQueue.songs[0].title}**` + "!")
+					.setColor(0xcc0000)
+					.setTitle('ReiNa Bot')
+					.setURL("https://mcwind.tk")
+					.setTimestamp()
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				try {
+					util.sendDeletableMessage(message.channel, { embed }, message.author);
+				}   catch (err) {
+					console.error(err);
+				}
+				serverQueue.loop = true;
+				return undefined;
+			}else{
+				if(serverQueue.loop == true){
+					const embed = new Discord.RichEmbed()
+					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
+					.setDescription(`${message.author}` + " Senpai, 已經為你關閉循環播放\n" + `**${serverQueue.songs[0].title}**` + "!")
+					.setColor(0xcc0000)
+					.setTitle('ReiNa Bot')
+					.setURL("https://mcwind.tk")
+					.setTimestamp()
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				try {
+					util.sendDeletableMessage(message.channel, { embed }, message.author);
+				}   catch (err) {
+					console.error(err);
+				}
+				serverQueue.loop = false;
+				return undefined;
+				}
+			}
+		}
+	}
 	
 	if (cmd === `${prefix}stop`){
 		message.delete();
@@ -476,6 +552,13 @@ bot.on("message", async message => {
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
 				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+
+				if(serverQueue.loop == true){
+					embed.addField("單曲循環播放", "*開啟*");
+				}
+				else{
+					embed.addField("單曲循環播放", "*關閉*");
+				}
 			try {
 			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -653,6 +736,7 @@ async function handleVideo(video, message, voiceChannel, playlist = false) {
 			connection: null,
 			songs: [],
 			volume: 1.5,
+			loop: false,
 			playing: true
 		};
 		queue.set(message.guild.id, queueConstruct);
@@ -727,7 +811,8 @@ function play(guild, song) {
 		.on('end', reason => {
 			if (reason === 'Stream is not generating quickly enough.');
 			else console.log(reason);
-			serverQueue.songs.shift();
+			if(serverQueue.loop == "false"){serverQueue.songs.shift();}
+			else {serverQueue.songs.unshift(serverQueue.songs[0]);}
 			play(guild, serverQueue.songs[0]);
 		})
 		.on('error', error => console.error(error));
