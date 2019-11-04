@@ -97,7 +97,6 @@ bot.on("message", async message => {
 	
 	if (cmd === `${prefix}play`){
 		message.delete();
-		console.log(message.author.tag + "使用了play指令!")
 		const voiceChannel = message.member.voiceChannel;
 		if (!voiceChannel) {
 			const embed = new Discord.RichEmbed()
