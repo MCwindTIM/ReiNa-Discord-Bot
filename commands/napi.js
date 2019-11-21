@@ -1,4 +1,3 @@
-
 const Discord = require("discord.js");
 const util = require('../util.js');
 const request = require('request');
@@ -77,6 +76,7 @@ module.exports.run = async (bot, message, args) =>{
             napitagString = napitagString.replace("males only", "只有男性");
             napitagString = napitagString.replace("yaoi", "男同");
             napitagString = napitagString.replace("shotacon", "正太控");
+            napitagString = napitagString.replace("blowjob face", "口交臉");
             napitagString = napitagString.replace("blowjob", "口交");
             napitagString = napitagString.replace("rape", "強姦");
             napitagString = napitagString.replace("double penetration", "雙重插入");
@@ -128,6 +128,8 @@ module.exports.run = async (bot, message, args) =>{
             napitagString = napitagString.replace("dog", "狗");
             napitagString = napitagString.replace("bestiality", "獸交");
             napitagString = napitagString.replace("tanlines", "曬痕");
+            napitagString = napitagString.replace("deepthroat", "深喉");
+            napitagString = napitagString.replace("swimsuit", "泳衣");
             
             
             
@@ -137,6 +139,7 @@ module.exports.run = async (bot, message, args) =>{
             napiparodyString = napiparodyString.replace("kantai collection", "艦隊收藏");
             napiparodyString = napiparodyString.replace("touhou project", "東方");
             napiparodyString = napiparodyString.replace("fate grand order", "Fate/Grand Order");
+            napiparodyString = napiparodyString.replace("gochuumon wa usagi desu ka | is the order a rabbit", "請問您今天要來點兔子嗎?");
             napiparodyString = napiparodyString.replace("gochuumon wa usagi desu ka", "請問您今天要來點兔子嗎?");
             napiparodyString = napiparodyString.replace("aldnoah.zero", "ALDNOAH.ZERO");
             napiparodyString = napiparodyString.replace("puella magi madoka magica", "魔法少女小圓");
@@ -166,6 +169,7 @@ module.exports.run = async (bot, message, args) =>{
             napicharacterString = napicharacterString.replace("shikieiki yamaxanadu", "四季映姫");
             napicharacterString = napicharacterString.replace("junko konno", "紺野純子");
             napicharacterString = napicharacterString.replace("ai mizuno", "水野愛");
+            napicharacterString = napicharacterString.replace("carmilla", "卡蜜拉");
             
             
             request.get("https://i.nhentai.net/galleries/" + gallery.media_id + "/1.png", {},

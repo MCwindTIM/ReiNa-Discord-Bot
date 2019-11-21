@@ -13,7 +13,7 @@ module.exports.run = async (bot, message, args) =>{
         var mString = args.join(" ");
         var HKD = parseFloat(mString);
         var CNY = parseFloat(body)
-        var calc = HKD * CNY / 0.23;
+        var calc = HKD * CNY / 0.18;
         var flux = Math.floor(calc);
         const embed = new Discord.RichEmbed()
                 embed

@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) =>{
                         timer[message.author.id] = Date.now() - timer[message.author.id];
                         var HKD = timer[message.author.id] / 1000 * (60 / 3600);
                         var CNY = parseFloat(body)
-                        var calc = HKD * CNY / 0.23;
+                        var calc = HKD * CNY / 0.18;
                         var flux = Math.floor(calc);
                         h = Math.floor(timer[message.author.id] / 3600000);
                         if (h < 10) h = "0" + h;

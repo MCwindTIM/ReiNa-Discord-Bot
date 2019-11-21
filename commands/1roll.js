@@ -21,9 +21,9 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "roll"
+	name: "1roll"
 }
 
 function getRandomInt(max) {
-    return Math.floor(Math.random() * Math.floor(max));
+    return Math.floor(Math.random() * max) + 1;
 }

@@ -1,5 +1,6 @@
 const botconfig = require("./botconfig.json");
 const fs = require('fs');
+const fsPath = require('fs-path');
 const Discord = require("discord.js");
 const YouTube = require('simple-youtube-api');
 const ytdl = require('ytdl-core');
@@ -34,6 +35,10 @@ fs.readdir("./commands/", (err, files) =>{
 
 });
 
+let dir = './chatlog';
+if (!fs.existsSync(dir)){
+    fs.mkdirSync(dir);
+}
 
 bot.login(botconfig.token);
 
@@ -49,6 +54,7 @@ bot.on("ready", async () => {
   	bot.user.setPresence({ game: { name: 'rn!help | ReiNa Is Here! Nya~~~~' , type: 3 } });
 	CurrentTime();
 	GuildAllUser();
+	checkuserstatus();
 });
 bot.on('reconnecting', () => {
 	console.log(`${bot.user.username} 上線!`);
@@ -61,6 +67,7 @@ bot.on('disconnect', () => {
 
 setInterval(GuildAllUser, 60000);
 setInterval(CurrentTime, 5000);
+setInterval(checkuserstatus, 10000);
 
 bot.on("message", async message => {
   if(message.channel.type === "dm") return;
@@ -73,7 +80,7 @@ bot.on("message", async message => {
   const url = messageArray[1] ? messageArray[1].replace(/<(.+)>/g, '$1') : '';
   const serverQueue = queue.get(message.guild.id);
   const napiregex = /(?<=[\[{])(https?:\/\/nhentai\.net\/g\/)?(\d+)\/?.*?(?=[}\]])/gi;
-  let commandfile = bot.commands.get(cmd.slice(prefix.length));
+  let commandfile = bot.commands.get(cmd.toLowerCase().slice(prefix.length));
   if(commandfile) commandfile.run(bot,message,args);
   if(message.content.match(napiregex)) nHentai.run(bot,message,args);
 
@@ -96,6 +103,9 @@ bot.on("message", async message => {
 	}
 	
 	if (cmd === `${prefix}play`){
+		let hrStart = process.hrtime()
+		let hrDiff;
+		hrDiff = process.hrtime(hrStart);
 		message.delete();
 		const voiceChannel = message.member.voiceChannel;
 		if (!voiceChannel) {
@@ -170,7 +180,7 @@ bot.on("message", async message => {
 			const embed = new Discord.RichEmbed()
 			embed
 			.setAuthor(message.author.tag, message.author.avatarURL)
-			.setDescription("✅ 將整個播放清單: " + `**${playlist.title}**` + " 加入到播放列表中!\n\n\n**此信息將會在5秒後自動刪除**\n")
+			.setDescription("✅ 將整個播放清單: " + `**${playlist.title}**` + " 加入到播放列表中!\n\n\n**此信息將會在5秒後自動刪除**\n"+ `\n\n載入耗時: ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.`)
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
@@ -355,6 +365,70 @@ bot.on("message", async message => {
 		}
 	}
 
+	if (cmd === `${prefix}playnow`){
+		message.delete();
+		if (!message.member.voiceChannel){
+			const embed = new Discord.RichEmbed()
+			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`${message.author}` + "你不在語音頻道呀!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+            try {
+            await util.sendDeletableMessage(message.channel, { embed }, message.author);
+		}   catch (err) {
+            console.error(err);
+        }
+        return;
+		}
+		if (!serverQueue){
+			const embed = new Discord.RichEmbed()
+				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
+				.setDescription(`${message.author}` + " Senpai, 沒有在播放音樂, 所以沒有東西能優先播放哦!")
+				.setColor(0xcc0000)
+				.setTitle('ReiNa Bot')
+				.setURL("https://mcwind.tk")
+				.setTimestamp()
+				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			try {
+			await util.sendDeletableMessage(message.channel, { embed }, message.author);
+			}   catch (err) {
+				console.error(err);
+			}
+			return;
+		} else {
+			let lastsong = serverQueue.songs[serverQueue.songs.length - 1];
+			let before = serverQueue.songs[0];
+			serverQueue.songs.pop();
+			serverQueue.songs.unshift(lastsong);
+			serverQueue.songs.unshift(before);
+			serverQueue.connection.dispatcher.end("");
+				const embed = new Discord.RichEmbed()
+					embed
+					.setAuthor(message.author.tag, message.author.avatarURL)
+					.setDescription(`${message.author}` + " Senpai, 已經為你優先播放\n" + `**${serverQueue.songs[0].title}**` + "!")
+					.setColor(0xcc0000)
+					.setTitle('ReiNa Bot')
+					.setURL("https://mcwind.tk")
+					.setTimestamp()
+					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				try {
+					util.sendDeletableMessage(message.channel, { embed }, message.author);
+				}   catch (err) {
+					console.error(err);
+				}
+				let looping = '';
+				if(serverQueue.loop == true){looping = "開啟"}
+				if(serverQueue.loop == false){looping = "關閉"}
+				bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+				return undefined;
+			}
+	}
+
 	if (cmd === `${prefix}loop`){
 		message.delete();
 		if (!message.member.voiceChannel){
@@ -402,7 +476,7 @@ bot.on("message", async message => {
 					.setTimestamp()
 					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
-					util.sendDeletableMessage(message.channel, { embed }, message.author);
+					await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
 					console.error(err);
 				}
@@ -421,7 +495,7 @@ bot.on("message", async message => {
 					.setTimestamp()
 					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
-					util.sendDeletableMessage(message.channel, { embed }, message.author);
+					await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
 					console.error(err);
 				}
@@ -567,7 +641,7 @@ bot.on("message", async message => {
 			const embed = new Discord.RichEmbed()
 				embed
 				.setAuthor(message.author.tag, message.author.avatarURL)
-				.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: **${serverQueue.songs[0].title}**` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
+				.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: **${serverQueue.songs[0].title}** ${serverQueue.songs[0].length}` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
@@ -604,7 +678,7 @@ bot.on("message", async message => {
 			const embed = new Discord.RichEmbed()
 				embed
 				.setAuthor(message.author.tag, message.author.avatarURL)
-				.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ ${song.title}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
+				.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ ${song.title} ${song.length}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
@@ -777,15 +851,71 @@ bot.on("message", async message => {
 		}
 	}
 	
+	if(!message.author.bot){
+	createFile(`./chatlog/${message.guild.id}/${message.channel.id}.log`, message);
+	}
 });
 
+bot.on('messageUpdate', function(oldMessage, newMessage){
+	let log_date_ob = new Date();
+	let log_date = ("0" + log_date_ob.getDate()).slice(-2);
+	let log_year = log_date_ob.getFullYear();
+	let log_month = ("0" + (log_date_ob.getMonth() + 1)).slice(-2);
+	let log_minutes = log_date_ob.getMinutes();
+	let log_seconds = log_date_ob.getSeconds();
+	let log_hours = log_date_ob.getHours();
+	let tStamp = log_year + "-" + log_month + "-" + log_date + " " + log_hours + ":" + log_minutes + ":" + log_seconds;
+	
+	try{
+		fs.readFile(`./chatlog/${oldMessage.guild.id}/${oldMessage.channel.id}.log`, {encoding: 'utf-8'}, function(err,data){
+			if (!err){
+			fsPath.writeFile(`./chatlog/${oldMessage.guild.id}/${oldMessage.channel.id}.log`, data + `-----修改信息-----------\n用戶名稱: ${oldMessage.author.tag}\n用戶ID: ${oldMessage.author.id}\n信息內容: ${oldMessage.content}\n新信息內容: ${newMessage.content}\n記錄時間: ${tStamp}\n--------------------\n|\n`, function(err){
+			if(err){throw err;}else{}});
+			}else{
+			fsPath.writeFile(`./chatlog/${oldMessage.guild.id}/${oldMessage.channel.id}.log`, `-----修改信息-----------\n用戶名稱: ${oldMessage.author.tag}\n用戶ID: ${oldMessage.author.id}\n信息內容: ${oldMessage.content}\n新信息內容: ${newMessage.content}\n記錄時間: ${tStamp}\n--------------------\n|\n`, function(err){
+			if(err){throw err;}else{}});
+			}
+		});
+
+	}
+	catch(e){
+		console.log(e)
+	}
+
+});
+
+function createFile(file, message) {
+	let log_date_ob = new Date();
+	let log_date = ("0" + log_date_ob.getDate()).slice(-2);
+	let log_year = log_date_ob.getFullYear();
+	let log_month = ("0" + (log_date_ob.getMonth() + 1)).slice(-2);
+	let log_minutes = log_date_ob.getMinutes();
+	let log_seconds = log_date_ob.getSeconds();
+	let log_hours = log_date_ob.getHours();
+	let tStamp = log_year + "-" + log_month + "-" + log_date + " " + log_hours + ":" + log_minutes + ":" + log_seconds;
+	
+	try{
+		fs.readFile(file, {encoding: 'utf-8'}, function(err,data){
+			if (!err){
+			fsPath.writeFile(file, data + `-----發送信息-----------\n用戶名稱: ${message.author.tag}\n用戶ID: ${message.author.id}\n信息內容: ${message.content}\n記錄時間: ${tStamp}\n--------------------\n|\n`, function(err){
+			if(err){throw err;}else{}});
+			}else{
+			fsPath.writeFile(file, `-----發送信息-----------\n用戶名稱: ${message.author.tag}\n用戶ID: ${message.author.id}\n信息內容: ${message.content}\n記錄時間: ${tStamp}\n--------------------\n|\n`, function(err){
+			if(err){throw err;}else{}});
+			}
+		});
+
+	}
+	catch(e){}
+}
 
 async function handleVideo(video, message, voiceChannel, playlist = false) {
 	const serverQueue = queue.get(message.guild.id);
 	const song = {
 		id: video.id,
 		title: Discord.escapeMarkdown(video.title),
-		url: `https://www.youtube.com/watch?v=${video.id}`
+		url: `https://www.youtube.com/watch?v=${video.id}`,
+		length: `${video.duration.hours}小時${video.duration.minutes}分鐘${video.duration.seconds}秒`
 	};
 	if (!serverQueue) {
 		const queueConstruct = {
@@ -943,4 +1073,37 @@ function shuffle(a) {
         [a[i], a[j]] = [a[j], a[i]];
     }
     return a;
+}
+
+function checkuserstatus() {
+	try{
+		let offlineMembers = bot.guilds.get("398062441516236800").members.filter(member => member.presence.status === "offline" && member.user.bot === false);
+		offlineMembers.forEach((member, key) => offlineuserrole(member));
+		let onlineMembers = bot.guilds.get("398062441516236800").members.filter(member => member.presence.status !== "offline" && member.user.bot === false);
+		onlineMembers.forEach((member, key) => onlineuserrole(member));
+	}
+	catch(e){}
+}
+
+function moveuserofflineVC(user){
+	const userVC = user.voiceChannel;
+	const offlineVC = bot.channels.find(x => x.name === "💤隱身/離線");
+	if(userVC){
+		user.setVoiceChannel(offlineVC);
+	}
+}
+
+function offlineuserrole(user){
+	if(!user.roles.has('430389070246576128')){
+		user.removeRole('417634328332337153');
+		user.addRole('647004218812661761');
+		moveuserofflineVC(user);
+	}
+}
+
+function onlineuserrole(user){
+	if(!user.roles.has('430389070246576128')){
+		user.removeRole('647004218812661761');
+		user.addRole('417634328332337153');
+	}
 }

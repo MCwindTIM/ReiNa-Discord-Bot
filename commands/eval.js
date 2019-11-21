@@ -73,6 +73,7 @@ module.exports.run = async (bot, message, args) =>{
         const embed = new Discord.RichEmbed()
                 embed
                 .setColor('#0099ff')
+                .setAuthor(message.author.tag, message.author.avatarURL)
                 .setTitle('ReiNa Bot 錯誤')
                 .setURL("https://mcwind.tk")
                 .setTimestamp()

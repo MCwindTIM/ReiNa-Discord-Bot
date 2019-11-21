@@ -3,12 +3,12 @@ const util = require('../util.js');
 const request = require ("request");
 
 module.exports.run = async (bot, message, args) =>{
+	message.delete();
 	let messageArray = message.content.split(" ");
 	if(messageArray.length === 3){
 		request.get('https://r6tab.com/api/search.php?platform=' + messageArray[1] + '&search=' + messageArray[2], {},
 		function(error, response, body){
 		if(response.statusCode == 200){
-			message.delete();
 			var checkuser = JSON.parse(body);
 			listuser = Object.values(checkuser).toString();
 			if(listuser.toString() != "0"){
@@ -36,7 +36,7 @@ module.exports.run = async (bot, message, args) =>{
 					var updatetime12 = updatetime11.replace('minute', '分鐘');
 					var updatetime13 = updatetime12.replace(' ago', '前');
 					var updatetime14 = updatetime13.replace('one', '1');
-					var upadatetime15 = updatetime14.replace('now', '現在');
+					var updatetime15 = updatetime14.replace('now', '現在');
 					
 					
 					var favatt = rawr6data.favattacker.toString();
