@@ -167,11 +167,11 @@
 				for (const video of Object.values(videos)) {
 					if (video.raw.status.privacyStatus === 'public'){
 						const video2 = await youtube.getVideoByID(video.id);
-						await handleVideo(video2, message, voiceChannel, true);
+						await handleVideo(video2, message, message.author.id, message.author.tag, voiceChannel, true);
 					}else{
 						if (video.raw.status.privacyStatus === 'unlisted'){
 							const video2 = await youtube.getVideoByID(video.id);
-							await handleVideo(video2, message, voiceChannel, true);
+							await handleVideo(video2, message, message.author.id, message.author.tag, voiceChannel, true);
 						}else{
 							if (video.raw.status.privacyStatus === 'private'){}
 						}
@@ -248,7 +248,7 @@
 						return;
 					}
 				}
-				return handleVideo(video, message, voiceChannel);
+				return handleVideo(video, message, message.author.id, message.author.tag, voiceChannel);
 			}
 		}
 
@@ -349,7 +349,7 @@
 				const embed = new Discord.RichEmbed()
 					embed
 					.setAuthor(message.author.tag, message.author.avatarURL)
-					.setDescription(`${message.author}` + " Senpai, 已經為你跳過\n" + `**${serverQueue.songs[0].title}**` + "!")
+					.setDescription(`${message.author}` + " Senpai, 已經為你跳過\n" + `**${serverQueue.songs[0].title}** --由<@${serverQueue.songs[0].authorid}>添加` + "!")
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
@@ -410,7 +410,7 @@
 					const embed = new Discord.RichEmbed()
 						embed
 						.setAuthor(message.author.tag, message.author.avatarURL)
-						.setDescription(`${message.author}` + " Senpai, 已經為你優先播放\n" + `**${serverQueue.songs[0].title}**` + "!")
+						.setDescription(`${message.author}` + " Senpai, 已經為你優先播放\n" + `<@${serverQueue.songs[0].authorid}>添加的**${serverQueue.songs[0].title}**` + "!")
 						.setColor(0xcc0000)
 						.setTitle('ReiNa Bot')
 						.setURL("https://mcwind.tk")
@@ -424,7 +424,7 @@
 					let looping = '';
 					if(serverQueue.loop == true){looping = "開啟"}
 					if(serverQueue.loop == false){looping = "關閉"}
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].authortag} 添加的 ${serverQueue.songs[0].title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
 					return undefined;
 				}
 		}
@@ -469,7 +469,7 @@
 					const embed = new Discord.RichEmbed()
 						embed
 						.setAuthor(message.author.tag, message.author.avatarURL)
-						.setDescription(`${message.author}` + " Senpai, 已經為你循環播放\n" + `**${serverQueue.songs[0].title}**` + "!")
+						.setDescription(`${message.author}` + " Senpai, 已經為你循環播放\n" + `<@${serverQueue.songs[0].authorid}>添加的**${serverQueue.songs[0].title}**` + "!")
 						.setColor(0xcc0000)
 						.setTitle('ReiNa Bot')
 						.setURL("https://mcwind.tk")
@@ -481,14 +481,14 @@
 						console.error(err);
 					}
 					serverQueue.loop = true;
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} ||[單曲循環播放: 開啟]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].authortag} 添加的 ${serverQueue.songs[0].title} ||[單曲循環播放: 開啟]||` , type: 2 } });
 					return undefined;
 				}else{
 					if(serverQueue.loop == true){
 						const embed = new Discord.RichEmbed()
 						embed
 						.setAuthor(message.author.tag, message.author.avatarURL)
-						.setDescription(`${message.author}` + " Senpai, 已經為你關閉循環播放\n" + `**${serverQueue.songs[0].title}**` + "!")
+						.setDescription(`${message.author}` + " Senpai, 已經為你關閉循環播放\n" + `<@${serverQueue.songs[0].authorid}>添加的**${serverQueue.songs[0].title}**` + "!")
 						.setColor(0xcc0000)
 						.setTitle('ReiNa Bot')
 						.setURL("https://mcwind.tk")
@@ -500,7 +500,7 @@
 						console.error(err);
 					}
 					serverQueue.loop = false;
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title}, ||[單曲循環播放: 關閉]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].authortag} 添加的 ${serverQueue.songs[0].title}, ||[單曲循環播放: 關閉]||` , type: 2 } });
 					return undefined;
 					}
 				}
@@ -641,7 +641,7 @@
 				const embed = new Discord.RichEmbed()
 					embed
 					.setAuthor(message.author.tag, message.author.avatarURL)
-					.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: **${serverQueue.songs[0].title}** ${serverQueue.songs[0].length}` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
+					.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: <@${serverQueue.songs[0].authorid}>添加的**${serverQueue.songs[0].title}** ${serverQueue.songs[0].length}` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
@@ -678,7 +678,7 @@
 				const embed = new Discord.RichEmbed()
 					embed
 					.setAuthor(message.author.tag, message.author.avatarURL)
-					.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ ${song.title} ${song.length}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
+					.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ <@${song.authorid}>添加的${song.title} ${song.length}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
@@ -909,13 +909,15 @@
 		catch(e){}
 	}
 
-	async function handleVideo(video, message, voiceChannel, playlist = false) {
+	async function handleVideo(video, message, songAuthorid, songAuthortag, voiceChannel, playlist = false) {
 		const serverQueue = queue.get(message.guild.id);
 		const song = {
 			id: video.id,
 			title: Discord.escapeMarkdown(video.title),
 			url: `https://www.youtube.com/watch?v=${video.id}`,
-			length: `${video.duration.hours}小時${video.duration.minutes}分鐘${video.duration.seconds}秒`
+			length: `${video.duration.hours}小時${video.duration.minutes}分鐘${video.duration.seconds}秒`,
+			authorid:songAuthorid,
+			authortag: songAuthortag
 		};
 		if (!serverQueue) {
 			const queueConstruct = {
@@ -1012,7 +1014,7 @@
 		dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
 		const embed = new Discord.RichEmbed()
-		.setDescription(`🎶 開始播放: **${song.title}**` + "\n\n\n**此信息將會在5秒後自動刪除**\n")
+		.setDescription(`🎶 開始播放: <@${song.authorid}>添加的**${song.title}**` + "\n\n\n**此信息將會在5秒後自動刪除**\n")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
@@ -1025,7 +1027,7 @@
 		let looping = '';
 		if(serverQueue.loop == true){looping = "開啟"}
 		if(serverQueue.loop == false){looping = "關閉"}
-		bot.user.setPresence({ game: { name: `正在播放: ${song.title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+		bot.user.setPresence({ game: { name: `正在播放: ${song.authortag} 添加的 ${song.title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
 	}
 
 	function CurrentTime() {
