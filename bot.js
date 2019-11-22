@@ -1091,7 +1091,10 @@
 		const userVC = user.voiceChannel;
 		const offlineVC = bot.channels.find(x => x.name === "💤隱身/離線");
 		if(userVC){
-			user.setVoiceChannel(offlineVC);
+			try{
+				user.setVoiceChannel(offlineVC);
+			}
+			catch(e){}
 		}
 	}
 
