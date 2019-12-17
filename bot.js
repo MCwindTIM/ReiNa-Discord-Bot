@@ -10,9 +10,16 @@
 	const youtube = new YouTube(botconfig.YoutubeAPI);
 	const queue = new Map();
 	const request = require("request");
-	const nHentai = require('./commands/napi.js')
-	process.title = 'ReiNaBot'
+	let timer = {};
 
+	const lv = require('./commands/lv.js');
+	const nHentai = require('./commands/napi.js');
+	const rps = require('./commands/rps.js');
+	const sync = require('./commands/sync.js');
+	const sync0general = require('./commands/sync0general.js')
+
+	process.title = 'ReiNaBot';
+	process.on('unhandledRejection', error => {});
 
 	fs.readdir("./commands/", (err, files) =>{
 
@@ -45,16 +52,19 @@
 	bot.on('warn', async () => {
 		console.warn;
 	});
-	bot.on('error', async () =>{
-		console.log(err);
+	bot.on('error', error => {
+		console.error('The WebSocket encountered an error:', error);
 	});
 	bot.on("ready", async () => {
 		console.log(`${bot.user.username} 上線!`);
 	    console.log(`加入了 ${bot.guilds.size} 個伺服器.`);
 		bot.user.setPresence({ game: { name: 'rn!help | ReiNa Is Here! Nya~~~~' , type: 3 } });
+		try{
 		CurrentTime();
 		GuildAllUser();
 		checkuserstatus();
+		}
+		catch(e){}
 	});
 	bot.on('reconnecting', () => {
 		console.log(`${bot.user.username} 上線!`);
@@ -67,11 +77,11 @@
 
 	setInterval(GuildAllUser, 60000);
 	setInterval(CurrentTime, 5000);
-	setInterval(checkuserstatus, 10000);
+	setInterval(checkuserstatus, 15000);
 
 	bot.on("message", async message => {
 	  if(message.channel.type === "dm") return;
-	  let OwnID = botconfig.OwnerID;
+	  if (message.author.bot) return;
 	  let prefix = botconfig.prefix;
 	  let messageArray = message.content.split(" ");
 	  let cmd = messageArray[0];
@@ -82,9 +92,13 @@
 	  const napiregex = /(?<=[\[{])(https?:\/\/nhentai\.net\/g\/)?(\d+)\/?.*?(?=[}\]])/gi;
 	  let commandfile = bot.commands.get(cmd.toLowerCase().slice(prefix.length));
 	  if(commandfile) commandfile.run(bot,message,args);
+	  if(message.guild) lv.run(bot,message,args);
 	  if(message.content.match(napiregex)) nHentai.run(bot,message,args);
+	  if(message.content.startsWith('<:xscissors:647687182538113034>') || message.content.startsWith('<:xrock:647687152003579944>') || message.content.startsWith('<:xpaper:647687122727338015>')) rps.run(bot,message,args);
+	  if(message.channel.id === '606000578144763914') sync.run(bot,message,args);
+	  if(message.channel.id === '407171840746848260') sync0general.run(bot,message,args);
 
-		if(message.content.includes('discord.gg/'||'discordapp.com/invite/')) {
+		if(message.content.includes('discord.gg/'||'discordapp.com/invite/') && message.guild.id === '398062441516236800') {
 			message.delete(); 
 			const embed = new Discord.RichEmbed()
 					embed
@@ -93,12 +107,12 @@
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
-			.setTimestamp()
+					.setTimestamp()
 					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
-			    await util.sendDeletableMessage(message.channel, { embed }, message.author);
+				util.sendDeletableMessage(message.channel, { embed }, message.author);
 					}   catch (err) {
-			    console.error(err);
+				console.error(err);
 			}
 		}
 
@@ -424,7 +438,7 @@
 					let looping = '';
 					if(serverQueue.loop == true){looping = "開啟"}
 					if(serverQueue.loop == false){looping = "關閉"}
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].authortag} 添加的 ${serverQueue.songs[0].title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
 					return undefined;
 				}
 		}
@@ -481,7 +495,7 @@
 						console.error(err);
 					}
 					serverQueue.loop = true;
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].authortag} 添加的 ${serverQueue.songs[0].title} ||[單曲循環播放: 開啟]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 添加, ||[單曲循環播放: 開啟]||` , type: 2 } });
 					return undefined;
 				}else{
 					if(serverQueue.loop == true){
@@ -500,7 +514,7 @@
 						console.error(err);
 					}
 					serverQueue.loop = false;
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].authortag} 添加的 ${serverQueue.songs[0].title}, ||[單曲循環播放: 關閉]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 添加, ||[單曲循環播放: 關閉]||` , type: 2 } });
 					return undefined;
 					}
 				}
@@ -638,10 +652,21 @@
 				}
 				return;
 			} else {
+				let playtime = Date.now() - timer[message.guild.id];
+				h = Math.floor(playtime / 3600000);
+				if (h < 10) h = "0" + h;
+				playtime = playtime % 3600000;
+				m = Math.floor(playtime / 60000);
+				if (m < 10) m = "0" + m;
+				playtime = playtime % 60000;
+				s = Math.floor(playtime / 1000);
+				if (s < 10) s = "0" + s;
+				playtime = playtime % 1000;
+				if (playtime < 10) playtime = "0" + playtime;
 				const embed = new Discord.RichEmbed()
 					embed
 					.setAuthor(message.author.tag, message.author.avatarURL)
-					.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: <@${serverQueue.songs[0].authorid}>添加的**${serverQueue.songs[0].title}** ${serverQueue.songs[0].length}` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
+					.setDescription("\n" + `${message.author}` + "\n\n" + `🎶 現正播放: <@${serverQueue.songs[0].authorid}>添加的**${serverQueue.songs[0].title}** ${h}:${m}:${s}/${serverQueue.songs[0].length}` + "\n\n如果Senpai想要網址的話, 我放在下面哦!\n" + `${serverQueue.songs[0].url}`)
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
@@ -675,10 +700,21 @@
 				}
 				return;
 			} else {
+				let playtime = Date.now() - timer[message.guild.id];
+				h = Math.floor(playtime / 3600000);
+				if (h < 10) h = "0" + h;
+				playtime = playtime % 3600000;
+				m = Math.floor(playtime / 60000);
+				if (m < 10) m = "0" + m;
+				playtime = playtime % 60000;
+				s = Math.floor(playtime / 1000);
+				if (s < 10) s = "0" + s;
+				playtime = playtime % 1000;
+				if (playtime < 10) playtime = "0" + playtime;
 				const embed = new Discord.RichEmbed()
 					embed
 					.setAuthor(message.author.tag, message.author.avatarURL)
-					.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有2048個字符, 所以我最多只會顯示25 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ <@${song.authorid}>添加的${song.title} ${song.length}`).slice(0, 25).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}`)
+					.setDescription("\n" + `${message.author}` + "\n因為Discord有限制信息最多只能有1024個字符, 所以我最多只會顯示15 首音樂哦!\n" + `__**歌曲列表:**__` + "\n" + `${serverQueue.songs.map(song => `⌛ <@${song.authorid}>添加的${song.title} ${song.length}`).slice(0, 15).join('\n')}` + "\n\n總共有:**" + serverQueue.songs.length + "**首音樂\n\n" + `**現正播放:** ${serverQueue.songs[0].title}\n${h}:${m}:${s}/${serverQueue.songs[0].length}`)
 					.setColor(0xcc0000)
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
@@ -857,6 +893,7 @@
 	});
 
 	bot.on('messageUpdate', function(oldMessage, newMessage){
+		if(oldMessage.channel.type === "dm" || newMessage.channel.type === "dm") return;
 		let log_date_ob = new Date();
 		let log_date = ("0" + log_date_ob.getDate()).slice(-2);
 		let log_year = log_date_ob.getFullYear();
@@ -911,11 +948,18 @@
 
 	async function handleVideo(video, message, songAuthorid, songAuthortag, voiceChannel, playlist = false) {
 		const serverQueue = queue.get(message.guild.id);
+		let vdh = video.duration.hours;
+		let vdm = video.duration.minutes;
+		let vds = video.duration.seconds;
+		if (vdh < 10) vdh = "0" + vdh;
+		if (vdm < 10) vdm = "0" + vdm;
+		if (vds < 10) vds = "0" + vds;
+
 		const song = {
 			id: video.id,
 			title: Discord.escapeMarkdown(video.title),
 			url: `https://www.youtube.com/watch?v=${video.id}`,
-			length: `${video.duration.hours}小時${video.duration.minutes}分鐘${video.duration.seconds}秒`,
+			length: `${vdh}:${vdm}:${vds}`,
 			authorid:songAuthorid,
 			authortag: songAuthortag
 		};
@@ -994,13 +1038,12 @@
 			serverQueue.voiceChannel.leave();
 			queue.delete(guild.id);
 			bot.user.setPresence({ game: { name: 'rn!help | ReiNa Is Here! Nya~~~~' , type: 3 } });
+			try{delete timer[guild.id]}catch(e){};
 			return;
 		}
 
 		const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
-			.on('end', reason => {
-				if (reason === 'Stream is not generating quickly enough.');
-				else console.log(reason);
+			.on('end', end => {
 				if(serverQueue.loop == false){serverQueue.songs.shift();}
 				else {
 					if(serverQueue.loop == true){
@@ -1009,8 +1052,9 @@
 					}
 				}
 				play(guild, serverQueue.songs[0]);
+				timer[guild.id] = Date.now();
 			})
-			.on('error', error => console.error(error));
+			.on('error', error => console.log(error));
 		dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
 		const embed = new Discord.RichEmbed()
@@ -1027,46 +1071,48 @@
 		let looping = '';
 		if(serverQueue.loop == true){looping = "開啟"}
 		if(serverQueue.loop == false){looping = "關閉"}
-		bot.user.setPresence({ game: { name: `正在播放: ${song.authortag} 添加的 ${song.title}, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+		bot.user.setPresence({ game: { name: `正在播放: ${song.title} 由 ${song.authortag} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+		
+		timer[guild.id] = Date.now();
 	}
 
 	function CurrentTime() {
 		request.get('http://worldtimeapi.org/api/timezone/Asia/Hong_Kong', {},
 		function(error, response, rawHK){
+			if(error){console.log(error)}
 			if(!error && response.statusCode == 200){
 				var objHK = JSON.parse(rawHK);
 				var timeHK = objHK.datetime;
-				bot.channels.get("637758381792165908").setName("香港🕕" + timeHK.slice(11,13) + "：" + timeHK.slice(14,16) + "：" + timeHK.slice(17,19));
+				bot.channels.get("655499386591248384").setName("﹥ 𝓗𝓚🕕: " + timeHK.slice(11,13) + ":" + timeHK.slice(14,16) + ":" + timeHK.slice(17,19));
 			}
 			if(response === undefined || response.statusCode != 200){}
 		});
 
 		request.get('http://worldtimeapi.org/api/timezone/Asia/Tokyo', {},
 		function(error, response, rawTK){
+			if(error){console.log(error)}
 			if(!error && response.statusCode == 200){
 				var objTK = JSON.parse(rawTK);
 				var timeTK = objTK.datetime;
-				bot.channels.get("637765304868405249").setName("東京🕕" + timeTK.slice(11,13) + "：" + timeTK.slice(14,16) + "：" + timeTK.slice(17,19));
-			}
-			if(response === undefined || response.statusCode != 200){}
-		});
-
-		request.get('http://worldtimeapi.org/api/timezone/Australia/Adelaide', {},
-		function(error, response, rawAU){
-			if(!error && response.statusCode == 200){
-				var objAU = JSON.parse(rawAU);
-				var timeAU = objAU.datetime;
-				bot.channels.get("637766392770199694").setName("ＰＯ🕕" + timeAU.slice(11,13) + "：" + timeAU.slice(14,16) + "：" + timeAU.slice(17,19));
+				bot.channels.get("655499409009803277").setName("﹥ 𝓙𝓟🕕: " + timeTK.slice(11,13) + ":" + timeTK.slice(14,16) + ":" + timeTK.slice(17,19));
 			}
 			if(response === undefined || response.statusCode != 200){}
 		});
 	}
 
-	function GuildAllUser() {
-		bot.guilds.get("398062441516236800").fetchMembers().then(r => {
-			let length = `${r.members.array().length}`;
-			bot.channels.get("637870044763652136").setName("伺服器人數-" + `${length}`);
-		});
+	let botuser = 0;let memberuser = 0;
+	async function GuildAllUser() {
+		botuser = 0;memberuser = 0;
+		await bot.guilds.get("398062441516236800").fetchMembers().then(r => {
+			r.members.array().forEach((member, key) => checkuserbot(member))
+			});
+		await bot.channels.get("655499341590560779").setName("﹥ 𝓣𝓸𝓽𝓪𝓵 𝓾𝓼𝓮𝓻𝓼: " + `${botuser+memberuser}`);
+		await bot.channels.get("655499368136179712").setName(`﹥ 𝓑𝓸𝓽: ${botuser}`);
+		await bot.channels.get("655499422465261569").setName(`﹥ 𝓤𝓼𝓮𝓻: ${memberuser}`);
+	}
+
+	function checkuserbot(member){
+		if(member.user.bot === true){botuser = botuser + 1} if(member.user.bot === false){memberuser = memberuser + 1}
 	}
 
 	function shuffle(a) {
