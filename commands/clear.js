@@ -28,6 +28,7 @@ module.exports.run = async (bot, message, args) =>{
 		if(args[0] < 2){
 			const embed = new Discord.RichEmbed()
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
@@ -44,6 +45,7 @@ module.exports.run = async (bot, message, args) =>{
 		if(isNaN(args[0])){
 			const embed = new Discord.RichEmbed()
 				embed
+				.setAuthor(message.author.tag, message.author.avatarURL)
 				.setColor('#0099ff')
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
@@ -65,6 +67,7 @@ module.exports.run = async (bot, message, args) =>{
 		  message.channel.bulkDelete(fetched)
 			  const embed = new Discord.RichEmbed()
 			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setColor('#0099ff')
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
