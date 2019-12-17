@@ -2,6 +2,7 @@
 ### 使用說明
 
 - **npm install discord.js ffmpeg-binaries opusscript ytdl-core node-cmd request simple-youtube-api nekos.life mathjs hastebin-gen fs-path**
+- **npm i node-gyp better-sqlite3**
 - 此Discord Bot 為MCwind's Discord Server而設 請不要隨意自行下載使用
 
 
