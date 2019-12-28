@@ -16,7 +16,6 @@
 	const nHentai = require('./commands/napi.js');
 	const rps = require('./commands/rps.js');
 	const sync = require('./commands/sync.js');
-	const sync0general = require('./commands/sync0general.js')
 
 	process.title = 'ReiNaBot';
 	process.on('unhandledRejection', error => {});
@@ -78,6 +77,7 @@
 	setInterval(GuildAllUser, 60000);
 	setInterval(CurrentTime, 5000);
 	setInterval(checkuserstatus, 15000);
+	let NY = setInterval(function(){checkNY(bot, NY)}, 5000);
 
 	bot.on("message", async message => {
 	  if(message.channel.type === "dm") return;
@@ -95,8 +95,7 @@
 	  if(message.guild) lv.run(bot,message,args);
 	  if(message.content.match(napiregex)) nHentai.run(bot,message,args);
 	  if(message.content.startsWith('<:xscissors:647687182538113034>') || message.content.startsWith('<:xrock:647687152003579944>') || message.content.startsWith('<:xpaper:647687122727338015>')) rps.run(bot,message,args);
-	  if(message.channel.id === '606000578144763914') sync.run(bot,message,args);
-	  if(message.channel.id === '407171840746848260') sync0general.run(bot,message,args);
+	  if(message.channel.id === '407171840746848260') sync.run(bot,message,args);
 
 		if(message.content.includes('discord.gg/'||'discordapp.com/invite/') && message.guild.id === '398062441516236800') {
 			message.delete(); 
@@ -108,7 +107,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
 				util.sendDeletableMessage(message.channel, { embed }, message.author);
 					}   catch (err) {
@@ -131,7 +130,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -149,7 +148,7 @@
 				.setTitle('ReiNa Bot 錯誤')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -166,7 +165,7 @@
 				.setTitle('ReiNa Bot 錯誤')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -199,7 +198,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				message.channel.send(embed).then(function(message){
 				message.delete(5000);
 				}).catch(function(err){
@@ -221,7 +220,7 @@
 						.setTitle('ReiNa Bot')
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 						util.sendDeletableMessage(message.channel, { embed }, message.author);
 						try {
 							var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 11, {
@@ -241,7 +240,7 @@
 							.setTitle('ReiNa Bot 錯誤')
 							.setURL("https://mcwind.tk")
 							.setTimestamp()
-							.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+							.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 							util.sendDeletableMessage(message.channel, { embed }, message.author);
 							return;
 							}
@@ -257,7 +256,7 @@
 						.setTitle('ReiNa Bot 錯誤')
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 						util.sendDeletableMessage(message.channel, { embed }, message.author);
 						return;
 					}
@@ -277,7 +276,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -294,7 +293,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -310,7 +309,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -335,7 +334,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -352,7 +351,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -368,7 +367,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -390,7 +389,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -407,7 +406,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -429,7 +428,7 @@
 						.setTitle('ReiNa Bot')
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 					try {
 						util.sendDeletableMessage(message.channel, { embed }, message.author);
 					}   catch (err) {
@@ -438,7 +437,7 @@
 					let looping = '';
 					if(serverQueue.loop == true){looping = "開啟"}
 					if(serverQueue.loop == false){looping = "關閉"}
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 在 ${serverQueue.songs[0].guildtag} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
 					return undefined;
 				}
 		}
@@ -454,7 +453,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -471,7 +470,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -488,14 +487,14 @@
 						.setTitle('ReiNa Bot')
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 					try {
 						await util.sendDeletableMessage(message.channel, { embed }, message.author);
 					}   catch (err) {
 						console.error(err);
 					}
 					serverQueue.loop = true;
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 添加, ||[單曲循環播放: 開啟]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 在 ${serverQueue.songs[0].guildtag} 添加, ||[單曲循環播放: 開啟]||` , type: 2 } });
 					return undefined;
 				}else{
 					if(serverQueue.loop == true){
@@ -507,14 +506,14 @@
 						.setTitle('ReiNa Bot')
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
-						.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 					try {
 						await util.sendDeletableMessage(message.channel, { embed }, message.author);
 					}   catch (err) {
 						console.error(err);
 					}
 					serverQueue.loop = false;
-					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 添加, ||[單曲循環播放: 關閉]||` , type: 2 } });
+					bot.user.setPresence({ game: { name: `正在播放: ${serverQueue.songs[0].title} 由 ${serverQueue.songs[0].authortag} 在 ${serverQueue.songs[0].guildtag} 添加, ||[單曲循環播放: 關閉]||` , type: 2 } });
 					return undefined;
 					}
 				}
@@ -532,7 +531,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {}
@@ -547,7 +546,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -571,7 +570,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -588,7 +587,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -605,7 +604,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -623,7 +622,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
 			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -644,7 +643,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -671,7 +670,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -692,7 +691,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -719,7 +718,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 
 					if(serverQueue.loop == true){
 						embed.addField("單曲循環播放", "*開啟*");
@@ -740,7 +739,7 @@
 			message.delete();
 			if (serverQueue && serverQueue.playing) {
 				serverQueue.playing = false;
-				serverQueue.connection.dispatcher.pause();
+				serverQueue.connection.dispatcher.pause(true);
 				const embed = new Discord.RichEmbed()
 				embed
 				.setAuthor(message.author.tag, message.author.avatarURL)
@@ -749,7 +748,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -765,7 +764,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		try {
 		await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -788,7 +787,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -804,7 +803,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		try {
 		await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -825,7 +824,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		    try {
 		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -842,7 +841,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -859,7 +858,7 @@
 					.setTitle('ReiNa Bot')
 					.setURL("https://mcwind.tk")
 					.setTimestamp()
-					.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				try {
 				await util.sendDeletableMessage(message.channel, { embed }, message.author);
 				}   catch (err) {
@@ -877,7 +876,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			try {
 			await util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {
@@ -961,7 +960,8 @@
 			url: `https://www.youtube.com/watch?v=${video.id}`,
 			length: `${vdh}:${vdm}:${vds}`,
 			authorid:songAuthorid,
-			authortag: songAuthortag
+			authortag: songAuthortag,
+			guildtag: message.guild.name
 		};
 		if (!serverQueue) {
 			const queueConstruct = {
@@ -990,7 +990,7 @@
 				.setTitle('ReiNa Bot 錯誤')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				message.channel.send(embed)
 				.then(message => {
 					message.delete(5000);
@@ -1008,7 +1008,7 @@
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
 				.setTimestamp()
-				.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				message.channel.send(embed)
 				.then(message => {
 				message.delete(5000);
@@ -1030,7 +1030,7 @@
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			serverQueue.textChannel.send(embed)
 			.then(message => {
 			message.delete(5000);
@@ -1063,7 +1063,7 @@
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
 		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		serverQueue.textChannel.send(embed)
 		.then(message => {
 		message.delete(5000);
@@ -1071,7 +1071,7 @@
 		let looping = '';
 		if(serverQueue.loop == true){looping = "開啟"}
 		if(serverQueue.loop == false){looping = "關閉"}
-		bot.user.setPresence({ game: { name: `正在播放: ${song.title} 由 ${song.authortag} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+		bot.user.setPresence({ game: { name: `正在播放: ${song.title} 由 ${song.authortag} 在 ${song.guildtag} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
 		
 		timer[guild.id] = Date.now();
 	}
@@ -1156,5 +1156,22 @@
 		if(!user.roles.has('430389070246576128')){
 			user.removeRole('647004218812661761');
 			user.addRole('417634328332337153');
+		}
+	}
+
+	function checkNY(bot, inv){
+		let i = new Date();
+		let NYMSG = ['407171840746848260', '398062441948512257'];
+		if(i.getYear() + 1900 === 2019){}else{
+			const embed = new Discord.RichEmbed()
+			embed
+			.setDescription('@here, 各位新年快樂 2020年也要順順利利喲~ :partying_face: ')
+			.setColor(0xcc0000)
+			.setTitle('2020 新年快樂!')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			NYMSG.forEach(ch => bot.channels.get(ch).send(embed));
+			clearInterval(inv);
 		}
 	}
