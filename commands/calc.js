@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setTitle('錯誤')
 		.setDescription(`${message.author}` + ' Senpai, 請輸入算式~')
 		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		try {
 			util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {
@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setTitle('錯誤')
 		.setDescription(`${message.author}` + ' Senpai, 請輸入有效的算式!')
 		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		util.sendDeletableMessage(message.channel, { embed }, message.author);
 		return;
 	}
@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args) =>{
 		.addField('輸入', `\`\`\`js\n${args.join('')}\`\`\``)
 		.addField('結果', `\`\`\`js\n${resp}\`\`\``)
 		.setTimestamp()
-		.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		try {
 			util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {

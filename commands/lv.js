@@ -11,6 +11,7 @@ if (!table['count(*)']) {
   sql.pragma("journal_mode = wal");
 }
 module.exports.run = async (bot, message, args) =>{
+	try{
     bot.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
 	bot.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level, tkpoints) VALUES (@id, @user, @guild, @points, @level, @tkpoints);");
     let score;
@@ -30,7 +31,7 @@ module.exports.run = async (bot, message, args) =>{
 		let curLevel = Math.floor(0.1 * Math.sqrt(score.points));
 		if(score.level < curLevel){
 			score.level++;
-			const lvlup = new Discord.RichEmbed()
+			const embed = new Discord.RichEmbed()
 			embed
 			.setAuthor(message.author.tag, message.author.avatarURL)
 			.setDescription(`${message.author} senpai升級啦, 你的等級現在是${curLevel}!`)
@@ -38,11 +39,13 @@ module.exports.run = async (bot, message, args) =>{
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
 			.setTimestamp()
-			.setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
-			message.channel.send(lvlup);
+			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			message.channel.send(embed);
 		}
 		bot.setScore.run(score);
-      }
+	  }
+	}
+	catch(e){console.log(e)}
 }
 
 

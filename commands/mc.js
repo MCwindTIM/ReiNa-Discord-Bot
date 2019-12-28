@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) =>{
             .setDescription(`${message.author}` + ' Senpai, 找不到伺服器。')
             .setImage(response.request.uri.href)
             .setTimestamp()
-            .setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+            .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
             try {
                 util.sendDeletableMessage(message.channel, { embed }, message.author);
             }   catch (err) {
@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args) =>{
                 .setURL(response.request.uri.href)
                 .setDescription(`${message.author}, ${args[0]}:${port}的Minecraft伺服器狀態如下\n\n${status}`)
                 .setTimestamp()
-                .setFooter('ReiNa By 一起來當馬猴燒酒吧 (>ω･* )ﾉ#9201', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 try {
                     util.sendDeletableMessage(message.channel, { embed }, message.author);
                 }   catch (err) {
