@@ -8,14 +8,16 @@ const portal = {
 }
 
 module.exports.run = async (bot, message, args) =>{
+	try{
 if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g)){
 	message.delete();
+	let url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g).toString();
 	var regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\//g;
-	var image_id = message.content.replace(regexreplace, '');
+	var image_id = url.replace(regexreplace, '');
 	if (isNaN(image_id)) return;
 	let illust = await fetchInfo(image_id);
 	return util.sendDeletableMessage(message.channel, {embed: await genEmbed(illust, true)}, message.author);
-}
+}}catch(e){console.log(e)}
 
 if(message.attachments.size > 0){
 	let loopi;
@@ -100,12 +102,16 @@ async function genEmbed(illust, show_image = true) {
             "Pixiv 來源: ",
             "[作品id: " + illust.id + "](https://www.pixiv.net/member_illust.php?mode=medium&illust_id=" + illust.id + ")\t[作者: " + illust.user.name + "]( https://www.pixiv.net/member.php?id=" + illust.user.id + ")"
 		)
-        .addField(
-            "說明: ",
-            illust.caption ? illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '') : "(無)"
-		)
 		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487 作品發佈日期:', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
-
+		if(illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '').toString().length > 1024 ){
+			embed.addField(
+				"說明: ", "因為字數超過1024, 無法顯示於Discord RichEmbed Field 內!"
+			)
+		}else{
+			embed.addField(
+				"說明: ",
+				illust.caption ? illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '') : "(無)"
+		)}
     return embed;
 }
 
