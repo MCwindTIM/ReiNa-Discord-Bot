@@ -19,7 +19,8 @@
 	const sauce = require('./commands/sauce.js');
 
 	process.title = 'ReiNaBot';
-	process.on('unhandledRejection', error => {});
+	process.on('unhandledRejection', e => {console.log(e)});
+	process.on('unhandledException', e => {console.log(e)});
 
 	fs.readdir("./commands/", (err, files) =>{
 
