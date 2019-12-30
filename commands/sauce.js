@@ -156,7 +156,7 @@ function sgenEmbed(prov = "kon", image) {
         .setDescription("[ID: " + image["id"] + "](" + portal[prov] + "/post/show/" + image["id"] + ")")
 
         .setTimestamp()
-		.addField("來源: ", (image["source"] == "" ? "(未知)" : image["source"]))
+		.addField("來源: ", (image["source"] == "" ? "(未知)" : image["source"]).toString().replace("i.pximg.net", "i.pixiv.cat"))
 		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 
 
