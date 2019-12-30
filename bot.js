@@ -20,7 +20,7 @@
 
 	process.title = 'ReiNaBot';
 	process.on('unhandledRejection', e => {console.log(e)});
-	process.on('unhandledException', e => {console.log(e)});
+	process.on('uncaughtException', e => {console.log(e)});
 
 	fs.readdir("./commands/", (err, files) =>{
 
