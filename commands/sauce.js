@@ -1,12 +1,13 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
 const request = require("request-promise");
+const portal = {
+	kon: "http://konachan.net",
+	yan: "https://yande.re",
+	dan: "https://danbooru.donmai.us"
+}
+
 module.exports.run = async (bot, message, args) =>{
-	const portal = {
-		kon: "http://konachan.net",
-		yan: "https://yande.re",
-		dan: "https://danbooru.donmai.us"
-	}
 if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g)){
 	message.delete();
 	var regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\//g;
@@ -62,8 +63,8 @@ if(message.attachments.size > 0){
                 "相似程度: " + result[0].match(/<div class="resultsimilarityinfo">(\d+.\d+%)<\/div>/)[1] +
                 "\n```\n" +
                 result[0].replace(/<\/?.+?>/g, "\n").replace(/\n+/g, "\n") +
-                "\n```"
-            );
+                "\n```由於相似度過低, 結果不顯示!   (5秒後自動刪除)"
+            ).then(msg =>{msg.delete(5000)});
         } else if (res.match(/was denied/)) {
             return message.reply("無法取得圖片");
         } else {
@@ -103,7 +104,7 @@ async function genEmbed(illust, show_image = true) {
             "說明: ",
             illust.caption ? illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '') : "(無)"
 		)
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487 作品發佈日期:', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 
     return embed;
 }
@@ -142,7 +143,7 @@ function attachIsImage(msgAttach){
 }
 
 async function fetchImg(prov = "kon", id) {
-    let res = await base.req2json(portal[prov] + "/post.json?tags=id:" + id);
+    let res = await req2json(portal[prov] + "/post.json?tags=id:" + id);
     return res[0];
 }
 
