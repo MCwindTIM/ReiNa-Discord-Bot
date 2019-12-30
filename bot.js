@@ -16,6 +16,7 @@
 	const nHentai = require('./commands/napi.js');
 	const rps = require('./commands/rps.js');
 	const sync = require('./commands/sync.js');
+	const sauce = require('./commands/sauce.js');
 
 	process.title = 'ReiNaBot';
 	process.on('unhandledRejection', error => {});
@@ -95,7 +96,8 @@
 	  if(message.guild) lv.run(bot,message,args);
 	  if(message.content.match(napiregex)) nHentai.run(bot,message,args);
 	  if(message.content.startsWith('<:xscissors:647687182538113034>') || message.content.startsWith('<:xrock:647687152003579944>') || message.content.startsWith('<:xpaper:647687122727338015>')) rps.run(bot,message,args);
-	  if(message.channel.id === '407171840746848260') sync.run(bot,message,args);
+	  if(message.guild.id === '407171840746848258') sync.run(bot,message,args);
+	  if(message.content.includes("pixiv.net") || message.attachments.size > 0) sauce.run(bot,message,args);
 
 		if(message.content.includes('discord.gg/'||'discordapp.com/invite/') && message.guild.id === '398062441516236800') {
 			message.delete(); 
@@ -1076,43 +1078,60 @@
 		timer[guild.id] = Date.now();
 	}
 
+	let numchars = {'0':'𝟬','1':'𝟭','2':'𝟮','3':'𝟯','4':'𝟰','5':'𝟱','6':'𝟲','7':'𝟳','8':'𝟴','9':'𝟵'};
+
 	function CurrentTime() {
 		request.get('http://worldtimeapi.org/api/timezone/Asia/Hong_Kong', {},
-		function(error, response, rawHK){
+		async function(error, response, rawHK){
 			if(error){console.log(error)}
 			if(!error && response.statusCode == 200){
 				var objHK = JSON.parse(rawHK);
 				var timeHK = objHK.datetime;
-				bot.channels.get("655499386591248384").setName("﹥ 𝓗𝓚🕕: " + timeHK.slice(11,13) + ":" + timeHK.slice(14,16) + ":" + timeHK.slice(17,19));
+				var hkh = timeHK.slice(11,13).toString().replace(/[0123456789]/g, m=> numchars[m]);
+				var hkm = timeHK.slice(14,16).toString().replace(/[0123456789]/g, m=> numchars[m]);
+				var hks = timeHK.slice(17,19).toString().replace(/[0123456789]/g, m=> numchars[m]);
+				try{
+				await bot.channels.get("655499386591248384").setName("﹥ 𝓗𝓚🕕: " + hkh + ":" + hkm + ":" + hks);
+				}catch(e){console.log(e)}
 			}
 			if(response === undefined || response.statusCode != 200){}
 		});
 
 		request.get('http://worldtimeapi.org/api/timezone/Asia/Tokyo', {},
-		function(error, response, rawTK){
+		async function(error, response, rawTK){
 			if(error){console.log(error)}
 			if(!error && response.statusCode == 200){
 				var objTK = JSON.parse(rawTK);
 				var timeTK = objTK.datetime;
-				bot.channels.get("655499409009803277").setName("﹥ 𝓙𝓟🕕: " + timeTK.slice(11,13) + ":" + timeTK.slice(14,16) + ":" + timeTK.slice(17,19));
+				var tkh = timeTK.slice(11,13).toString().replace(/[0123456789]/g, m=> numchars[m]);
+				var tkm = timeTK.slice(14,16).toString().replace(/[0123456789]/g, m=> numchars[m]);
+				var tks = timeTK.slice(17,19).toString().replace(/[0123456789]/g, m=> numchars[m]);
+				try{
+				await bot.channels.get("660828847096201238").setName("﹥ 𝓙𝓟🕕: " + tkh + ":" + tkm + ":" + tks);
+				}catch(e){console.log(e)}
 			}
 			if(response === undefined || response.statusCode != 200){}
 		});
 	}
 
-	let botuser = 0;let memberuser = 0;
+	let botuser = 0;let memberuser = 0;let alluser = 0;
 	async function GuildAllUser() {
-		botuser = 0;memberuser = 0;
+		botuser = 0;memberuser = 0;alluser = 0;
 		await bot.guilds.get("398062441516236800").fetchMembers().then(r => {
 			r.members.array().forEach((member, key) => checkuserbot(member))
 			});
-		await bot.channels.get("655499341590560779").setName("﹥ 𝓣𝓸𝓽𝓪𝓵 𝓾𝓼𝓮𝓻𝓼: " + `${botuser+memberuser}`);
+		botuser = botuser.toString().replace(/[0123456789]/g, m => numchars[m]);
+		alluser = alluser.toString().replace(/[0123456789]/g, m => numchars[m]);
+		memberuser = memberuser.toString().replace(/[0123456789]/g, m => numchars[m]);
+		try{
+		await bot.channels.get("655499341590560779").setName("﹥ 𝓣𝓸𝓽𝓪𝓵 𝓾𝓼𝓮𝓻𝓼: " + `${alluser}`);
 		await bot.channels.get("655499368136179712").setName(`﹥ 𝓑𝓸𝓽: ${botuser}`);
 		await bot.channels.get("655499422465261569").setName(`﹥ 𝓤𝓼𝓮𝓻: ${memberuser}`);
+		}catch(e){console.log(e)}
 	}
 
 	function checkuserbot(member){
-		if(member.user.bot === true){botuser = botuser + 1} if(member.user.bot === false){memberuser = memberuser + 1}
+		if(member.user.bot === true){botuser = botuser + 1;alluser = alluser + 1;} if(member.user.bot === false){memberuser = memberuser + 1;alluser = alluser + 1;}
 	}
 
 	function shuffle(a) {
