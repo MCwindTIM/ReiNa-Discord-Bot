@@ -79,7 +79,7 @@
 	setInterval(GuildAllUser, 60000);
 	setInterval(CurrentTime, 5000);
 	setInterval(checkuserstatus, 15000);
-	let NY = setInterval(function(){checkNY(bot, NY)}, 5000);
+	//let NY = setInterval(function(){checkNY(bot, NY)}, 5000);
 
 	bot.on("message", async message => {
 	  if(message.channel.type === "dm") return;
@@ -99,6 +99,19 @@
 	  if(message.content.startsWith('<:xscissors:647687182538113034>') || message.content.startsWith('<:xrock:647687152003579944>') || message.content.startsWith('<:xpaper:647687122727338015>')) rps.run(bot,message,args);
 	  if(message.guild.id === '407171840746848258') sync.run(bot,message,args);
 	  if(message.content.includes("pixiv.net") || message.attachments.size > 0) sauce.run(bot,message,args);
+
+		if(message.mentions.users.has(bot.user.id))	{
+			switch (getRandomInt(3)) {
+				case 1:
+					message.channel.send("owo?");
+					break;
+				case 2:
+					message.channel.send("uwu?");
+					break;
+				case 3:
+					message.channel.send("b...baka!");
+			}
+		}
 
 		if(message.content.includes('discord.gg/'||'discordapp.com/invite/') && message.guild.id === '398062441516236800') {
 			message.delete(); 
@@ -181,15 +194,17 @@
 				const playlist = await youtube.getPlaylist(url);
 				const videos = await playlist.getVideos();
 				for (const video of Object.values(videos)) {
-					if (video.raw.status.privacyStatus === 'public'){
-						const video2 = await youtube.getVideoByID(video.id);
-						await handleVideo(video2, message, message.author.id, message.author.tag, voiceChannel, true);
-					}else{
-						if (video.raw.status.privacyStatus === 'unlisted'){
+					if(video.raw.status){
+						if (video.raw.status.privacyStatus === 'public'){
 							const video2 = await youtube.getVideoByID(video.id);
 							await handleVideo(video2, message, message.author.id, message.author.tag, voiceChannel, true);
 						}else{
-							if (video.raw.status.privacyStatus === 'private'){}
+							if (video.raw.status.privacyStatus === 'unlisted'){
+								const video2 = await youtube.getVideoByID(video.id);
+								await handleVideo(video2, message, message.author.id, message.author.tag, voiceChannel, true);
+							}else{
+								if (video.raw.status.privacyStatus === 'private'){}
+							}
 						}
 					}
 				}
@@ -1179,19 +1194,23 @@
 		}
 	}
 
-	function checkNY(bot, inv){
-		let i = new Date();
-		let NYMSG = ['407171840746848260', '398062441948512257'];
-		if(i.getYear() + 1900 === 2019){}else{
-			const embed = new Discord.RichEmbed()
-			embed
-			.setDescription('@here, 各位新年快樂 2020年也要順順利利喲~ :partying_face: ')
-			.setColor(0xcc0000)
-			.setTitle('2020 新年快樂!')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
-			NYMSG.forEach(ch => bot.channels.get(ch).send(embed));
-			clearInterval(inv);
-		}
+//	function checkNY(bot, inv){
+//		let i = new Date();
+//		let NYMSG = ['407171840746848260', '398062441948512257'];
+//		if(i.getYear() + 1900 === 2019){}else{
+//			const embed = new Discord.RichEmbed()
+//			embed
+//			.setDescription('@here, 各位新年快樂 2020年也要順順利利喲~ :partying_face: ')
+//			.setColor(0xcc0000)
+//			.setTitle('2020 新年快樂!')
+//			.setURL("https://mcwind.tk")
+//			.setTimestamp()
+//			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+//			NYMSG.forEach(ch => bot.channels.get(ch).send(embed));
+//			clearInterval(inv);
+//		}
+//	}
+
+	function getRandomInt(max) {
+		return Math.floor(Math.random() * max) + 1;
 	}
