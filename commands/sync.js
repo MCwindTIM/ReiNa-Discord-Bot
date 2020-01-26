@@ -4,7 +4,7 @@ module.exports.run = async (bot, message, args) =>{
 	if(rnd() >= 50){
 		message.react('654652137594290196');
 	}
-if(message.channel.id === '606000578144763914'){
+if(message.channel.id === '606000578144763914' || message.channel.id === '660789237137932299' || message.channel.id === '660444044345737216'){
 if(message.attachments.size > 0){
 	let i;
 	for (i=0;i<message.attachments.size;i++){
@@ -34,7 +34,10 @@ else{
 
 
 module.exports.help = {
-	name: "sync¿channel"
+	name: "sync¿channel",
+	description: "信息同步",
+	cate: 7,
+	show: false
 }
 
 function attachIsImage(msgAttach){

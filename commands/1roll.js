@@ -21,7 +21,11 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "1roll"
+    name: "1roll",
+    description: "擲出隨機數字",
+    cate: 1,
+    show: true
+    
 }
 
 function getRandomInt(max) {

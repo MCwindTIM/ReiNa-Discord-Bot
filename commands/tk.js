@@ -138,5 +138,8 @@ module.exports.run = async (bot, message, args) =>{
 
 
 module.exports.help = {
-	name: "tk"
+	name: "tk",
+	description: "tk 分數榜",
+	cate: 7,
+	show: true
 }

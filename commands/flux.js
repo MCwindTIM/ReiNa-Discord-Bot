@@ -35,5 +35,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "flux"
+    name: "flux",
+    description: "計算Trove裡面的Flux價值",
+    cate: 2,
+	show: true
 }

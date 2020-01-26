@@ -56,5 +56,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "mc"
+    name: "mc",
+    description: "查看一個Minecraft伺服器的狀態",
+    cate: 4,
+	show: true
 }

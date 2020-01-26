@@ -21,5 +21,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "$$"
+	name: "ebase",
+	description: "base64 加密",
+	cate: 2,
+	show: true
 }

@@ -24,5 +24,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "pat"
+	name: "pat",
+	description: "拍拍某人",
+	cate: 5,
+	show: true
 }

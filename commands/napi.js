@@ -6,9 +6,9 @@ const nHentaiAPI = require('nhentai-api-js');
 let napi = new nHentaiAPI();
 
 module.exports.run = async (bot, message, args) =>{
-    message.delete();
     let messageArray = message.content.split(" ");
     if(message.content.startsWith("[") && message.content.endsWith("]")){
+        message.delete();
         let doujinid = messageArray[0].toString().replace("[", "").replace("]", "");
         napi.g(doujinid).then(gallery =>{
             var i;
@@ -245,5 +245,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "nHentai¿"
+    name: "nHentai¿",
+    description: "nhentai api",
+    cate: 5,
+	show: false
 }

@@ -32,5 +32,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "report"
+	name: "report",
+	description: "檢舉某人",
+	cate: 6,
+	show: true
 }

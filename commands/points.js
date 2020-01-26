@@ -25,5 +25,8 @@ module.exports.run = async (bot, message, args) =>{
 
 
 module.exports.help = {
-	name: "points"
+	name: "points",
+	description: "查看分數",
+	cate: 6,
+	show: true
 }

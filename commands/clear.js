@@ -86,5 +86,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "clear"
+	name: "clear",
+	description: "清除指定數量的信息",
+	cate: 1,
+	show: true
 }

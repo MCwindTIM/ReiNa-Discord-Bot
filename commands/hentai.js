@@ -27,5 +27,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "hentai"
+    name: "hentai",
+    description: "請求一本隨機本子",
+    cate: 3,
+	show: true
 }

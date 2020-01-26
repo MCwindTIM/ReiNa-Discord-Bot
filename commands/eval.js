@@ -88,5 +88,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-    name: "eval"
+    name: "eval",
+    description: "即時進行程式編寫並執行",
+    cate: 2,
+	show: true
 }

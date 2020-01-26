@@ -22,5 +22,9 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "alt"
+	name: "alt",
+	description: "尋找alt碼對應的字符",
+	cate: 1,
+	show: true
+	
 }

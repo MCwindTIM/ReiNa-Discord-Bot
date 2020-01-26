@@ -164,5 +164,8 @@ function choice(){
 }  
 
 module.exports.help = {
-	name: "rps¿"
+    name: "rps¿",
+    description: "剪刀石頭布",
+    cate: 6,
+	show: false
 }

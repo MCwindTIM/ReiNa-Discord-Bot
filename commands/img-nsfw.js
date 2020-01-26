@@ -28,5 +28,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "img-nsfw"
+    name: "img-nsfw",
+    description: "請求一張隨機圖片 【不適合在工作/公開場所使用】",
+    cate: 3,
+	show: true
 }

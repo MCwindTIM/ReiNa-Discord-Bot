@@ -23,5 +23,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "flip"
+	name: "flip",
+	description: "將字串上下反轉",
+	cate: 2,
+	show: true
 }

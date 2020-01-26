@@ -36,7 +36,10 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "weather"
+    name: "weather",
+    description: "請求未來9天香港的天氣",
+    cate: 7,
+	show: true
 }
 
 function yyyymmdd(date){

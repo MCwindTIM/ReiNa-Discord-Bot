@@ -21,5 +21,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "reverse"
+	name: "reverse",
+	description: "反轉字串",
+	cate: 6,
+	show: true
 }

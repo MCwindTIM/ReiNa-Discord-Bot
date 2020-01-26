@@ -1,6 +1,8 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
+const botconfig = require('../botconfig.json');
 const request = require("request-promise");
+const saucetoken = botconfig.sauceapi;
 const portal = {
 	kon: "http://konachan.net",
 	yan: "https://yande.re",
@@ -9,21 +11,25 @@ const portal = {
 
 module.exports.run = async (bot, message, args) =>{
 	try{
-if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g)){
+	try{
+		if(message.channel.id === "407171840746848260"){return}
+if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g) || message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g)){
 	message.delete();
-	let url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g).toString();
-	var regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\//g;
-	var image_id = url.replace(regexreplace, '');
+	let url;
+	let regexreplace;
+	if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g)){url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g).toString();regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\//g;}
+	if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g)){url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g).toString();regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\//g;}
+	let image_id = url.replace(regexreplace, '');
 	if (isNaN(image_id)) return;
 	let illust = await fetchInfo(image_id);
 	return util.sendDeletableMessage(message.channel, {embed: await genEmbed(illust, true)}, message.author);
 }}catch(e){console.log(e)}
-
+try{
 if(message.attachments.size > 0){
 	let loopi;
 	for (loopi=0;loopi<message.attachments.size;loopi++){
 		if(message.attachments.every(attachIsImage)){
-			let res = await request.get("http://saucenao.com/search.php?db=999&url=" + message.attachments.array()[loopi].url);
+			let res = await request.get("http://saucenao.com/search.php?db=999&api=" + saucetoken + "&url=" + message.attachments.array()[loopi].url);
 			let result = res.match(/<table class="resulttable">.+?<\/table>/);
 			if (result) {
 				let i = result[0];
@@ -65,27 +71,33 @@ if(message.attachments.size > 0){
                 "相似程度: " + result[0].match(/<div class="resultsimilarityinfo">(\d+.\d+%)<\/div>/)[1] +
                 "\n```\n" +
                 result[0].replace(/<\/?.+?>/g, "\n").replace(/\n+/g, "\n") +
-                "\n```由於相似度過低, 結果不顯示!   (5秒後自動刪除)"
-            ).then(msg =>{msg.delete(5000)});
+                "\n```類似圖片資料!"
+            );
         } else if (res.match(/was denied/)) {
-            return message.reply("無法取得圖片");
+            return message.reply("無法取得圖片! (5秒後自動刪除)").then( msg => {msg.delete(5000)});
         } else {
-            return message.reply("找不到來源!");
+            return message.reply("找不到來源! (5秒後自動刪除)").then( msg => {msg.delete(5000)});
         }
     }
 			
 }
+}catch(e){
+	message.reply("今天自動搜尋圖片限額已用完! (5秒後自動刪除)").then(msg => {msg.delete(5000)});
+	console.log("Sauce api limit Exceeded!");}
 
-
+}catch(e){console.log(e)}
 }
 
 module.exports.help = {
-	name: "sauce¿"
+	name: "sauce¿",
+	description: "尋找圖片來源",
+	cate: 6,
+	show: false
 }
 
 async function fetchInfo(image_id) {
     var res = await req2json("https://api.imjad.cn/pixiv/v2/?id=" + image_id);
-    if (!res || !res.illust) throw new Error("ID: " + image_id + ", 找不到來源!");
+	if (!res || !res.illust) throw new Error("ID: " + image_id + ", 找不到來源!");
     return res && res.illust;
 }
 

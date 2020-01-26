@@ -49,5 +49,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "where"
+	name: "where",
+	description: "以經緯度尋找衛星圖像",
+	cate: 7,
+	show: true
 }

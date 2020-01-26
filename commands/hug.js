@@ -24,5 +24,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "hug"
+	name: "hug",
+	description: "發送圖片表示你的心情",
+	cate: 3,
+	show: true
 }

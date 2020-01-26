@@ -20,5 +20,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "me"
+	name: "me",
+	description: "第三人稱描述自己",
+	cate: 4,
+	show: true
 }

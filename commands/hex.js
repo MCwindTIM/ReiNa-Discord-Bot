@@ -23,5 +23,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "hex"
+	name: "hex",
+	description: "十六進制數值轉換",
+	cate: 3,
+	show: true
 }

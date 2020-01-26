@@ -105,5 +105,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "timer"
+    name: "timer",
+    description: "計時器",
+    cate: 7,
+	show: true
 }

@@ -23,5 +23,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "bin"
+	name: "bin",
+	description: "二進制轉換到其他進制",
+	cate: 1,
+	show: true
 }

@@ -45,5 +45,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-    name: "restart"
+    name: "restart",
+    description: "重新啟動bot", 
+    cate: 6,
+	show: true
 }

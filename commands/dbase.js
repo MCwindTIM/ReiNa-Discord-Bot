@@ -21,5 +21,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "dbase"
+	name: "dbase",
+	description: "base64 解密",
+	cate: 2,
+	show: true
 }

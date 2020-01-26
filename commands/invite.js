@@ -19,5 +19,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "invite"
+	name: "invite",
+	description: "要求Bot 的邀請連結",
+	cate: 4,
+	show: true
 }

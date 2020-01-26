@@ -27,5 +27,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "img"
+    name: "img",
+    description: "請求一張隨機圖片",
+    cate: 3,
+	show: true
 }

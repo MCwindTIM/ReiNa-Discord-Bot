@@ -23,5 +23,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "dec"
+	name: "dec",
+	description: "十進制轉其他進制",
+	cate: 2,
+	show: true
 }

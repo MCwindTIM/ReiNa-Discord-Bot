@@ -22,5 +22,9 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "avatar"
+	name: "avatar",
+	description: "獲得用戶頭像鏈接",
+	cate: 1,
+	show: true
+	
 }

@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>{
     const embed = new Discord.RichEmbed()
         embed
         .setAuthor(message.author.tag, message.author.avatarURL)
-        .setDescription("你的Discord使用者ID是: " + message.author.id)
+        .setDescription(`${message.author}, senpai! 你的Discord使用者ID是: ${message.author.id}`)
         .setColor(0xcc0000)
         .setTitle('ReiNa Bot')
         .setURL("https://mcwind.tk")
@@ -19,5 +19,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "myid"
+    name: "myid",
+    description: "請求自己的ID",
+    cate: 5,
+	show: true
 }

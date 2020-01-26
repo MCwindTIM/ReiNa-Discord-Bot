@@ -37,5 +37,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "fbi"
+	name: "fbi",
+	description: "fbi OPEN THE DOOR",
+	cate: 2,
+	show: true
 }

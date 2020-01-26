@@ -20,5 +20,8 @@ module.exports.run = async (bot, message, args) =>{
 }
 
 module.exports.help = {
-	name: "bb"
+	name: "bb",
+	description: "沒什麼用途的指令",
+	cate: 1,
+	show: true
 }

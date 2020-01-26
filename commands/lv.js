@@ -50,5 +50,8 @@ module.exports.run = async (bot, message, args) =>{
 
 
 module.exports.help = {
-	name: "lv¿"
+	name: "lv¿",
+	description: "發送積分 升等級",
+	cate: 4,
+	show: false
 }

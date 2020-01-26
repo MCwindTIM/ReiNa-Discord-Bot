@@ -89,5 +89,8 @@ module.exports.run = async (bot, message, args) =>{
 
 
 module.exports.help = {
-	name: "give"
+	name: "give",
+	description: "在資料庫中給與一個用戶經驗值",
+	cate: 3,
+	show: true
 }

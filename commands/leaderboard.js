@@ -28,5 +28,8 @@ module.exports.run = async (bot, message, args) =>{
 
 
 module.exports.help = {
-	name: "leaderboard"
+	name: "leaderboard",
+	description: "顯示分數榜前十名用戶",
+	cate: 4,
+	show: true
 }
