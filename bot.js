@@ -99,7 +99,7 @@
 	  let commandfile = bot.commands.get(cmd.toLowerCase().slice(prefix.length));
 	  if(commandfile) commandfile.run(bot,message,args);
 	  if(message.guild) lv.run(bot,message,args);
-	  if(message.content.match(napiregex)) nHentai.run(bot,message,args);
+	  if(message.content.match(napiregex)){nHentai.run(bot,message,args)}else{if(message.channel.id === "655516899832233986"){message.delete()}};
 	  if(message.content.startsWith('<:xscissors:647687182538113034>') || message.content.startsWith('<:xrock:647687152003579944>') || message.content.startsWith('<:xpaper:647687122727338015>')) rps.run(bot,message,args);
 	  if(message.guild.id === '407171840746848258') sync.run(bot,message,args);
 	  if(message.content.includes("pixiv.net") || message.attachments.size > 0) sauce.run(bot,message,args);
