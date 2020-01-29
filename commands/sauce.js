@@ -57,7 +57,7 @@ if(message.attachments.size > 0){
 								break;
 						}
 					} catch (e) {
-						return message.reply(e.message + "\n如果不是要搜尋圖片, 不用理會!" + "   (5秒後自動刪除)").then(msg =>{msg.delete(5000)});
+						return message.reply(e.message + "\n如果不是要搜尋圖片, 不用理會!" + "   (5秒後自動刪除)").then(msg =>{msg.delete(5000).catch(console.error)});
 					}
 					if (embed) {
 						try{
@@ -71,18 +71,18 @@ if(message.attachments.size > 0){
                 "相似程度: " + result[0].match(/<div class="resultsimilarityinfo">(\d+.\d+%)<\/div>/)[1] +
                 "\n```\n" +
                 result[0].replace(/<\/?.+?>/g, "\n").replace(/\n+/g, "\n") +
-                "\n```類似圖片資料!"
-            );
+                "\n```類似圖片資料!\n\n(5秒後自動刪除)"
+            ).then( msg => {msg.delete(5000).catch(console.error)});
         } else if (res.match(/was denied/)) {
-            return message.reply("無法取得圖片! (5秒後自動刪除)").then( msg => {msg.delete(5000)});
+            return message.reply("無法取得圖片! (5秒後自動刪除)").then( msg => {msg.delete(5000).catch(console.error)});
         } else {
-            return message.reply("找不到來源! (5秒後自動刪除)").then( msg => {msg.delete(5000)});
+            return message.reply("找不到來源! (5秒後自動刪除)").then( msg => {msg.delete(5000).catch(console.error)});
         }
     }
 			
 }
 }catch(e){
-	message.reply("今天自動搜尋圖片限額已用完! (5秒後自動刪除)").then(msg => {msg.delete(5000)});
+	message.reply("今天自動搜尋圖片限額已用完! (5秒後自動刪除)").then(msg => {msg.delete(5000).catch(console.error)});
 	console.log("Sauce api limit Exceeded!");}
 
 }catch(e){console.log(e)}
