@@ -16,6 +16,7 @@
 
 	const lv = require('./commands/lv.js');
 	const nHentai = require('./commands/napi.js');
+	const wnacg = require('./commands/wnacg.js');
 	const rps = require('./commands/rps.js');
 	const sync = require('./commands/sync.js');
 	const sauce = require('./commands/sauce.js');
@@ -96,10 +97,12 @@
 	  const url = messageArray[1] ? messageArray[1].replace(/<(.+)>/g, '$1') : '';
 	  const serverQueue = queue.get(message.guild.id);
 	  const napiregex = /(?<=[\[{])(https?:\/\/nhentai\.net\/g\/)?(\d+)\/?.*?(?=[}\]])/gi;
+	  const wnacgregex = /w(\d+)\/?.*?(?=[}\]])?(\d+)\/?/gi;
 	  let commandfile = bot.commands.get(cmd.toLowerCase().slice(prefix.length));
 	  if(commandfile) commandfile.run(bot,message,args);
 	  if(message.guild) lv.run(bot,message,args);
-	  if(message.content.match(napiregex)){nHentai.run(bot,message,args)}else{if(message.channel.id === "655516899832233986"){message.delete()}};
+	  if(message.content.match(napiregex)){nHentai.run(bot,message,args)}else{if(message.content.match(wnacgregex)){}else{if(message.channel.id === "655516899832233986"){message.delete()}}};
+	  if(message.content.match(wnacgregex)){wnacg.run(bot,message,args)}else{if(message.content.match(napiregex)){}else{if(message.channel.id === "655516899832233986"){message.delete()}}};
 	  if(message.content.startsWith('<:xscissors:647687182538113034>') || message.content.startsWith('<:xrock:647687152003579944>') || message.content.startsWith('<:xpaper:647687122727338015>')) rps.run(bot,message,args);
 	  if(message.guild.id === '407171840746848258') sync.run(bot,message,args);
 	  if(message.content.includes("pixiv.net") || message.attachments.size > 0) sauce.run(bot,message,args);
