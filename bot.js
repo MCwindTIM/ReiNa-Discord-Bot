@@ -233,7 +233,7 @@
 				.setTimestamp()
 				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				message.channel.send(embed).then(function(message){
-				message.delete(5000);
+				message.delete(5000).catch(console.error);
 				}).catch(function(err){
 				throw err;
 				});
@@ -1026,7 +1026,7 @@
 				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				message.channel.send(embed)
 				.then(message => {
-					message.delete(5000);
+					message.delete(5000).catch(console.error);
 				}).catch();
 				return;
 			}
@@ -1044,7 +1044,7 @@
 				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 				message.channel.send(embed)
 				.then(message => {
-				message.delete(5000);
+				message.delete(5000).catch(console.error);
 				}).catch();
 				return;
 			}
@@ -1066,7 +1066,7 @@
 			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 			serverQueue.textChannel.send(embed)
 			.then(message => {
-			message.delete(5000);
+			message.delete(5000).catch(console.error);
 			}).catch();
 			serverQueue.voiceChannel.leave();
 			queue.delete(guild.id);
@@ -1099,7 +1099,7 @@
 		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
 		serverQueue.textChannel.send(embed)
 		.then(message => {
-		message.delete(5000);
+		message.delete(5000).catch(console.error);
 		}).catch();
 		let looping = '';
 		if(serverQueue.loop == true){looping = "開啟"}
@@ -1141,7 +1141,7 @@
 				var tks = timeTK.slice(17,19).toString().replace(/[0123456789]/g, m=> numchars[m]);
 				try{
 				await bot.channels.get("660828847096201238").setName("﹥ 𝓙𝓟🕕: " + tkh + ":" + tkm + ":" + tks);
-				}catch(e){console.log(e)}
+				}catch(e){}
 			}
 			if(response === undefined || response.statusCode != 200){}
 		});
@@ -1161,7 +1161,7 @@
 		await bot.channels.get("655499341590560779").setName("﹥ 𝓣𝓸𝓽𝓪𝓵 𝓾𝓼𝓮𝓻𝓼: " + `${alluser}`);
 		await bot.channels.get("655499368136179712").setName(`﹥ 𝓑𝓸𝓽: ${botuser}`);
 		await bot.channels.get("655499422465261569").setName(`﹥ 𝓤𝓼𝓮𝓻: ${memberuser}`);
-		}catch(e){console.log(e)}
+		}catch(e){}
 	}
 
 	function checkuserbot(member){
