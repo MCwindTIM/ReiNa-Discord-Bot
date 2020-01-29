@@ -22,7 +22,7 @@ module.exports.help = {
 function getData(url, message, doujinid){
     superagent.get(url).set('Accept-Language', 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6,zh-CN;q=0.5,und;q=0.4').end((err, res) => {
         let dataArray = [];
-        let TagString = "|";
+        let TagString = "| ";
         if(err){
             console.log(`Error: ${err}`)
         } else {
@@ -67,7 +67,7 @@ function getData(url, message, doujinid){
                 .setTimestamp()
                 .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
                 for(i = 0; i < o; i++){
-                    TagString += `|${dataArray[i]}`;
+                    TagString += `| ${dataArray[i]} `;
                 }
                 embed.addField("標籤", `${TagString}`);
                 try {
