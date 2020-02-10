@@ -213,7 +213,7 @@ module.exports.run = async (bot, message, args) =>{
 					}
 					
 					var rankpic = "";
-					var mmr = parseInt(rawr6data.p_currentmmr)
+					var mmr = parseInt(rawr6data.p_AS_currentmmr)
 					if(mmr === 0){
 						rank = "未排名";
 						rankpic = "https://duckduckdoc.tk/wp-content/uploads/drive/r6rankpic/0.png";
@@ -311,6 +311,10 @@ module.exports.run = async (bot, message, args) =>{
 						rank = "Champion!!! 冠軍階級";
 						rankpic = "https://duckduckdoc.tk/wp-content/uploads/drive/r6rankpic/23.png";
 					}
+					if(rawr6data.p_level < 30){
+						rank = "未排名";
+						rankpic = "https://duckduckdoc.tk/wp-content/uploads/drive/r6rankpic/0.png";
+					}
 					const embed = new Discord.RichEmbed()
 						embed
 						.setAuthor(message.author.tag, message.author.avatarURL)
@@ -322,7 +326,7 @@ module.exports.run = async (bot, message, args) =>{
 						.addField('玩家UID: ', rawr6data.p_name, true)
 						.addField('玩家等級: ', rawr6data.p_level, true)
 						.addField('平台: ', rawr6data.p_platform, true)
-						.addField('現時積分: ', rawr6data.p_currentmmr, true)
+						.addField('現時積分[ASIA]: ', rawr6data.p_AS_currentmmr, true)
 						.addField('玩家排位: ', rank, true)
 						.addField('玩家KD: ', parseInt(rawr6data.kd.toString()) / 100, true)
 						.addField('爆頭率: ', parseInt(rawr6data.p_headshotacc.toString()) / 1000000 + "%", true)
