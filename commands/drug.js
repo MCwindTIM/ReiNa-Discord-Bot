@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>{
 			.setTimestamp()
 			.setDescription(`${message.author}` + "表示")
 			.setImage("https://duckduckdoc.tk/wp-content/uploads/googledrive/drug.gif")
-			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 			try {
 				util.sendDeletableMessage(message.channel, { embed }, message.author);
 			}   catch (err) {

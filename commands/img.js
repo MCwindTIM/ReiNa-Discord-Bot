@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) =>{
                 .setDescription(`${message.author}` + ' Senpai, 你要求的隨機圖片在這。')
                 .setImage(response.request.uri.href)
                 .setTimestamp()
-                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
                 try {
                     util.sendDeletableMessage(message.channel, { embed }, message.author);
             }   catch (err) {

@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) =>{
         message.delete();
         let doujinid = message.content.toString().replace("[w", "").replace("]", "");
         let url = `https://www.wnacg.com/photos-index-aid-${doujinid}.html`
-        getData(url, message, doujinid);
+        getData(url, message, doujinid, bot);
     }
 }
 
@@ -19,7 +19,7 @@ module.exports.help = {
 	show: false
 }
 
-function getData(url, message, doujinid){
+function getData(url, message, doujinid, bot){
     superagent.get(url).set('Accept-Language', 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6,zh-CN;q=0.5,und;q=0.4').end((err, res) => {
         let dataArray = [];
         let TagString = "| ";
@@ -49,7 +49,7 @@ function getData(url, message, doujinid){
                 .setTitle('ReiNa Bot 錯誤')
                 .setURL("https://mcwind.tk")
                 .setTimestamp()
-                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
                 return util.sendDeletableMessage(message.channel, { embed }, message.author);
             }else{
                 dataArray[o+1] = dataArray[o+1].replace("////", "https://");
@@ -65,7 +65,7 @@ function getData(url, message, doujinid){
                 .addField(`分類:`, `${dataArray[o+2]}`)
                 .addField(`頁數:`, `${dataArray[o+3]}`)
                 .setTimestamp()
-                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
                 for(i = 0; i < o; i++){
                     TagString += `| ${dataArray[i]} `;
                 }

@@ -11,7 +11,7 @@ module.exports.run = async (bot, message, args) =>{
         .setURL("https://mcwind.tk")
         .setTimestamp()
         .setDescription("請輸入變數\n\n例如: rn!ipv6 [compress/expand] [ipv6Address]")
-        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
         util.sendDeletableMessage(message.channel, { embed }, message.author);
         return
     }
@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) =>{
         .setURL("https://mcwind.tk")
         .setTimestamp()
         .setDescription("請輸入變數\n\n例如: rn!ipv6 [compress/expand] [ipv6Address]")
-        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
         util.sendDeletableMessage(message.channel, { embed }, message.author);
         return
     }
@@ -42,7 +42,7 @@ module.exports.run = async (bot, message, args) =>{
         .addField('模式', '拓展')
         .addField('提供的Ipv6地址', `${args[1]}`)
         .addField('結果', `${ip}`)
-        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
         util.sendDeletableMessage(message.channel, { embed }, message.author);
         return
         }catch(e){}
@@ -61,7 +61,7 @@ module.exports.run = async (bot, message, args) =>{
             .addField('模式', '壓縮')
             .addField('提供的Ipv6地址', `${args[1]}`)
             .addField('結果', `${ip}`)
-            .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+            .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
             util.sendDeletableMessage(message.channel, { embed }, message.author);
             return
             }catch(e){}

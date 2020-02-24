@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, args) =>{
 					var updatetime2 = updatetime1.replace('<u>', '');
 					var updatetime3 = updatetime2.replace('</u>', '');
 					var updatetime4 = updatetime3.replace('hours', '小時');
-					var updatetime5 = updatetime4.replace('minutes', '分鐘');
+					var updatetime5 = updatetime4.replace('mins', '分鐘');
 					var updatetime6 = updatetime5.replace('days', '日');
 					var updatetime7 = updatetime6.replace('seconds', '秒');
 					var updatetime8 = updatetime7.replace('second', '秒');
@@ -37,6 +37,8 @@ module.exports.run = async (bot, message, args) =>{
 					var updatetime13 = updatetime12.replace(' ago', '前');
 					var updatetime14 = updatetime13.replace('one', '1');
 					var updatetime15 = updatetime14.replace('now', '現在');
+					var updatetime15 = updatetime14.replace('now', '現在');
+					var updatetime16 = updatetime15.replace('few secs', '數秒')
 					
 					
 					var favatt = rawr6data.favattacker.toString();
@@ -342,9 +344,9 @@ module.exports.run = async (bot, message, args) =>{
 						.addField('最常用守方幹員: ', favdefout, true)
 						.addField('自殺次數: ', r6pdataarray[20], true)
 						.addField('PVP遊玩時數(小時): ', Math.floor(pvptime / 60 / 60), true)
-						.addField('數據更新: ', updatetime15, true)
+						.addField('數據更新: ', updatetime16, true)
 						.setTimestamp()
-						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 						try {
 							util.sendDeletableMessage(message.channel, { embed }, message.author);
 						}   catch (err) {
@@ -361,7 +363,7 @@ module.exports.run = async (bot, message, args) =>{
                     .setURL("https://mcwind.tk")
                     .setDescription(`${message.author}` + " Senpai, 沒有找到該位玩家欸!")
 					.setTimestamp()
-                    .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+                    .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
                     try {
                         util.sendDeletableMessage(message.channel, { embed }, message.author);
                     }   catch (err) {
@@ -380,7 +382,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setURL("https://mcwind.tk")
 		.addField('使用方法: ', "rn!r6 [平台] [玩家UID]\n平台輸入 `uplay` `psn` `xbl` 分別為Uplay, PlayStationNetwork, Xbox")
 		.setTimestamp()
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 		try {
 			util.sendDeletableMessage(message.channel, { embed }, message.author);
 		}   catch (err) {

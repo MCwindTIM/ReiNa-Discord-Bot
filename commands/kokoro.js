@@ -4,7 +4,6 @@ const request = require("request-promise");
 const chineseConv = require('chinese-conv');
 
 module.exports.run = async (message) =>{
-	message.delete();
 	try{
 	let kokoro = await request.get('https://v1.hitokoto.cn/');
 	kokoro = JSON.parse(kokoro);
@@ -21,7 +20,7 @@ module.exports.run = async (message) =>{
 	.setTimestamp()
 	.addField('名句', f_kokoro_hitokoto)
 	.addField('出處', f_kokoro_from)
-	.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+	.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 	await util.sendDeletableMessage(message.channel, { embed }, message.author);
 	}catch(e){console.log(e)}
 }

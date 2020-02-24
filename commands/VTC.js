@@ -5,18 +5,18 @@ const cheerio = require('cheerio');
 module.exports.run = async (bot, message, args) =>{
 	let dataArray = [];
 	message.delete();
-	dataArray = getData("https://myportal.vtc.edu.hk/wps/portal/", dataArray, message);
-}
+	dataArray = getData("https://myportal.vtc.edu.hk/wps/portal/", dataArray, message, bot);
+}	
 
 module.exports.help = {
 	name: "vtc",
 	description: "獲取VTC news 資訊",
 	cate: 8,
 	show: true
-	
+		
 }
 
-function getData(url, dataArray, message){
+function getData(url, dataArray, message, bot){
     superagent.get(url).set('Accept-Language', 'zh-TW,zh;q=0.9,en-US;q=0.8,en;q=0.7,ja;q=0.6,zh-CN;q=0.5,und;q=0.4').end((err, res) => {
         if(err){
             console.log(`Error: ${err}`)
@@ -36,7 +36,7 @@ function getData(url, dataArray, message){
 			.setURL("https://mcwind.tk")
 			.setDescription(`${message.author}, senpai~ 已經獲取到VTC 最新的消息了`)
 			.setTimestamp()
-			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 			for(let i = 0; i < dataArray.length; i++){
 				embed.addField(`消息 ${i + 1}`, `${dataArray[i]}`);
 			}

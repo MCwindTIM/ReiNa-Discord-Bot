@@ -12,7 +12,7 @@ const portal = {
 module.exports.run = async (bot, message, args) =>{
 	try{
 	try{
-		if(message.channel.id === "407171840746848260"){return}
+		if(message.channel.id === "407171840746848260" || message.author.bot){return}
 if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g) || message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g)){
 	message.delete();
 	let url;
@@ -22,7 +22,7 @@ if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\
 	let image_id = url.replace(regexreplace, '');
 	if (isNaN(image_id)) return;
 	let illust = await fetchInfo(image_id);
-	return util.sendDeletableMessage(message.channel, {embed: await genEmbed(illust, true)}, message.author);
+	return util.sendDeletableMessage(message.channel, {embed: await genEmbed(illust, true, bot)}, message.author);
 }}catch(e){console.log(e)}
 try{
 if(message.attachments.size > 0){
@@ -42,16 +42,16 @@ if(message.attachments.size > 0){
 					try {
 						switch (true) {
 							case content.indexOf("Pixiv") > -1:
-								embed = await genEmbed(await fetchInfo(i.match(/illust_id=(\d+)/)[1]), true);
+								embed = await genEmbed(await fetchInfo(i.match(/illust_id=(\d+)/)[1]), true, bot);
 								break;
 							case content.indexOf("yande.re") > -1:
-								embed = sgenEmbed("yan", await fetchImg("yan", i.match(/yande\.re\/post\/show\/(\d+)/)[1]));
+								embed = sgenEmbed("yan", await fetchImg("yan", i.match(/yande\.re\/post\/show\/(\d+)/)[1]), bot);
 								break;
 							case content.indexOf("konachan") > -1:
-								embed = sgenEmbed("kon", await fetchImg("kon", i.match(/konachan\.com\/post\/show\/(\d+)/)[1]));
+								embed = sgenEmbed("kon", await fetchImg("kon", i.match(/konachan\.com\/post\/show\/(\d+)/)[1]), bot);
 								break;
 							case content.indexOf("danbooru") > -1:
-								embed = sgenEmbed("dan", await fetchImg("dan", i.match(/danbooru\.donmai\.us\/post\/show\/(\d+)/)[1]));
+								embed = sgenEmbed("dan", await fetchImg("dan", i.match(/danbooru\.donmai\.us\/post\/show\/(\d+)/)[1]), bot);
 								break;
 							default:
 								break;
@@ -101,7 +101,7 @@ async function fetchInfo(image_id) {
     return res && res.illust;
 }
 
-async function genEmbed(illust, show_image = true) {
+async function genEmbed(illust, show_image = true, bot) {
     var embed = new Discord.RichEmbed()
         .setAuthor(
             (illust.title || "Pixiv圖片") + (illust.page_count > 1 ? " (" + illust.page_count + ")" : ""),
@@ -114,7 +114,7 @@ async function genEmbed(illust, show_image = true) {
             "Pixiv 來源: ",
             "[作品id: " + illust.id + "](https://www.pixiv.net/member_illust.php?mode=medium&illust_id=" + illust.id + ")\t[作者: " + illust.user.name + "]( https://www.pixiv.net/member.php?id=" + illust.user.id + ")"
 		)
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487 作品發佈日期:', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487 作品發佈日期:', bot.user.avatarURL);
 		if(illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '').toString().length > 1024 ){
 			embed.addField(
 				"說明: ", "因為字數超過1024, 無法顯示於Discord RichEmbed Field 內!"
@@ -165,7 +165,7 @@ async function fetchImg(prov = "kon", id) {
     return res[0];
 }
 
-function sgenEmbed(prov = "kon", image) {
+function sgenEmbed(prov = "kon", image, bot) {
     if (!Object.keys(image).length) throw new Error("Invalid image " + image);
 
     let embed = new Discord.RichEmbed()
@@ -175,7 +175,7 @@ function sgenEmbed(prov = "kon", image) {
 
         .setTimestamp()
 		.addField("來源: ", (image["source"] == "" ? "(未知)" : image["source"]).toString().replace("i.pximg.net", "i.pixiv.cat"))
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 
 
     if (["kon", "yan"].indexOf(prov) > -1) {

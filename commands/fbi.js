@@ -19,7 +19,7 @@ module.exports.run = async (bot, message, args) =>{
 				.setTitle('FBI 頭10名通緝罪犯')
 				.setURL("https://www.fbi.gov/wanted/topten")
 				.setTimestamp()
-				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 				
 				for (i = 0; i < 10; i++){
 					r = r + 1;

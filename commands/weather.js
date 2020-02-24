@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>{
         .addField(yyyymmdd(obj.weatherForecast[7].forecastDate) + ", " + obj.weatherForecast[7].week, "狀況: " + obj.weatherForecast[7].forecastWeather + "\n" + "風: " + obj.weatherForecast[7].forecastWind + "\n" + "最高溫度: " + obj.weatherForecast[7].forecastMaxtemp.value + " C" + "\n" + "最低溫度: " + obj.weatherForecast[7].forecastMintemp.value + " C")
         .addField(yyyymmdd(obj.weatherForecast[8].forecastDate) + ", " + obj.weatherForecast[8].week, "狀況: " + obj.weatherForecast[8].forecastWeather + "\n" + "風: " + obj.weatherForecast[8].forecastWind + "\n" + "最高溫度: " + obj.weatherForecast[8].forecastMaxtemp.value + " C" + "\n" + "最低溫度: " + obj.weatherForecast[8].forecastMintemp.value + " C")
         .setTimestamp()
-        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048');
+        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
         try {
             util.sendDeletableMessage(message.channel, { embed }, message.author);
         }   catch (err) {

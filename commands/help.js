@@ -10,7 +10,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
 		.setDescription(`${message.author}, senpai~ 請輸入頁數或分類\n\n頁數: *1-8*\n\n分類: *music*`)
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
 		.setTimestamp();
 		try {
 			await util.sendDeletableMessage(message.channel, { embed }, message.author);
@@ -27,7 +27,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
 		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + ` 耐心看完 最後更新2020/01/26\n\n頁數: *${args[0]}*`)
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
 		.setTimestamp();
 		try {
 			embed.addField(`play`, `播放youtube音樂`);
@@ -35,7 +35,7 @@ module.exports.run = async (bot, message, args) =>{
 			embed.addField(`skip`, `跳過現正播放的音樂`);
 			embed.addField(`volume`, `調整音量 預設音量為: *1*`);
 			embed.addField(`shuffle`, `隨機排列播放隊列`);
-			embed.addField(`playnow`, `立刻播放指定音樂`);
+			embed.addField(`playnow`, `立刻播放清單最後一首音樂`);
 			embed.addField(`loop`, `打開/關閉 單曲循環播放功能`);
 			embed.addField(`np`, `顯示現正播放的音樂資料`);
 			embed.addField(`queue`, `顯示播放隊列`);
@@ -56,7 +56,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
 		.setDescription("下面有可以使用的指令哦 請 " + `${message.author}` + ` 耐心看完 最後更新2020/01/26\n\n頁數: *${args[0]}* , 請輸入*rn!help ${parseInt(args[0])+1}* 瀏覽下一頁`)
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
 		.setTimestamp();
 		try {
 			bot.commands.forEach(commands => {
@@ -79,7 +79,7 @@ module.exports.run = async (bot, message, args) =>{
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
 		.setDescription(`${message.author}, senpai~ 請輸入正確的頁數或分類\n\n頁數: *1-8*\n\n分類: *music*`)
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', 'https://cdn.discordapp.com/avatars/418095978273570846/17c96d9ce6c135f7511a001e8584db17.png?size=2048')
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
 		.setTimestamp();
 		try {
 			await util.sendDeletableMessage(message.channel, { embed }, message.author);
