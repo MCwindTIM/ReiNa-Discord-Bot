@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>{
 					var updatetime1 = rawr6data.updatedon.replace('Updated ', '數據更新於 ');
 					var updatetime2 = updatetime1.replace('<u>', '');
 					var updatetime3 = updatetime2.replace('</u>', '');
-					var updatetime4 = updatetime3.replace('hours', '小時');
+					var updatetime4 = updatetime3.replace('hrs', '小時');
 					var updatetime5 = updatetime4.replace('mins', '分鐘');
 					var updatetime6 = updatetime5.replace('days', '日');
 					var updatetime7 = updatetime6.replace('seconds', '秒');
@@ -39,6 +39,7 @@ module.exports.run = async (bot, message, args) =>{
 					var updatetime15 = updatetime14.replace('now', '現在');
 					var updatetime15 = updatetime14.replace('now', '現在');
 					var updatetime16 = updatetime15.replace('few secs', '數秒')
+					var updatetime17 = updatetime16.replace('a', '1')
 					
 					
 					var favatt = rawr6data.favattacker.toString();
@@ -344,7 +345,7 @@ module.exports.run = async (bot, message, args) =>{
 						.addField('最常用守方幹員: ', favdefout, true)
 						.addField('自殺次數: ', r6pdataarray[20], true)
 						.addField('PVP遊玩時數(小時): ', Math.floor(pvptime / 60 / 60), true)
-						.addField('數據更新: ', updatetime16, true)
+						.addField('數據更新: ', updatetime17, true)
 						.setTimestamp()
 						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 						try {

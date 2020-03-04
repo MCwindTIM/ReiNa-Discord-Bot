@@ -1,7 +1,5 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
-const nekoclient = require('nekos.life');
-const neko = new nekoclient();
 module.exports.run = async (bot, message, args) =>{
 	let messageArray = message.content.split(" ");
 	if(messageArray.length === 3){

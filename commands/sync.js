@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
 module.exports.run = async (bot, message, args) =>{
-	if(rnd() >= 50){
+	if(rnd() >= 100){
 		message.react('654652137594290196');
 	}
 if(message.channel.id === '606000578144763914' || message.channel.id === '660789237137932299' || message.channel.id === '660444044345737216'){
