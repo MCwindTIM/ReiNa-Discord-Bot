@@ -5,7 +5,7 @@ module.exports.run = async (bot, message, args) =>{
 	message.delete();
 	let kitisgay = message.mentions.members.first();
 	if(!kitisgay){
-		const embed = new Discord.RichEmbed()
+		let embed = new Discord.RichEmbed()
 		embed
 		.setDescription("請提供@想驗證的用戶")
 		.setColor(0xcc0000)
@@ -82,8 +82,10 @@ module.exports.run = async (bot, message, args) =>{
 		break;
 	}
 	const attachment = new Discord.Attachment(canvas.toBuffer(), '測謊機.png');
-	
-	message.channel.send(`${message.mentions.members.first()}, 請在五秒內輸入認證碼!`, attachment);
+
+	message.channel.send(`${message.mentions.members.first()}, 請在五秒內輸入認證碼!`, attachment).then(message => {
+		message.delete(5000).catch(console.log(error))
+	});
 	try {
 		var response = await message.channel.awaitMessages(message2 => message2.content > captcha - 1 && message2.content < captcha + 1, {
 			maxMatches: 1,
@@ -113,7 +115,7 @@ module.exports.run = async (bot, message, args) =>{
 		}
 		return;
 		}
-	const embed = new Discord.RichEmbed()
+	let embed = new Discord.RichEmbed()
 	embed
 	.setAuthor(message.author.tag, message.author.avatarURL)
 	.setDescription(`${message.mentions.members.first()}` + "通過認證!")
@@ -127,7 +129,7 @@ module.exports.run = async (bot, message, args) =>{
 
 module.exports.help = {
 	name: "lie",
-	description: "測謊機",
+	description: "testing",
 	cate: 8,
 	show: true
 	
