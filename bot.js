@@ -25,7 +25,10 @@
 	const poem = require('./commands/poem.js');
 
 	process.title = 'ReiNaBot';
-	process.on('unhandledRejection', e => {console.log(e)});
+	process.on('unhandledRejection', e => {
+		if(e.code = 'ETIMEDOUT') return;
+		console.log(e);
+	});
 	process.on('uncaughtException', e => {console.log(e)});
 
 	fs.readdir("./commands/", (err, files) =>{
@@ -1245,7 +1248,7 @@
 
 	function moveVC(user){
 		const userVC = user.voiceChannel;
-		const offlineVC = bot.channels.find(x => x.name === "💤隱身/離線");
+		const offlineVC = bot.channels.find(x => x.name === "💤隱身/離線/驗證失敗");
 		if(userVC){
 			try{
 				user.setVoiceChannel(offlineVC);
