@@ -54,12 +54,12 @@ module.exports.run = async (bot, message, args) =>{
 	const numArr = [
 	'〇一二三四五六七八九',
 	'0123456789',
-	'零壹贰叁肆伍陆柒捌玖'
+	'零壹貳叁肆伍陸柒捌玖'
 	];
 
 	const fir = Math.floor(Math.random() * 10);
 	const sec = Math.floor(Math.random() * 10);
-	const operArr = ['加', '减', '乘'];
+	const operArr = ['加', '減', '乘'];
 	const oper = Math.floor(Math.random() * operArr.length);
 
 	drawLine();
