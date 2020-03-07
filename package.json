@@ -1,0 +1,47 @@
+{
+  "name": "reina-bot",
+  "version": "1.0.0",
+  "description": "discord bot for MCwind's Discord Server",
+  "main": "bot.js",
+  "dependencies": {
+    "better-sqlite3": "^5.4.3",
+    "bufferutil": "^4.0.1",
+    "canvas": "^2.6.1",
+    "cheerio": "^1.0.0-rc.3",
+    "chinese-conv": "^1.0.1",
+    "discord.js": "^11.5.1",
+    "ffmpeg-binaries": "^4.0.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "fs-path": "^0.0.24",
+    "hastebin-gen": "^2.0.5",
+    "libsodium-wrappers": "^0.7.6",
+    "mathjs": "^6.2.5",
+    "nekos.life": "^2.0.4",
+    "nhentai-api-js": "^1.1.2",
+    "node-cmd": "^3.0.0",
+    "node-gyp": "^6.0.1",
+    "node-opus": "^0.2.7",
+    "npm": "^6.13.4",
+    "opusscript": "^0.0.6",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5",
+    "simple-youtube-api": "^5.2.1",
+    "snekfetch": "^4.0.4",
+    "superagent": "^5.2.1",
+    "systeminformation": "^4.19.1",
+    "upsidedown": "^0.0.5",
+    "utf-8-validate": "^5.0.2",
+    "ytdl-core": "^1.0.6",
+    "ytdl-core-discord": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.youtube.com/watch?v=ZWZEVpvI1TE"
+  },
+  "author": "MCwind",
+  "license": "MIT"
+}
