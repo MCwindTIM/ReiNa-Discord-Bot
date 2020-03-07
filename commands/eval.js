@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) =>{
                 .setURL("https://mcwind.tk")
                 .setTimestamp()
                 .setDescription(`*處理時間: ${hrDiff[0] > 0 ? `${hrDiff[0]}s` : ''}${hrDiff[1] / 1000000}ms.*`)
-                .addField('輸入', toEval)
+                .addField('輸入', `\`\`\`js\n${toEval}\n\`\`\``)
                 .addField('輸出', `\`\`\`javascript\n${evaluated}\n\`\`\``)
                 .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
                 return util.sendDeletableMessage(message.channel, { embed }, message.author);
