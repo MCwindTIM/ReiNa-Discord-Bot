@@ -126,10 +126,10 @@
 					util.sendDeletableMessage(message.channel, `${message.author}, b...baka!`, message.author);
 					break;
 				case 4:
-					kokoro.run(message);
+					kokoro.run(message, bot);
 					break;
 				case 5:
-					poem.run(message);
+					poem.run(message, bot);
 					break
 			}
 		}
