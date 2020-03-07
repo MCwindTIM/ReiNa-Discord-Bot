@@ -83,8 +83,7 @@ module.exports.run = async (bot, message, args) =>{
 		break;
 	}
 	const attachment = new Discord.Attachment(canvas.toBuffer(), '測謊機.png');
-
-	message.channel.send(`${message.mentions.members.first()}, 請在十秒內輸入認證碼!`, attachment).then(message => {
+	message.channel.send(`${kitisgay}, 請在十秒內輸入算式答案!`, attachment).then(message => {
 		message.delete(10000).catch(console.log(error))
 	});
 	try {
@@ -97,13 +96,16 @@ module.exports.run = async (bot, message, args) =>{
 		const fetched = await message.channel.fetchMessages({limit: 1});
 		message.channel.bulkDelete(fetched)
 	} catch (err) {
+		let png = canvas.createPNGStream();
 		const embed = new Discord.RichEmbed()
 		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${kitisgay}` + "認證碼錯誤 / 超過輸入時間!")
+		.setDescription(`${kitisgay} 認證碼錯誤 / 超過輸入時間! 下面為認證問題!\n\n這麼簡單的運算都想那麼久, ${kitisgay}不是掛機就是弱智!`)
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot 驗證錯誤')
 		.setURL("https://mcwind.tk")
+		.attachFile(new Discord.Attachment(png, 'Q.png'))
+		.setImage("attachment://Q.png")
 		.setTimestamp()
 		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 		util.sendDeletableMessage(message.channel, { embed }, message.author);
@@ -131,7 +133,7 @@ module.exports.run = async (bot, message, args) =>{
 
 module.exports.help = {
 	name: "lie",
-	description: "testing",
+	description: "測謊機 發出認證判斷用戶是否掛機",
 	cate: 8,
 	show: true
 	
