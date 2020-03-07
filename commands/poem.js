@@ -3,7 +3,7 @@ const util = require('../util.js');
 const request = require("request-promise");
 const chineseConv = require('chinese-conv');
 
-module.exports.run = async (message) =>{
+module.exports.run = async (message, bot) =>{
 	try{
 	let O_poem = await request.get('https://v1.jinrishici.com/all.json');
 	O_poem = JSON.parse(O_poem);
