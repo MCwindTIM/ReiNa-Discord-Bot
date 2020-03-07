@@ -261,7 +261,7 @@
 						.setURL("https://mcwind.tk")
 						.setTimestamp()
 						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
-						util.sendDeletableMessage(message.channel, { embed }, message.author);
+						message.channel.send(embed).then(message => { message.delete(10000).catch()})
 						try {
 							var response = await message.channel.awaitMessages(message2 => message2.content > 0 && message2.content < 16, {
 								maxMatches: 1,
