@@ -21,6 +21,7 @@ module.exports.run = async (bot, message, args) =>{
 		}
 		return;
 	}
+	let array = [ kitisgay.id ]
 	const canvas = Canvas.createCanvas(100, 30);
 	const ctx = canvas.getContext('2d');
 	const blankbg = await Canvas.loadImage('./blankbg.jpg');
@@ -83,13 +84,14 @@ module.exports.run = async (bot, message, args) =>{
 	}
 	const attachment = new Discord.Attachment(canvas.toBuffer(), '測謊機.png');
 
-	message.channel.send(`${message.mentions.members.first()}, 請在五秒內輸入認證碼!`, attachment).then(message => {
+	message.channel.send(`${message.mentions.members.first()}, 請在十秒內輸入認證碼!`, attachment).then(message => {
 		message.delete(5000).catch(console.log(error))
 	});
 	try {
-		var response = await message.channel.awaitMessages(message2 => message2.content > captcha - 1 && message2.content < captcha + 1, {
+		const filter = m => m.content > captcha - 1 && m.content < captcha + 1 && array.includes(m.author.id);
+		var response = await message.channel.awaitMessages(filter, {
 			maxMatches: 1,
-			time: 5000,
+			time: 10000,
 			errors: ['time']
 		});
 		const fetched = await message.channel.fetchMessages({limit: 1});
@@ -98,18 +100,18 @@ module.exports.run = async (bot, message, args) =>{
 		const embed = new Discord.RichEmbed()
 		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${message.mentions.members.first()}` + "認證碼錯誤 / 超過輸入時間!")
+		.setDescription(`${kitisgay}` + "認證碼錯誤 / 超過輸入時間!")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot 驗證錯誤')
 		.setURL("https://mcwind.tk")
 		.setTimestamp()
 		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 		util.sendDeletableMessage(message.channel, { embed }, message.author);
-		let userVC =message.mentions.members.first().voiceChannel;
+		let userVC = kitisgay.voiceChannel;
 		let offlineVC = bot.channels.find(x => x.name === "💤隱身/離線/驗證失敗");
 		if(userVC){
 			try{
-				message.mentions.members.first().setVoiceChannel(offlineVC);
+				kitisgay.setVoiceChannel(offlineVC);
 			}
 			catch(e){}
 		}
@@ -118,7 +120,7 @@ module.exports.run = async (bot, message, args) =>{
 	let embed = new Discord.RichEmbed()
 	embed
 	.setAuthor(message.author.tag, message.author.avatarURL)
-	.setDescription(`${message.mentions.members.first()}` + "通過認證!")
+	.setDescription(`${kitisgay}` + "通過認證!")
 	.setColor(0xcc0000)
 	.setTitle('ReiNa Bot')
 	.setURL("https://mcwind.tk")
