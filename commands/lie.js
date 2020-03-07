@@ -21,7 +21,7 @@ module.exports.run = async (bot, message, args) =>{
 		}
 		return;
 	}
-	if(kitisgay.id === '209598158152531968' && message.author.id != '209598158152531968'){
+	if(kitisgay.id === '209598158152531968' && message.author.id != '209598158152531968' && message.guild.id === '398062441516236800'){
 		let embed = new Discord.RichEmbed()
 		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
