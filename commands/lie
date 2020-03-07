@@ -21,6 +21,86 @@ module.exports.run = async (bot, message, args) =>{
 		}
 		return;
 	}
+	if(kitisgay.id === '209598158152531968' && message.author.id != '209598158152531968'){
+		let embed = new Discord.RichEmbed()
+		embed
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${message.author}, 你無法驗證至高無上的萬物のkami!\n\n${kitisgay}, Your highness!\n\n${message.author} 已經從世界中剔除!`)
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		message.member.kick('嘗試驗證至高無上的萬物のkami');
+		return;
+	}
+	if(message.guild.members(kitisgay).presence.status === 'offline'){
+		let embed = new Discord.RichEmbed()
+		embed
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${kitisgay}` + "不是上線狀態, 無法認證掛機用戶!")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		return;
+	}
+	if(message.guild.member(kitisgay).voiceChannel){
+		if(message.guild.member(kitisgay).voiceChannel.id === '398135583890735119'){
+			let embed = new Discord.RichEmbed()
+			embed
+			.setAuthor(message.author.tag, message.author.avatarURL)
+			.setDescription(`${kitisgay}` + "在AFK頻道中, 無法認證掛機用戶!")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+			util.sendDeletableMessage(message.channel, { embed }, message.author);
+			return;
+		}
+		let embed = new Discord.RichEmbed()
+		embed
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${kitisgay}` + "不在語音頻道中, 無法認證掛機用戶!")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		return;
+	}
+	if(!message.member.voiceChannel){
+		let embed = new Discord.RichEmbed()
+		embed
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${message.author}` + "你不在語音頻道中, 無法認證掛機用戶!")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		return;
+	}
+	if(message.member.voiceChannel.id != message.guild.member(kitisgay).voiceChannel.id){
+		let embed = new Discord.RichEmbed()
+		embed
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${message.author}` + "你與要驗證的用戶不在同一個語音頻道中, 無法認證掛機用戶!")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		return;
+	}
+
 	let array = [ kitisgay.id ]
 	const canvas = Canvas.createCanvas(100, 30);
 	const ctx = canvas.getContext('2d');
