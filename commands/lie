@@ -1,0 +1,134 @@
+const Discord = require("discord.js");
+const util = require('../util.js');
+const Canvas = require('canvas');
+module.exports.run = async (bot, message, args) =>{
+	message.delete();
+	let kitisgay = message.mentions.members.first();
+	if(!kitisgay){
+		const embed = new Discord.RichEmbed()
+		embed
+		.setDescription("請提供@想驗證的用戶")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot 錯誤')
+		.setURL("https://mcwind.tk")
+		.addField('使用方法: ', "rn!lie [用戶]")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		try {
+			util.sendDeletableMessage(message.channel, { embed }, message.author);
+		}   catch (err) {
+				console.error(err);
+		}
+		return;
+	}
+	const canvas = Canvas.createCanvas(100, 30);
+	const ctx = canvas.getContext('2d');
+	const blankbg = await Canvas.loadImage('./blankbg.jpg');
+	ctx.drawImage(blankbg, 0, 0, canvas.width, canvas.height);
+	ctx.font = '24px "Microsoft YaHei"';
+
+	let drawText = (text, x) => {
+		ctx.save();
+		const angle = Math.random() / 10;
+		const y = 22;
+		ctx.rotate(angle);
+		ctx.fillText(text, x, y);
+		ctx.restore();
+	}
+
+	let drawLine = () => {
+		const num = Math.floor(Math.random() * 2 + 3);
+
+		for(let i = 0; i < num; i++){
+		const color = '#' + (Math.random() * 0xffffff << 0).toString(16);
+		const y1 = Math.random() * canvas.height;
+		const y2 = Math.random() * canvas.height;
+		ctx.strokeStyle = color;
+		ctx.beginPath();
+		ctx.lineTo(0, y1);
+		ctx.lineTo(canvas.width, y2);
+		ctx.stroke();
+		}
+	}
+
+	const numArr = [
+	'〇一二三四五六七八九',
+	'0123456789',
+	'零壹贰叁肆伍陆柒捌玖'
+	];
+
+	const fir = Math.floor(Math.random() * 10);
+	const sec = Math.floor(Math.random() * 10);
+	const operArr = ['加', '减', '乘'];
+	const oper = Math.floor(Math.random() * operArr.length);
+
+	drawLine();
+	drawText(numArr[Math.floor(Math.random() * numArr.length)][fir], 10);
+	drawText(operArr[oper], 40);
+	drawText(numArr[Math.floor(Math.random() * numArr.length)][sec], 70);
+	drawText('=', 100);
+	drawText('?', 130);
+
+	let captcha;
+	switch(oper) {
+	  case 0: 
+		captcha = fir + sec;
+		break;
+	  case 1:
+		captcha = fir - sec;
+		break;
+	  case 2:
+		captcha = fir * sec;
+		break;
+	}
+	const attachment = new Discord.Attachment(canvas.toBuffer(), '測謊機.png');
+	
+	message.channel.send(`${message.mentions.members.first()}, 請在五秒內輸入認證碼!`, attachment);
+	try {
+		var response = await message.channel.awaitMessages(message2 => message2.content > captcha - 1 && message2.content < captcha + 1, {
+			maxMatches: 1,
+			time: 5000,
+			errors: ['time']
+		});
+		const fetched = await message.channel.fetchMessages({limit: 1});
+		message.channel.bulkDelete(fetched)
+	} catch (err) {
+		const embed = new Discord.RichEmbed()
+		embed
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${message.mentions.members.first()}` + "認證碼錯誤 / 超過輸入時間!")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot 驗證錯誤')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		let userVC =message.mentions.members.first().voiceChannel;
+		let offlineVC = bot.channels.find(x => x.name === "💤隱身/離線/驗證失敗");
+		if(userVC){
+			try{
+				message.mentions.members.first().setVoiceChannel(offlineVC);
+			}
+			catch(e){}
+		}
+		return;
+		}
+	const embed = new Discord.RichEmbed()
+	embed
+	.setAuthor(message.author.tag, message.author.avatarURL)
+	.setDescription(`${message.mentions.members.first()}` + "通過認證!")
+	.setColor(0xcc0000)
+	.setTitle('ReiNa Bot')
+	.setURL("https://mcwind.tk")
+	.setTimestamp()
+	.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+	util.sendDeletableMessage(message.channel, { embed }, message.author);
+}
+
+module.exports.help = {
+	name: "lie",
+	description: "測謊機",
+	cate: 8,
+	show: true
+	
+}
