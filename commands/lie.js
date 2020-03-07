@@ -25,7 +25,7 @@ module.exports.run = async (bot, message, args) =>{
 		let embed = new Discord.RichEmbed()
 		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${message.author}, 你無法驗證至高無上的萬物のkami!\n\n${kitisgay}, Your highness!\n\n${message.author} 已經從世界中剔除!`)
+		.setDescription(`${message.author}, 你無法驗證至高無上的萬物のkami!\n\n${kitisgay} Yes, Your highness!\n\n${message.author} 已經從世界中剔除!`)
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
