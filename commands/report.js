@@ -23,7 +23,7 @@ module.exports.run = async (bot, message, args) =>{
 	.setColor("#15f153")
 	.addField("發起人",`${message.author}, 用戶Discord唯一ID: ${message.author.id}`);
 
-	let reportschannel = message.guild.channels.find(channel => channel.name === "❄・▏𝓡𝓮𝓹𝓸𝓻𝓽𝓼");
+	let reportschannel = message.guild.channels.find(channel => channel.name === "♂・▏𝓡𝓮𝓹𝓸𝓻𝓽𝓼");
 	if(!reportschannel) return message.channel.send("找不到該頻道");
 
 	message.delete().catch(O_o=>{});
