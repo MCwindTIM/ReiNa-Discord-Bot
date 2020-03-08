@@ -6,7 +6,6 @@ module.exports.run = async (bot, message, args) =>{
 	let kitisgay = message.mentions.members.first();
 	if(!kitisgay){
 		let embed = new Discord.RichEmbed()
-		embed
 		.setDescription("請提供@想驗證的用戶")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot 錯誤')
@@ -23,7 +22,6 @@ module.exports.run = async (bot, message, args) =>{
 	}
 	if(kitisgay.id === '209598158152531968' && message.author.id != '209598158152531968' && message.guild.id === '398062441516236800'){
 		let embed = new Discord.RichEmbed()
-		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
 		.setDescription(`${message.author}, 你無法驗證至高無上的萬物のkami!\n\n${kitisgay} Yes, Your highness!\n\n${message.author} 已經從世界中剔除!`)
 		.setColor(0xcc0000)
@@ -35,11 +33,34 @@ module.exports.run = async (bot, message, args) =>{
 		message.member.kick('嘗試驗證至高無上的萬物のkami');
 		return;
 	}
-	if(message.guild.members(kitisgay).presence.status === 'offline'){
+	if(kitisgay.id === message.author.id){
 		let embed = new Discord.RichEmbed()
-		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${kitisgay}` + "不是上線狀態, 無法認證掛機用戶!")
+		.setDescription(`${kitisgay}` + "你不能驗證自己!")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		return;
+	}
+	if(message.guild.member(kitisgay).user.bot){
+		let embed = new Discord.RichEmbed()
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${kitisgay}` + "是一個機械人, 無法驗證該用戶!")
+		.setColor(0xcc0000)
+		.setTitle('ReiNa Bot')
+		.setURL("https://mcwind.tk")
+		.setTimestamp()
+		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+		util.sendDeletableMessage(message.channel, { embed }, message.author);
+		return;
+	}
+	if(message.guild.member(kitisgay).presence.status === 'offline'){
+		let embed = new Discord.RichEmbed()
+		.setAuthor(message.author.tag, message.author.avatarURL)
+		.setDescription(`${kitisgay}` + "不是上線狀態, 無法驗證掛機用戶!")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
@@ -51,9 +72,8 @@ module.exports.run = async (bot, message, args) =>{
 	if(message.guild.member(kitisgay).voiceChannel){
 		if(message.guild.member(kitisgay).voiceChannel.id === '398135583890735119'){
 			let embed = new Discord.RichEmbed()
-			embed
 			.setAuthor(message.author.tag, message.author.avatarURL)
-			.setDescription(`${kitisgay}` + "在AFK頻道中, 無法認證掛機用戶!")
+			.setDescription(`${kitisgay}` + "在AFK頻道中, 無法驗證掛機用戶!")
 			.setColor(0xcc0000)
 			.setTitle('ReiNa Bot')
 			.setURL("https://mcwind.tk")
@@ -63,9 +83,8 @@ module.exports.run = async (bot, message, args) =>{
 			return;
 		}
 		let embed = new Discord.RichEmbed()
-		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${kitisgay}` + "不在語音頻道中, 無法認證掛機用戶!")
+		.setDescription(`${kitisgay}` + "不在語音頻道中, 無法驗證掛機用戶!")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
@@ -76,9 +95,8 @@ module.exports.run = async (bot, message, args) =>{
 	}
 	if(!message.member.voiceChannel){
 		let embed = new Discord.RichEmbed()
-		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${message.author}` + "你不在語音頻道中, 無法認證掛機用戶!")
+		.setDescription(`${message.author}` + "你不在語音頻道中, 無法驗證掛機用戶!")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
@@ -89,9 +107,8 @@ module.exports.run = async (bot, message, args) =>{
 	}
 	if(message.member.voiceChannel.id != message.guild.member(kitisgay).voiceChannel.id){
 		let embed = new Discord.RichEmbed()
-		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${message.author}` + "你與要驗證的用戶不在同一個語音頻道中, 無法認證掛機用戶!")
+		.setDescription(`${message.author}` + "你與要驗證的用戶不在同一個語音頻道中, 無法驗證掛機用戶!")
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot')
 		.setURL("https://mcwind.tk")
@@ -180,7 +197,7 @@ module.exports.run = async (bot, message, args) =>{
 		const embed = new Discord.RichEmbed()
 		embed
 		.setAuthor(message.author.tag, message.author.avatarURL)
-		.setDescription(`${kitisgay} 認證碼錯誤 / 超過輸入時間! 下面為認證問題!\n\n這麼簡單的運算都想那麼久, ${kitisgay}不是掛機就是弱智!`)
+		.setDescription(`${kitisgay} 驗證碼錯誤 / 超過輸入時間! 下面為驗證問題!\n\n這麼簡單的運算都想那麼久, ${kitisgay}不是掛機就是弱智!`)
 		.setColor(0xcc0000)
 		.setTitle('ReiNa Bot 驗證錯誤')
 		.setURL("https://mcwind.tk")
@@ -202,7 +219,7 @@ module.exports.run = async (bot, message, args) =>{
 	let embed = new Discord.RichEmbed()
 	embed
 	.setAuthor(message.author.tag, message.author.avatarURL)
-	.setDescription(`${kitisgay}` + "通過認證!")
+	.setDescription(`${kitisgay}` + "通過驗證!")
 	.setColor(0xcc0000)
 	.setTitle('ReiNa Bot')
 	.setURL("https://mcwind.tk")
@@ -213,7 +230,7 @@ module.exports.run = async (bot, message, args) =>{
 
 module.exports.help = {
 	name: "lie",
-	description: "測謊機 發出認證判斷用戶是否掛機",
+	description: "測謊機 發出驗證判斷用戶是否掛機",
 	cate: 8,
 	show: true
 	
