@@ -9,83 +9,113 @@ const portal = {
 	dan: "https://danbooru.donmai.us"
 }
 
-module.exports.run = async (bot, message, args) =>{
-	try{
-	try{
-		if(message.channel.id === "407171840746848260" || message.author.bot){return}
-if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g) || message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g)){
-	message.delete();
-	let url;
-	let regexreplace;
-	if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g)){url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g).toString();regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\//g;}
-	if(message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g)){url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g).toString();regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\//g;}
-	let image_id = url.replace(regexreplace, '');
-	if (isNaN(image_id)) return;
-	let illust = await fetchInfo(image_id);
-	return util.sendDeletableMessage(message.channel, {embed: await genEmbed(illust, true, bot)}, message.author);
-}}catch(e){console.log(e)}
-try{
-if(message.attachments.size > 0){
-	let loopi;
-	for (loopi=0;loopi<message.attachments.size;loopi++){
-		if(message.attachments.every(attachIsImage)){
-			let res = await request.get("http://saucenao.com/search.php?db=999&api=" + saucetoken + "&url=" + message.attachments.array()[loopi].url);
-			let result = res.match(/<table class="resulttable">.+?<\/table>/);
-			if (result) {
-				let i = result[0];
-				let sim = i.match(/<div class="resultsimilarityinfo">(\d+.\d+%)<\/div>/)[1];
-				let title = i.match(/<div class="resulttitle"><strong>(.+?)<\/strong>/)[1];
-	
-				let contents = i.match(/<div class="(resultcontentcolumn|resultmiscinfo)">(.+?)<\/div>/g);
-				for (let content of contents) {
-					let embed;
-					try {
-						switch (true) {
-							case content.indexOf("Pixiv") > -1:
-								embed = await genEmbed(await fetchInfo(i.match(/illust_id=(\d+)/)[1]), true, bot);
-								break;
-							case content.indexOf("yande.re") > -1:
-								embed = sgenEmbed("yan", await fetchImg("yan", i.match(/yande\.re\/post\/show\/(\d+)/)[1]), bot);
-								break;
-							case content.indexOf("konachan") > -1:
-								embed = sgenEmbed("kon", await fetchImg("kon", i.match(/konachan\.com\/post\/show\/(\d+)/)[1]), bot);
-								break;
-							case content.indexOf("danbooru") > -1:
-								embed = sgenEmbed("dan", await fetchImg("dan", i.match(/danbooru\.donmai\.us\/post\/show\/(\d+)/)[1]), bot);
-								break;
-							default:
-								break;
-						}
-					} catch (e) {
-						return message.reply(e.message + "\n如果不是要搜尋圖片, 不用理會!" + "   (5秒後自動刪除)").then(msg =>{msg.delete(5000).catch(console.error)});
-					}
-					if (embed) {
-						try{
-						embed.addField("相似程度:", `${sim}`);
-						}catch(e){console.log(e)};
-						return util.sendDeletableMessage(message.channel, { embed }, message.author);
-					}
-				}
-			}
-            return message.channel.send(
-                "相似程度: " + result[0].match(/<div class="resultsimilarityinfo">(\d+.\d+%)<\/div>/)[1] +
-                "\n```\n" +
-                result[0].replace(/<\/?.+?>/g, "\n").replace(/\n+/g, "\n") +
-                "\n```類似圖片資料!\n\n(5秒後自動刪除)"
-            ).then( msg => {msg.delete(5000).catch(console.error)});
-        } else if (res.match(/was denied/)) {
-            return message.reply("無法取得圖片! (5秒後自動刪除)").then( msg => {msg.delete(5000).catch(console.error)});
-        } else {
-            return message.reply("找不到來源! (5秒後自動刪除)").then( msg => {msg.delete(5000).catch(console.error)});
+module.exports.run = async (bot, message, args) => {
+    try {
+        try {
+            if (message.channel.id === "407171840746848260" || message.author.bot) {
+                return
+            }
+            if (message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g) || message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g)) {
+                message.delete();
+                let url;
+                let regexreplace;
+                if (message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g)) {
+                    url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\/[0-9()]{1,15}/g).toString();
+                    regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/artworks\//g;
+                }
+                if (message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g)) {
+                    url = message.content.match(/https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\/[0-9()]{1,15}/g).toString();
+                    regexreplace = /https?:\/\/(www\.)?[pixiv]{1,256}\.[a-zA-Z0-9()]{1,6}\b\/[a-zA-Z][a-zA-Z]\/artworks\//g;
+                }
+                let image_id = url.replace(regexreplace, '');
+                if (isNaN(image_id)) return;
+                let illust = await fetchInfo(image_id);
+                return util.sendDeletableMessage(message.channel, {
+                    embed: await genEmbed(illust, true, bot)
+                }, message.author);
+            }
+        } catch (e) {
+            console.log(e)
         }
-    }
-			
-}
-}catch(e){
-	message.reply("今天自動搜尋圖片限額已用完! (5秒後自動刪除)").then(msg => {msg.delete(5000).catch(console.error)});
-	console.log("Sauce api limit Exceeded!");}
+        try {
+            if (message.attachments.size > 0 && message.content.includes('來源')) {
+                let loopi;
+                for (loopi = 0; loopi < message.attachments.size; loopi++) {
+                    if (message.attachments.every(attachIsImage)) {
+                        let res = await request.get("http://saucenao.com/search.php?db=999&api=" + saucetoken + "&url=" + message.attachments.array()[loopi].url);
+                        let result = res.match(/<table class="resulttable">.+?<\/table>/);
+                        if (result) {
+                            let i = result[0];
+                            let sim = i.match(/<div class="resultsimilarityinfo">(\d+.\d+%)<\/div>/)[1];
+                            let title = i.match(/<div class="resulttitle"><strong>(.+?)<\/strong>/)[1];
 
-}catch(e){console.log(e)}
+                            let contents = i.match(/<div class="(resultcontentcolumn|resultmiscinfo)">(.+?)<\/div>/g);
+                            for (let content of contents) {
+                                let embed;
+                                try {
+                                    switch (true) {
+                                        case content.indexOf("Pixiv") > -1:
+                                            embed = await genEmbed(await fetchInfo(i.match(/illust_id=(\d+)/)[1]), true, bot);
+                                            break;
+                                        case content.indexOf("yande.re") > -1:
+                                            embed = sgenEmbed("yan", await fetchImg("yan", i.match(/yande\.re\/post\/show\/(\d+)/)[1]), bot);
+                                            break;
+                                        case content.indexOf("konachan") > -1:
+                                            embed = sgenEmbed("kon", await fetchImg("kon", i.match(/konachan\.com\/post\/show\/(\d+)/)[1]), bot);
+                                            break;
+                                        case content.indexOf("danbooru") > -1:
+                                            embed = sgenEmbed("dan", await fetchImg("dan", i.match(/danbooru\.donmai\.us\/post\/show\/(\d+)/)[1]), bot);
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                } catch (e) {
+                                    return message.reply(e.message + "\n如果不是要搜尋圖片, 不用理會!" + "   (5秒後自動刪除)").then(msg => {
+                                        msg.delete(5000).catch(console.error)
+                                    });
+                                }
+                                if (embed) {
+                                    try {
+                                        embed.addField("相似程度:", `${sim}`);
+                                    } catch (e) {
+                                        console.log(e)
+                                    };
+                                    return util.sendDeletableMessage(message.channel, {
+                                        embed
+                                    }, message.author);
+                                }
+                            }
+                        }
+                        return message.channel.send(
+                            "相似程度: " + result[0].match(/<div class="resultsimilarityinfo">(\d+.\d+%)<\/div>/)[1] +
+                            "\n```\n" +
+                            result[0].replace(/<\/?.+?>/g, "\n").replace(/\n+/g, "\n") +
+                            "\n```類似圖片資料!\n\n(5秒後自動刪除)"
+                        ).then(msg => {
+                            msg.delete(5000).catch(console.error)
+                        });
+                    } else if (res.match(/was denied/)) {
+                        return message.reply("無法取得圖片! (5秒後自動刪除)").then(msg => {
+                            msg.delete(5000).catch(console.error)
+                        });
+                    } else {
+                        return message.reply("找不到來源! (5秒後自動刪除)").then(msg => {
+                            msg.delete(5000).catch(console.error)
+                        });
+                    }
+                }
+
+            }
+        } catch (e) {
+            message.reply("今天自動搜尋圖片限額已用完! (5秒後自動刪除)").then(msg => {
+                msg.delete(5000).catch(console.error)
+            });
+            console.log("Sauce api limit Exceeded!");
+        }
+
+    } catch (e) {
+        console.log(e)
+    }
 }
 
 module.exports.help = {
