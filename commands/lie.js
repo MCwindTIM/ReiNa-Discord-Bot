@@ -69,7 +69,7 @@ module.exports.run = async (bot, message, args) =>{
 		util.sendDeletableMessage(message.channel, { embed }, message.author);
 		return;
 	}
-	if(message.guild.member(kitisgay).voiceChannel){
+	if(!message.guild.member(kitisgay).voiceChannel){
 		if(message.guild.member(kitisgay).voiceChannel.id === '398135583890735119'){
 			let embed = new Discord.RichEmbed()
 			.setAuthor(message.author.tag, message.author.avatarURL)
