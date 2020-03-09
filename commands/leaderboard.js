@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
 const SQLite = require("better-sqlite3");
-const sql = new SQLite('./scores.sqlite');
+const sql = new SQLite('../scores.sqlite');
 module.exports.run = async (bot, message, args) =>{
 	message.delete();
 	const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10;").all(message.guild.id);
-	const embed = new Discord.RichEmbed()
+	let embed = new Discord.RichEmbed()
 	embed
 	.setAuthor(message.author.tag, message.author.avatarURL)
 	.setDescription(`${message.author}, 這個是分數榜前十名!`)
