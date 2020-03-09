@@ -121,7 +121,7 @@ module.exports.run = async (bot, message, args) =>{
 	let array = [ kitisgay.id ]
 	const canvas = Canvas.createCanvas(100, 30);
 	const ctx = canvas.getContext('2d');
-	const blankbg = await Canvas.loadImage('./blankbg.jpg');
+	const blankbg = await Canvas.loadImage('./images/blankbg.jpg');
 	ctx.drawImage(blankbg, 0, 0, canvas.width, canvas.height);
 	ctx.font = '24px "Microsoft YaHei"';
 
