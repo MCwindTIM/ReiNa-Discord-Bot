@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
 const SQLite = require("better-sqlite3");
-const sql = new SQLite('./scores.sqlite');
+const sql = new SQLite('../scores.sqlite');
 module.exports.run = async (bot, message, args) =>{
     bot.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
 	let score;
