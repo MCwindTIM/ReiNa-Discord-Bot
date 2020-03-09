@@ -979,7 +979,7 @@
 		const canvas = Canvas.createCanvas(700, 250);
 		const ctx = canvas.getContext('2d');
 
-		const bg = await Canvas.loadImage('./wallpaper.jpg');
+		const bg = await Canvas.loadImage('./images/wallpaper.jpg');
 
 		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 		ctx.strokeStyle = '#74037b';
