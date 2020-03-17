@@ -39,7 +39,8 @@ module.exports.run = async (bot, message, args) =>{
 					var updatetime15 = updatetime14.replace('now', '現在');
 					var updatetime15 = updatetime14.replace('now', '現在');
 					var updatetime16 = updatetime15.replace('few secs', '數秒')
-					var updatetime17 = updatetime16.replace('a', '1')
+					var updatetime17 = updatetime16.replace('Not Updated (Ubisoft Connection Error)', 'Ubisoft 連線錯誤')
+					var updatetime18 = updatetime17.replace('a', '1')
 					
 					
 					var favatt = rawr6data.favattacker.toString();
@@ -345,7 +346,7 @@ module.exports.run = async (bot, message, args) =>{
 						.addField('最常用守方幹員: ', favdefout, true)
 						.addField('自殺次數: ', r6pdataarray[20], true)
 						.addField('PVP遊玩時數(小時): ', Math.floor(pvptime / 60 / 60), true)
-						.addField('數據更新: ', updatetime17, true)
+						.addField('數據更新: ', updatetime18, true)
 						.setTimestamp()
 						.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 						try {
@@ -395,7 +396,7 @@ module.exports.run = async (bot, message, args) =>{
 
 module.exports.help = {
 	name: "r6",
-	description: "請求Rainbow Six 用戶資料",
+	description: "請求 Rainbow Six 用戶資料",
 	cate: 6,
 	show: true
 }

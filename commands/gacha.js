@@ -5,7 +5,7 @@ const Canvas = require('canvas');
 module.exports.run = async (bot, message, args) =>{
 		message.delete();
 		if(args[0] === "1"){
-		await snek.get(`https://duckduckdoc.tk/nobuDB-master/gatcha.json`).then(r => {
+		snek.get(`https://duckduckdoc.tk/nobuDB-master/gatcha.json`).then(r => {
 			r = r.body;
 			  const canvas = Canvas.createCanvas(129, 222);
 			  const ctx = canvas.getContext('2d');
@@ -14,7 +14,7 @@ module.exports.run = async (bot, message, args) =>{
 			  });
 		  });
 		}else{
-			await snek.get(`https://duckduckdoc.tk/nobuDB-master/gatcha.json`).then(r => {
+			snek.get(`https://duckduckdoc.tk/nobuDB-master/gatcha.json`).then(r => {
 				r = r.body;
 				const canvas = Canvas.createCanvas(645, 444);
 				const ctx = canvas.getContext('2d');
