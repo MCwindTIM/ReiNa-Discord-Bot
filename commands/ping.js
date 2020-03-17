@@ -1,7 +1,7 @@
 const Discord = require("discord.js");
 const util = require('../util.js');
-module.exports.run = async (bot, message, args) =>{
-    message.delete(); 
+module.exports.run = async (bot, message, args) => {
+    message.delete();
     let totalSeconds = (bot.uptime / 1000);
     let days = Math.floor(totalSeconds / 86400);
     totalSeconds %= 86400;
@@ -15,16 +15,18 @@ module.exports.run = async (bot, message, args) =>{
     let time = `${new Date().getTime() - message.createdTimestamp}ms`;
     const embed = new Discord.RichEmbed()
     embed
-    .setAuthor(message.author.tag, message.author.avatarURL)
-    .setDescription(`${message.author} senpai, 我花了${time} 才收到你的信息\n\n我與DiscordAPI的網絡時延是: ${Math.floor(bot.ping)}ms\n\n我已經上線運行了: ${uptime}`)
-    .setColor(0xcc0000)
-    .setTitle('ReiNa Bot')
-    .setURL("https://mcwind.tk")
-    .setTimestamp()
-    .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setDescription(`${message.author} senpai, 我花了${time} 才收到你的信息\n\n我與DiscordAPI的網絡時延是: ${Math.floor(bot.ping)}ms\n\n我已經上線運行了: ${uptime}`)
+        .setColor(0xcc0000)
+        .setTitle('ReiNa Bot')
+        .setURL("https://mcwind.tk")
+        .setTimestamp()
+        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
     try {
-        await util.sendDeletableMessage(message.channel, { embed }, message.author);
-    }   catch (err) {
+        await util.sendDeletableMessage(message.channel, {
+            embed
+        }, message.author);
+    } catch (err) {
         console.error(err);
     }
 }
@@ -33,5 +35,5 @@ module.exports.help = {
     name: "ping",
     description: "Ping!",
     cate: 5,
-	show: true
+    show: true
 }

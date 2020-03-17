@@ -4,9 +4,9 @@ const botconfig = require('../botconfig.json');
 const request = require("request-promise");
 const saucetoken = botconfig.sauceapi;
 const portal = {
-	kon: "http://konachan.net",
-	yan: "https://yande.re",
-	dan: "https://danbooru.donmai.us"
+    kon: "http://konachan.net",
+    yan: "https://yande.re",
+    dan: "https://danbooru.donmai.us"
 }
 
 module.exports.run = async (bot, message, args) => {
@@ -119,15 +119,15 @@ module.exports.run = async (bot, message, args) => {
 }
 
 module.exports.help = {
-	name: "sauce¿",
-	description: "尋找圖片來源",
-	cate: 6,
-	show: false
+    name: "sauce¿",
+    description: "尋找圖片來源",
+    cate: 6,
+    show: false
 }
 
 async function fetchInfo(image_id) {
     var res = await req2json("https://api.imjad.cn/pixiv/v2/?id=" + image_id);
-	if (!res || !res.illust) throw new Error("ID: " + image_id + ", 找不到來源!");
+    if (!res || !res.illust) throw new Error("ID: " + image_id + ", 找不到來源!");
     return res && res.illust;
 }
 
@@ -143,17 +143,18 @@ async function genEmbed(illust, show_image = true, bot) {
         .addField(
             "Pixiv 來源: ",
             "[作品id: " + illust.id + "](https://www.pixiv.net/member_illust.php?mode=medium&illust_id=" + illust.id + ")\t[作者: " + illust.user.name + "]( https://www.pixiv.net/member.php?id=" + illust.user.id + ")"
-		)
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487 作品發佈日期:', bot.user.avatarURL);
-		if(illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '').toString().length > 1024 ){
-			embed.addField(
-				"說明: ", "因為字數超過1024, 無法顯示於Discord RichEmbed Field 內!"
-			)
-		}else{
-			embed.addField(
-				"說明: ",
-				illust.caption ? illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '') : "(無)"
-		)}
+        )
+        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487 作品發佈日期:', bot.user.avatarURL);
+    if (illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '').toString().length > 1024) {
+        embed.addField(
+            "說明: ", "因為字數超過1024, 無法顯示於Discord RichEmbed Field 內!"
+        )
+    } else {
+        embed.addField(
+            "說明: ",
+            illust.caption ? illust.caption.replace(/<br \/>/g, "\n").replace(/<(.|\n)*?>/g, '') : "(無)"
+        )
+    }
     return embed;
 }
 
@@ -163,31 +164,39 @@ function pimg(url) {
     return url.replace("i.pximg.net", "i.pixiv.cat");
 }
 
-async function req(url, json = false){
-	if (url == null) {
-		return null;
-	}
+async function req(url, json = false) {
+    if (url == null) {
+        return null;
+    }
 
-	const options = {
-		method: "GET",
-		uri: url,
-		json: json
-	}
+    const options = {
+        method: "GET",
+        uri: url,
+        json: json
+    }
 
-	return request(options);
+    return request(options);
 }
 
-async function req2json(url){
-	return req(url, true);
+async function req2json(url) {
+    return req(url, true);
 }
 
-function attachIsImage(msgAttach){
-	let url = msgAttach.url;
-	if(url.indexOf("png", url.length - "png".length) !== -1){return true}
-	if(url.indexOf("jpg", url.length - "jpg".length) !== -1){return true}
-	if(url.indexOf("gif", url.length - "gif".length) !== -1){return true}
-	if(url.indexOf("jpeg", url.length - "jpeg".length) !== -1){return true}
-	return false
+function attachIsImage(msgAttach) {
+    let url = msgAttach.url;
+    if (url.indexOf("png", url.length - "png".length) !== -1) {
+        return true
+    }
+    if (url.indexOf("jpg", url.length - "jpg".length) !== -1) {
+        return true
+    }
+    if (url.indexOf("gif", url.length - "gif".length) !== -1) {
+        return true
+    }
+    if (url.indexOf("jpeg", url.length - "jpeg".length) !== -1) {
+        return true
+    }
+    return false
 }
 
 async function fetchImg(prov = "kon", id) {
@@ -204,8 +213,8 @@ function sgenEmbed(prov = "kon", image, bot) {
         .setDescription("[ID: " + image["id"] + "](" + portal[prov] + "/post/show/" + image["id"] + ")")
 
         .setTimestamp()
-		.addField("來源: ", (image["source"] == "" ? "(未知)" : image["source"]).toString().replace("i.pximg.net", "i.pixiv.cat"))
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+        .addField("來源: ", (image["source"] == "" ? "(未知)" : image["source"]).toString().replace("i.pximg.net", "i.pixiv.cat"))
+        .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
 
 
     if (["kon", "yan"].indexOf(prov) > -1) {

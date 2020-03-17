@@ -5,12 +5,12 @@ const nHentaiAPI = require('nhentai-api-js');
 
 let napi = new nHentaiAPI();
 
-module.exports.run = async (bot, message, args) =>{
+module.exports.run = async (bot, message, args) => {
     let messageArray = message.content.split(" ");
-    if(message.content.startsWith("[") && message.content.endsWith("]")){
+    if (message.content.startsWith("[") && message.content.endsWith("]")) {
         message.delete();
         let doujinid = messageArray[0].toString().replace("[", "").replace("]", "");
-        napi.g(doujinid).then(gallery =>{
+        napi.g(doujinid).then(gallery => {
             var i;
             var napitagString = "| ";
             var napiartistString = "| ";
@@ -19,26 +19,26 @@ module.exports.run = async (bot, message, args) =>{
             var napicategoryString = "| ";
             var napigroupString = "| ";
             var napilanguageString = "| ";
-            for(i = 0; i < gallery.tags.length; i++){
-                if(gallery.tags[i].type === "tag"){
+            for (i = 0; i < gallery.tags.length; i++) {
+                if (gallery.tags[i].type === "tag") {
                     napitagString += " | " + gallery.tags[i].name
                 }
-                if(gallery.tags[i].type === "artist"){
+                if (gallery.tags[i].type === "artist") {
                     napiartistString += " | " + gallery.tags[i].name
                 }
-                if(gallery.tags[i].type === "language"){
+                if (gallery.tags[i].type === "language") {
                     napilanguageString += " | " + gallery.tags[i].name
                 }
-                if(gallery.tags[i].type === "group"){
+                if (gallery.tags[i].type === "group") {
                     napigroupString += " | " + gallery.tags[i].name
                 }
-                if(gallery.tags[i].type === "category"){
+                if (gallery.tags[i].type === "category") {
                     napicategoryString += " | " + gallery.tags[i].name
                 }
-                if(gallery.tags[i].type === "parody"){
+                if (gallery.tags[i].type === "parody") {
                     napiparodyString += " | " + gallery.tags[i].name
                 }
-                if(gallery.tags[i].type === "character"){
+                if (gallery.tags[i].type === "character") {
                     napicharacterString += " | " + gallery.tags[i].name
                 }
             }
@@ -46,10 +46,10 @@ module.exports.run = async (bot, message, args) =>{
             napilanguageString = napilanguageString.replace("chinese", "漢語");
             napilanguageString = napilanguageString.replace("english", "英語");
             napilanguageString = napilanguageString.replace("translated", "翻譯");
-            
+
             napicategoryString = napicategoryString.replace("doujinshi", "同人本");
             napicategoryString = napicategoryString.replace("manga", "漫畫");
-            
+
             napitagString = napitagString.replace("full color", "全彩");
             napitagString = napitagString.replace("twintails", "雙馬尾");
             napitagString = napitagString.replace("lolicon", "蘿莉控");
@@ -130,12 +130,12 @@ module.exports.run = async (bot, message, args) =>{
             napitagString = napitagString.replace("tanlines", "曬痕");
             napitagString = napitagString.replace("deepthroat", "深喉");
             napitagString = napitagString.replace("swimsuit", "泳衣");
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
             napiparodyString = napiparodyString.replace("kantai collection", "艦隊收藏");
             napiparodyString = napiparodyString.replace("touhou project", "東方");
             napiparodyString = napiparodyString.replace("fate grand order", "Fate/Grand Order");
@@ -147,8 +147,8 @@ module.exports.run = async (bot, message, args) =>{
             napiparodyString = napiparodyString.replace("hataraku saibou", "工作細胞");
             napiparodyString = napiparodyString.replace("zombie land saga", "佐賀偶像是傳奇");
             napiparodyString = napiparodyString.replace("original", "原創");
-            
-            
+
+
             napicharacterString = napicharacterString.replace("teitoku", "提督");
             napicharacterString = napicharacterString.replace("hibiki", "嚮");
             napicharacterString = napicharacterString.replace("gudao", "咕噠/藤丸立香");
@@ -170,76 +170,81 @@ module.exports.run = async (bot, message, args) =>{
             napicharacterString = napicharacterString.replace("junko konno", "紺野純子");
             napicharacterString = napicharacterString.replace("ai mizuno", "水野愛");
             napicharacterString = napicharacterString.replace("carmilla", "卡蜜拉");
-            
-            
+
+
             request.get("https://i.nhentai.net/galleries/" + gallery.media_id + "/1.png", {},
-            function(error, response, cover){
-                if(response.statusCode == 404){
-                    var coverlink = "https://i.nhentai.net/galleries/" + gallery.media_id + "/1.jpg";
-                    const embed = new Discord.RichEmbed()
-                    embed
-                    .setAuthor(message.author.tag, message.author.avatarURL)
-                    .setDescription(`${message.author}, 你要求查詢的資料找到了!`)
-                    .setColor(0xcc0000)
-                    .setTitle("點我進入新世界!!!")
-                    .setURL("https://nhentai.net/g/" + gallery.id)
-                    .setThumbnail(coverlink)
-                    .setTimestamp()
-                    .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
-                    .addField(gallery.title.japanese, "(･ω<)☆")
-                    .addField("原作: ", napiparodyString)
-                    .addField("角色: ", napicharacterString)
-                    .addField("標籤: ", napitagString)
-                    .addField("作者: ", napiartistString)
-                    .addField("團隊: ", napigroupString)
-                    .addField("語言: ", napilanguageString)
-                    .addField("分類: ", napicategoryString)
-                    .addField("頁數: ", gallery.num_pages);
-                    try {
-                        util.sendDeletableMessage(message.channel, { embed }, message.author);
-                    }   catch (err) {
+                function (error, response, cover) {
+                    if (response.statusCode == 404) {
+                        var coverlink = "https://i.nhentai.net/galleries/" + gallery.media_id + "/1.jpg";
+                        const embed = new Discord.RichEmbed()
+                        embed
+                            .setAuthor(message.author.tag, message.author.avatarURL)
+                            .setDescription(`${message.author}, 你要求查詢的資料找到了!`)
+                            .setColor(0xcc0000)
+                            .setTitle("點我進入新世界!!!")
+                            .setURL("https://nhentai.net/g/" + gallery.id)
+                            .setThumbnail(coverlink)
+                            .setTimestamp()
+                            .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
+                            .addField(gallery.title.japanese, "(･ω<)☆")
+                            .addField("原作: ", napiparodyString)
+                            .addField("角色: ", napicharacterString)
+                            .addField("標籤: ", napitagString)
+                            .addField("作者: ", napiartistString)
+                            .addField("團隊: ", napigroupString)
+                            .addField("語言: ", napilanguageString)
+                            .addField("分類: ", napicategoryString)
+                            .addField("頁數: ", gallery.num_pages);
+                        try {
+                            util.sendDeletableMessage(message.channel, {
+                                embed
+                            }, message.author);
+                        } catch (err) {
                             console.error(err);
-                    }
-                }
-                else{
-                    var coverlink = "https://i.nhentai.net/galleries/" + gallery.media_id + "/1.png";
-                    const embed = new Discord.RichEmbed()
-                    embed
-                    .setAuthor(message.author.tag, message.author.avatarURL)
-                    .setDescription(`${message.author}, 你要求查詢的資料找到了!`)
-                    .setColor(0xcc0000)
-                    .setTitle("點我進入新世界!!!")
-                    .setURL("https://nhentai.net/g/" + gallery.id)
-                    .setThumbnail(coverlink)
-                    .setTimestamp()
-                    .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
-                    .addField(gallery.title.japanese, "(･ω<)☆")
-                    .addField("原作: ", napiparodyString)
-                    .addField("角色: ", napicharacterString)
-                    .addField("標籤: ", napitagString)
-                    .addField("作者: ", napiartistString)
-                    .addField("團隊: ", napigroupString)
-                    .addField("語言: ", napilanguageString)
-                    .addField("分類: ", napicategoryString)
-                    .addField("頁數: ", gallery.num_pages);
-                    try {
-                        util.sendDeletableMessage(message.channel, { embed }, message.author);
-                    }   catch (err) {
+                        }
+                    } else {
+                        var coverlink = "https://i.nhentai.net/galleries/" + gallery.media_id + "/1.png";
+                        const embed = new Discord.RichEmbed()
+                        embed
+                            .setAuthor(message.author.tag, message.author.avatarURL)
+                            .setDescription(`${message.author}, 你要求查詢的資料找到了!`)
+                            .setColor(0xcc0000)
+                            .setTitle("點我進入新世界!!!")
+                            .setURL("https://nhentai.net/g/" + gallery.id)
+                            .setThumbnail(coverlink)
+                            .setTimestamp()
+                            .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL)
+                            .addField(gallery.title.japanese, "(･ω<)☆")
+                            .addField("原作: ", napiparodyString)
+                            .addField("角色: ", napicharacterString)
+                            .addField("標籤: ", napitagString)
+                            .addField("作者: ", napiartistString)
+                            .addField("團隊: ", napigroupString)
+                            .addField("語言: ", napilanguageString)
+                            .addField("分類: ", napicategoryString)
+                            .addField("頁數: ", gallery.num_pages);
+                        try {
+                            util.sendDeletableMessage(message.channel, {
+                                embed
+                            }, message.author);
+                        } catch (err) {
                             console.error(err);
+                        }
                     }
-                }
-            });
-        }).catch((e) =>{
+                });
+        }).catch((e) => {
             const embed = new Discord.RichEmbed()
-			embed
-			.setAuthor(message.author.tag, message.author.avatarURL)
-			.setDescription(`${message.author}, ` + `😭這塊車牌我找不到資料\n\n車牌號碼: ` + "`" + `${doujinid}` + "`")
-			.setColor(0xcc0000)
-			.setTitle('ReiNa Bot 錯誤')
-			.setURL("https://mcwind.tk")
-			.setTimestamp()
-			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
-            return util.sendDeletableMessage(message.channel, { embed }, message.author);
+            embed
+                .setAuthor(message.author.tag, message.author.avatarURL)
+                .setDescription(`${message.author}, ` + `😭這塊車牌我找不到資料\n\n車牌號碼: ` + "`" + `${doujinid}` + "`")
+                .setColor(0xcc0000)
+                .setTitle('ReiNa Bot 錯誤')
+                .setURL("https://mcwind.tk")
+                .setTimestamp()
+                .setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+            return util.sendDeletableMessage(message.channel, {
+                embed
+            }, message.author);
         });
     }
 }
@@ -248,5 +253,5 @@ module.exports.help = {
     name: "nHentai¿",
     description: "nhentai api",
     cate: 5,
-	show: false
+    show: false
 }
