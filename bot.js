@@ -1023,6 +1023,15 @@
 			ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
 			const avatar = await Canvas.loadImage(member.user.displayAvatarURL);
 			ctx.drawImage(avatar, 150, 30, 150, 150);
+			var pixels = ctx.getImageData(150, 30, 150, 150);
+			var pixeldata = pixels.data;
+			for(var i = 0;i < pixeldata.length;i += 4){ 
+				var grey = Math.floor(( pixels.data[i] + pixels.data[i+1] + pixels.data[i+2])/3); 
+					pixels.data[i] = grey; 
+					pixels.data[i+1] = grey; 
+					pixels.data[i+2] = grey;
+			}
+			ctx.putImageData(pixels, 150, 30);
 			const attachment = new Discord.Attachment(canvas.toBuffer(), 'bye.png');
 			const channel = member.guild.channels.find(ch => ch.id === '398062441948512257');
 			if(!channel) return;
