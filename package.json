@@ -31,8 +31,7 @@
     "systeminformation": "^4.19.1",
     "upsidedown": "^0.0.5",
     "utf-8-validate": "^5.0.2",
-    "ytdl-core": "^1.0.6",
-    "ytdl-core-discord": "^1.0.3"
+    "ytdl-core": "^2.0.1"
   },
   "devDependencies": {},
   "scripts": {
