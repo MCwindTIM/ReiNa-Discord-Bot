@@ -77,9 +77,12 @@
 		catch(e){}
 	});
 	bot.on('reconnecting', () => {
-		console.log(`${bot.user.username} 上線!`);
-	    console.log(`加入了 ${bot.guilds.size} 個伺服器.`);
-		bot.user.setPresence({ game: { name: 'rn!help | ReiNa Is Here! Nya~~~~' , type: 3 } });
+		try{
+			CurrentTime();
+			GuildAllUser();
+			checkuserstatus();
+			}
+			catch(e){}
 	});
 	bot.on('disconnect', () => {
 	 console.log('斷開連接!');
@@ -972,45 +975,61 @@
 	};
 
 	bot.on('guildMemberAdd', async member => {
-		if(member.guild.id != "398062441516236800") return;
-		const channel = member.guild.channels.find(ch => ch.id === '398062441948512257');
-		if(!channel) return;
+		if(member.guild.id == "398062441516236800"){
+			const channel = member.guild.channels.find(ch => ch.id === '398062441948512257');
+			if(!channel) return;
 
-		const canvas = Canvas.createCanvas(700, 250);
-		const ctx = canvas.getContext('2d');
+			const canvas = Canvas.createCanvas(700, 250);
+			const ctx = canvas.getContext('2d');
 
-		const bg = await Canvas.loadImage('./images/wallpaper.jpg');
+			const bg = await Canvas.loadImage('./images/wallpaper.jpg');
 
-		ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
-		ctx.strokeStyle = '#74037b';
-		ctx.strokeRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+			ctx.strokeStyle = '#74037b';
+			ctx.strokeRect(0, 0, canvas.width, canvas.height);
 
-		ctx.font = '28px MCwindFont';
-		ctx.fillStyle = '#ffffff';
-		ctx.fillText(`歡迎加入🎁PadoruPadoru`, canvas.width / 2.5, canvas.height / 3.5);
-		
-		ctx.font = applyText(canvas, `${member.displayName} !`);
-		ctx.fillStyle = '#ffffff';
-		ctx.fillText(`${member.displayName} !`, canvas.width / 2.5, canvas.height / 1.8);
+			ctx.font = '28px MCwindFont';
+			ctx.fillStyle = '#ffffff';
+			ctx.fillText(`歡迎加入🎁PadoruPadoru`, canvas.width / 2.5, canvas.height / 3.5);
+			
+			ctx.font = applyText(canvas, `${member.displayName} !`);
+			ctx.fillStyle = '#ffffff';
+			ctx.fillText(`${member.displayName} !`, canvas.width / 2.5, canvas.height / 1.8);
 
 
-		ctx.beginPath();
-		ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
-		ctx.closePath();
-		ctx.clip();
+			ctx.beginPath();
+			ctx.arc(125, 125, 100, 0, Math.PI * 2, true);
+			ctx.closePath();
+			ctx.clip();
 
-		const avatar = await Canvas.loadImage(member.user.displayAvatarURL);
-		ctx.drawImage(avatar, 25, 25, 200, 200);
+			const avatar = await Canvas.loadImage(member.user.displayAvatarURL);
+			ctx.drawImage(avatar, 25, 25, 200, 200);
 
-		const attachment = new Discord.Attachment(canvas.toBuffer(), 'Welcome-image.png');
+			const attachment = new Discord.Attachment(canvas.toBuffer(), 'Welcome-image.png');
 
-		channel.send(`?! 是野生的 ${member}！ 🎉歡迎加入 ${member.guild.name}！🎊 :wink: `, attachment);
+			channel.send(`?! 是野生的 ${member}！ 🎉歡迎加入 ${member.guild.name}！🎊 :wink: `, attachment);
+		}else{
+			member.guild.systemChannel.send(`?! 是野生的 ${member}！ 🎉歡迎加入 ${member.guild.name}！🎊 :wink: `);
+		}
 	});
 
 	bot.on('guildMemberRemove', async member => {
-		if(member.guild.id != '398062441516236800') return;
-		const channel = member.guild.channels.find(ch => ch.id === '398062441948512257');
-		channel.send(`${member} 逃離了非洲. <@${bot.users.get('301667463735672845').id}> - 非洲死神 快把 ${member} 抓回來...`);
+		if(member.guild.id == '398062441516236800'){
+			const canvas = Canvas.createCanvas(700, 250);
+			const ctx = canvas.getContext('2d');
+			const bg = await Canvas.loadImage('./images/meme.jpg');
+			ctx.strokeStyle = '#74037b';
+			ctx.strokeRect(0, 0, canvas.width, canvas.height);
+			ctx.drawImage(bg, 0, 0, canvas.width, canvas.height);
+			const avatar = await Canvas.loadImage(member.user.displayAvatarURL);
+			ctx.drawImage(avatar, 150, 30, 150, 150);
+			const attachment = new Discord.Attachment(canvas.toBuffer(), 'bye.png');
+			const channel = member.guild.channels.find(ch => ch.id === '398062441948512257');
+			if(!channel) return;
+			channel.send(`${member} 逃離了非洲. <@${bot.users.get('301667463735672845').id}> - 非洲死神 快把 ${member} 抓回來...`, attachment);
+		}else{
+			member.guild.systemChannel.send(`${member} 離開了${member.guild.name}!`);
+		}
 	});
 
 	function createFile(file, message) {
