@@ -1,6 +1,6 @@
 {
   "name": "reina-bot",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "discord bot for MCwind's Discord Server",
   "main": "bot.js",
   "dependencies": {
