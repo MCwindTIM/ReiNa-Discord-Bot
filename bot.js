@@ -57,7 +57,11 @@
 	    fs.mkdirSync(dir);
 	}
 
-	bot.login(botconfig.token);
+	try{
+		bot.login(botconfig.token);
+	}catch(e){
+		console.log(e);
+	};
 
 	bot.on('warn', async () => {
 		console.warn;
@@ -113,6 +117,7 @@
 	  if(message.content.startsWith('<:xscissors:647687182538113034>') || message.content.startsWith('<:xrock:647687152003579944>') || message.content.startsWith('<:xpaper:647687122727338015>')) rps.run(bot,message,args);
 	  if(message.guild.id === '407171840746848258') sync.run(bot,message,args);
 	  if(message.content.includes("pixiv.net") || message.attachments.size > 0) sauce.run(bot,message,args);
+	  if(message.channel.id === '702962295998906398' && message.content != 'rn!驗證'){message.delete().catch()};
 
 		if(message.mentions.users.has(bot.user.id) && message.channel.id != '534648232236548106')	{
 			switch (getRandomInt(5)) {
@@ -655,12 +660,14 @@
 				}
 				return;
 			} else {
+				if(messageArray[1] > 3) messageArray = 3;
+				if(messageArray[1] < 0) messageArray = 0.1;
 			serverQueue.volume = messageArray[1];
 			serverQueue.connection.dispatcher.setVolumeLogarithmic(messageArray[1] / 5);
 			const embed = new Discord.RichEmbed()
 				embed
 				.setAuthor(message.author.tag, message.author.avatarURL)
-				.setDescription(`${message.author}` + " 是的Senpai, 我把音量調整到: " + `**${messageArray[1]}**` + "了哦!")
+				.setDescription(`${message.author}` + " 是的Senpai, 我把音量調整到: " + `**${messageArray[1]}**` + "了哦! \n(為了大家的耳朵著想, 音量範圍為 **0.1** 到 **3**)")
 				.setColor(0xcc0000)
 				.setTitle('ReiNa Bot')
 				.setURL("https://mcwind.tk")
@@ -856,79 +863,6 @@
 			}
 		}
 
-		if (cmd === `${prefix}db`){
-			message.delete();
-			if (!message.member.voiceChannel){
-				const embed = new Discord.RichEmbed()
-				embed
-				.setAuthor(message.author.tag, message.author.avatarURL)
-				.setDescription(`${message.author}` + "你不在語音頻道呀!")
-				.setColor(0xcc0000)
-				.setTitle('ReiNa Bot')
-				.setURL("https://mcwind.tk")
-				.setTimestamp()
-				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
-		    try {
-		    await util.sendDeletableMessage(message.channel, { embed }, message.author);
-			}   catch (err) {
-		    console.error(err);
-		}
-		return;
-			}
-			if (!serverQueue){
-				const embed = new Discord.RichEmbed()
-					embed
-					.setAuthor(message.author.tag, message.author.avatarURL)
-					.setDescription(`💢${message.author}` + " Senpai, 沒有在播放音樂哦!")
-					.setColor(0xcc0000)
-					.setTitle('ReiNa Bot')
-					.setURL("https://mcwind.tk")
-					.setTimestamp()
-					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
-				try {
-				await util.sendDeletableMessage(message.channel, { embed }, message.author);
-				}   catch (err) {
-					console.error(err);
-				}
-				return;
-			}
-			if (!messageArray[1]){
-				const embed = new Discord.RichEmbed()
-					embed
-					.setAuthor(message.author.tag, message.author.avatarURL)
-					.setDescription(`${message.author}` + " Senpai, 現在的分貝是:" + `**${serverQueue.volume}**`)
-					.setColor(0xcc0000)
-					.setTitle('ReiNa Bot')
-					.setURL("https://mcwind.tk")
-					.setTimestamp()
-					.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
-				try {
-				await util.sendDeletableMessage(message.channel, { embed }, message.author);
-				}   catch (err) {
-					console.error(err);
-				}
-				return;
-			} else {
-			serverQueue.volume = messageArray[1];
-			serverQueue.connection.dispatcher.setVolumeDecibels(messageArray[1] / 5);
-			const embed = new Discord.RichEmbed()
-				embed
-				.setAuthor(message.author.tag, message.author.avatarURL)
-				.setDescription(`${message.author}` + " 是的Senpai, 我把分貝調整到: " + `**${messageArray[1]}**` + "了哦!")
-				.setColor(0xcc0000)
-				.setTitle('ReiNa Bot')
-				.setURL("https://mcwind.tk")
-				.setTimestamp()
-				.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
-			try {
-			await util.sendDeletableMessage(message.channel, { embed }, message.author);
-			}   catch (err) {
-				console.error(err);
-			}
-			return;
-			}
-		}
-
 		if(!message.author.bot){
 		createFile(`./chatlog/${message.guild.id}/${message.channel.id}.log`, message);
 		}
@@ -975,8 +909,7 @@
 	};
 
 	bot.on('guildMemberAdd', async member => {
-		if(member.guild.id == "398062441516236800"){
-			const channel = member.guild.channels.find(ch => ch.id === '398062441948512257');
+			const channel = member.guild.systemChannel;
 			if(!channel) return;
 
 			const canvas = Canvas.createCanvas(700, 250);
@@ -990,7 +923,7 @@
 
 			ctx.font = '28px MCwindFont';
 			ctx.fillStyle = '#ffffff';
-			ctx.fillText(`歡迎加入🎁PadoruPadoru`, canvas.width / 2.5, canvas.height / 3.5);
+			ctx.fillText(`歡迎加入本伺服器!`, canvas.width / 2.5, canvas.height / 3.5);
 			
 			ctx.font = applyText(canvas, `${member.displayName} !`);
 			ctx.fillStyle = '#ffffff';
@@ -1007,14 +940,10 @@
 
 			const attachment = new Discord.Attachment(canvas.toBuffer(), 'Welcome-image.png');
 
-			channel.send(`?! 是野生的 ${member}！ 🎉歡迎加入 ${member.guild.name}！🎊 :wink: `, attachment);
-		}else{
-			member.guild.systemChannel.send(`?! 是野生的 ${member}！ 🎉歡迎加入 ${member.guild.name}！🎊 :wink: `);
-		}
+			channel.send(`?! 是野生的 ${member}！ 🎉歡迎加入 **${member.guild.name}**！🎊 :wink: `, attachment);
 	});
 
 	bot.on('guildMemberRemove', async member => {
-		if(member.guild.id == '398062441516236800'){
 			const canvas = Canvas.createCanvas(700, 250);
 			const ctx = canvas.getContext('2d');
 			const bg = await Canvas.loadImage('./images/meme.jpg');
@@ -1033,12 +962,9 @@
 			}
 			ctx.putImageData(pixels, 150, 30);
 			const attachment = new Discord.Attachment(canvas.toBuffer(), 'bye.png');
-			const channel = member.guild.channels.find(ch => ch.id === '398062441948512257');
+			const channel = member.guild.systemChannel;
 			if(!channel) return;
-			channel.send(`${member} 逃離了非洲. <@${bot.users.get('301667463735672845').id}> - 非洲死神 快把 ${member} 抓回來...`, attachment);
-		}else{
-			member.guild.systemChannel.send(`${member} 離開了${member.guild.name}!`);
-		}
+			channel.send(`${member} 逃離了**${member.guild.name}**.`, attachment);
 	});
 
 	function createFile(file, message) {
@@ -1213,7 +1139,7 @@
 				try{
 				await bot.channels.get("655499386591248384").setName("﹥ 𝓗𝓚🕕: " + hkh + ":" + hkm + ":" + hks);
 				await bot.channels.get("670914685352280064").setName("現時時間🕕: " + hkh + ":" + hkm + ":" + hks);
-				}catch(e){console.log(e)}
+				}catch(e){}
 			}
 			if(response === undefined || response.statusCode != 200){}
 		});
