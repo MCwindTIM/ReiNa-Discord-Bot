@@ -122,15 +122,12 @@
 		if(message.mentions.users.has(bot.user.id) && message.channel.id != '534648232236548106')	{
 			switch (getRandomInt(5)) {
 				case 1:
-					message.delete();
 					util.sendDeletableMessage(message.channel, `${message.author}, owo?`, message.author);
 					break;
 				case 2:
-					message.delete();
 					util.sendDeletableMessage(message.channel, `${message.author}, uwu?`, message.author);
 					break;
 				case 3:
-					message.delete();
 					util.sendDeletableMessage(message.channel, `${message.author}, b...baka!`, message.author);
 					break;
 				case 4:
@@ -994,6 +991,7 @@
 
 	async function handleVideo(video, message, songAuthorid, songAuthortag, voiceChannel, playlist = false) {
 		const serverQueue = queue.get(message.guild.id);
+
 		let vdh = video.duration.hours;
 		let vdm = video.duration.minutes;
 		let vds = video.duration.seconds;
@@ -1088,39 +1086,78 @@
 			try{delete timer[guild.id]}catch(e){};
 			return;
 		}
-
-		const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
-			.on('end', end => {
-				if(serverQueue.loop == false){serverQueue.songs.shift();}
-				else {
-					if(serverQueue.loop == true){
-						serverQueue.songs.unshift(serverQueue.songs[0]);
-						serverQueue.songs.shift();
+		let dispatcher;
+		fs.readFile(`./cache/${song.id}.mp4`, { encoding: 'utf-8'}, function(err,data){
+			if(!err){
+				let size = fs.statSync(`./cache/${song.id}.mp4`)["size"];
+				if(size == 0){
+					ytdl(`https://www.youtube.com/watch?v=${song.id}`).pipe(fs.createWriteStream(`./cache/${song.id}.mp4`));
+					dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+					.on('end', end => {
+						if(serverQueue.loop == false){serverQueue.songs.shift();}
+						else {
+							if(serverQueue.loop == true){
+								serverQueue.songs.unshift(serverQueue.songs[0]);
+								serverQueue.songs.shift();
+							}
+						}
+						play(guild, serverQueue.songs[0]);
+						timer[guild.id] = Date.now();
+					})
+					.on('error', error => console.log(error));
+				}else{
+			 	dispatcher = serverQueue.connection.playStream(`./cache/${song.id}.mp4`)
+				.on('end', end => {
+					if(serverQueue.loop == false){serverQueue.songs.shift();}
+					else {
+						if(serverQueue.loop == true){
+							serverQueue.songs.unshift(serverQueue.songs[0]);
+							serverQueue.songs.shift();
+						}
 					}
+					play(guild, serverQueue.songs[0]);
+					timer[guild.id] = Date.now();
+				})
+				.on('error', error => console.log(error));
 				}
-				play(guild, serverQueue.songs[0]);
-				timer[guild.id] = Date.now();
-			})
-			.on('error', error => console.log(error));
-		dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+			}
+			else{
+				fsPath.writeFileSync(`./cache/${song.id}.mp4`, "");
+				ytdl(`https://www.youtube.com/watch?v=${song.id}`).pipe(fs.createWriteStream(`./cache/${song.id}.mp4`));
+				dispatcher = serverQueue.connection.playStream(ytdl(song.url))
+				.on('end', end => {
+					if(serverQueue.loop == false){serverQueue.songs.shift();}
+					else {
+						if(serverQueue.loop == true){
+							serverQueue.songs.unshift(serverQueue.songs[0]);
+							serverQueue.songs.shift();
+						}
+					}
+					play(guild, serverQueue.songs[0]);
+					timer[guild.id] = Date.now();
+				})
+				.on('error', error => console.log(error));
+			}
 
-		const embed = new Discord.RichEmbed()
-		.setDescription(`🎶 開始播放: <@${song.authorid}>添加的**${song.title}**\n\n語音頻道: **${serverQueue.songs[0].guildtag}的${serverQueue.voiceChannel.name}**` + "\n\n\n**此信息將會在5秒後自動刪除**\n")
-		.setColor(0xcc0000)
-		.setTitle('ReiNa Bot')
-		.setURL("https://mcwind.tk")
-		.setTimestamp()
-		.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
-		serverQueue.textChannel.send(embed)
-		.then(message => {
-		message.delete(5000).catch(console.error);
-		}).catch();
-		let looping = '';
-		if(serverQueue.loop == true){looping = "開啟"}
-		if(serverQueue.loop == false){looping = "關閉"}
-		bot.user.setPresence({ game: { name: `正在播放: ${song.title} 由 ${song.authortag} 在 ${serverQueue.songs[0].guildtag}的${serverQueue.voiceChannel.name} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
-		
-		timer[guild.id] = Date.now();
+			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+
+			const embed = new Discord.RichEmbed()
+			.setDescription(`🎶 開始播放: <@${song.authorid}>添加的**${song.title}**\n\n語音頻道: **${serverQueue.songs[0].guildtag}的${serverQueue.voiceChannel.name}**` + "\n\n\n**此信息將會在5秒後自動刪除**\n")
+			.setColor(0xcc0000)
+			.setTitle('ReiNa Bot')
+			.setURL("https://mcwind.tk")
+			.setTimestamp()
+			.setFooter('ReiNa By 𝓖𝓻𝓪𝓷𝓭𝓞𝓹𝓮𝓻𝓪𝓽𝓸𝓻#9487', bot.user.avatarURL);
+			serverQueue.textChannel.send(embed)
+			.then(message => {
+			message.delete(5000).catch(console.error);
+			}).catch();
+			let looping = '';
+			if(serverQueue.loop == true){looping = "開啟"}
+			if(serverQueue.loop == false){looping = "關閉"}
+			bot.user.setPresence({ game: { name: `正在播放: ${song.title} 由 ${song.authortag} 在 ${serverQueue.songs[0].guildtag}的${serverQueue.voiceChannel.name} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+		});
+
 	}
 
 	let numchars = {'0':'𝟬','1':'𝟭','2':'𝟮','3':'𝟯','4':'𝟰','5':'𝟱','6':'𝟲','7':'𝟳','8':'𝟴','9':'𝟵'};
