@@ -1089,7 +1089,7 @@
 		let dispatcher;
 		fs.readFile(`./cache/${song.id}.mp4`, { encoding: 'utf-8'}, function(err,data){
 			if(!err){
-				let size = fs.statSync(`./cache/${song.id}.mp4`)["size"];
+				let size = fs.statSync(`./Cache/${song.id}.mp4`)["size"];
 				if(size == 0){
 					ytdl(`https://www.youtube.com/watch?v=${song.id}`).pipe(fs.createWriteStream(`./cache/${song.id}.mp4`));
 					dispatcher = serverQueue.connection.playStream(ytdl(song.url))
@@ -1106,7 +1106,7 @@
 					})
 					.on('error', error => console.log(error));
 				}else{
-			 	dispatcher = serverQueue.connection.playStream(`./cache/${song.id}.mp4`)
+			 	dispatcher = serverQueue.connection.playStream(`./Cache/${song.id}.mp4`)
 				.on('end', end => {
 					if(serverQueue.loop == false){serverQueue.songs.shift();}
 					else {
@@ -1122,8 +1122,8 @@
 				}
 			}
 			else{
-				fsPath.writeFileSync(`./cache/${song.id}.mp4`, "");
-				ytdl(`https://www.youtube.com/watch?v=${song.id}`).pipe(fs.createWriteStream(`./cache/${song.id}.mp4`));
+				fsPath.writeFileSync(`./Cache/${song.id}.mp4`, "");
+				ytdl(`https://www.youtube.com/watch?v=${song.id}`).pipe(fs.createWriteStream(`./Cache/${song.id}.mp4`));
 				dispatcher = serverQueue.connection.playStream(ytdl(song.url))
 				.on('end', end => {
 					if(serverQueue.loop == false){serverQueue.songs.shift();}
