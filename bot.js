@@ -109,7 +109,7 @@
 	  const serverQueue = queue.get(message.guild.id);
 	  const napiregex = /(?<=[\[{])(https?:\/\/nhentai\.net\/g\/)?(\d+)\/?.*?(?=[}\]])/gi;
 	  const wnacgregex = /w(\d+)\/?.*?(?=[}\]])?(\d+)\/?/gi;
-	  let commandfile = bot.commands.get(cmd.toLowerCase().slice(prefix.length));
+	  let commandfile = bot.commands.get(cmd.toLowerCase().replace(prefix.toLowerCase(), ""));
 	  if(commandfile) commandfile.run(bot,message,args);
 	  if(message.guild) lv.run(bot,message,args);
 	  if(message.content.match(napiregex) && message.content.startsWith('[') && message.content.endsWith(']')){nHentai.run(bot,message,args)}else{if(message.content.match(wnacgregex)){}else{if(message.channel.id === "655516899832233986"){message.delete()}}};
@@ -1106,20 +1106,20 @@
 					})
 					.on('error', error => console.log(error));
 				}else{
-			 	dispatcher = serverQueue.connection.playStream(`./Cache/${song.id}.mp4`)
-				.on('end', end => {
-					if(serverQueue.loop == false){serverQueue.songs.shift();}
-					else {
-						if(serverQueue.loop == true){
-							serverQueue.songs.unshift(serverQueue.songs[0]);
-							serverQueue.songs.shift();
+					dispatcher = serverQueue.connection.playStream(`./Cache/${song.id}.mp4`)
+					.on('end', end => {
+						if(serverQueue.loop == false){serverQueue.songs.shift();}
+						else {
+							if(serverQueue.loop == true){
+								serverQueue.songs.unshift(serverQueue.songs[0]);
+								serverQueue.songs.shift();
+							}
 						}
+						play(guild, serverQueue.songs[0]);
+						timer[guild.id] = Date.now();
+					})
+					.on('error', error => console.log(error));
 					}
-					play(guild, serverQueue.songs[0]);
-					timer[guild.id] = Date.now();
-				})
-				.on('error', error => console.log(error));
-				}
 			}
 			else{
 				fsPath.writeFileSync(`./Cache/${song.id}.mp4`, "");
@@ -1273,7 +1273,7 @@
 //		if(i.getYear() + 1900 === 2019){}else{
 //			const embed = new Discord.RichEmbed()
 //			embed
-//			.setDescription('@here, 各位新年快樂 2020年也要順順利利喲~ :partying_face: ')
+//			.setDescription('@here, 各位2020年新年快樂~ :partying_face: ')
 //			.setColor(0xcc0000)
 //			.setTitle('2020 新年快樂!')
 //			.setURL("https://mcwind.tk")
