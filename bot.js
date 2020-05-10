@@ -11,6 +11,7 @@
 	const queue = new Map();
 	const request = require("request");
 	const Canvas = require('canvas');
+	const ffmpeg = require('fluent-ffmpeg');
 	let timer = {};
 
 	global.uptime = new Date().toString();
@@ -26,14 +27,14 @@
 
 	process.title = 'ReiNaBot';
 	process.on('unhandledRejection', e => {
-		if(e.code = 'ETIMEDOUT') return;
-		console.log(e);
+		if(e.message == "Adding the role timed out." || e.message == "Removing the role timed out."){return}
+		console.trace(e);
 	});
-	process.on('uncaughtException', e => {console.log(e)});
+	process.on('uncaughtException', e => {console.trace(e)});
 
 	fs.readdir("./commands/", (err, files) =>{
 
-		if(err) console.log(err);
+		if(err) console.trace(err);
 
 		let jsfile = files.filter(f => f.split(".").pop() === "js")
 		if(jsfile.length <= 0){
@@ -991,7 +992,7 @@
 
 	async function handleVideo(video, message, songAuthorid, songAuthortag, voiceChannel, playlist = false) {
 		const serverQueue = queue.get(message.guild.id);
-
+		
 		let vdh = video.duration.hours;
 		let vdm = video.duration.minutes;
 		let vds = video.duration.seconds;
@@ -1087,11 +1088,13 @@
 			return;
 		}
 		let dispatcher;
-		fs.readFile(`./cache/${song.id}.mp4`, { encoding: 'utf-8'}, function(err,data){
+		fs.readFile(`./cache/${song.id}.mp3`, { encoding: 'utf-8'}, function(err,data){
 			if(!err){
-				let size = fs.statSync(`./Cache/${song.id}.mp4`)["size"];
+				let size = fs.statSync(`./cache/${song.id}.mp3`)["size"];
 				if(size == 0){
-					ytdl(`https://www.youtube.com/watch?v=${song.id}`).pipe(fs.createWriteStream(`./cache/${song.id}.mp4`));
+					let stream = ytdl(`https://www.youtube.com/watch?v=${song.id}`);
+					let proc = new ffmpeg({source: stream});
+					proc.saveToFile(`./cache/${song.id}.mp3`, (stdout, stderr) => {})
 					dispatcher = serverQueue.connection.playStream(ytdl(song.url))
 					.on('end', end => {
 						if(serverQueue.loop == false){serverQueue.songs.shift();}
@@ -1104,9 +1107,9 @@
 						play(guild, serverQueue.songs[0]);
 						timer[guild.id] = Date.now();
 					})
-					.on('error', error => console.log(error));
+					.on('error', e => console.trace(e));
 				}else{
-					dispatcher = serverQueue.connection.playStream(`./Cache/${song.id}.mp4`)
+					dispatcher = serverQueue.connection.playStream(`./cache/${song.id}.mp3`)
 					.on('end', end => {
 						if(serverQueue.loop == false){serverQueue.songs.shift();}
 						else {
@@ -1118,12 +1121,14 @@
 						play(guild, serverQueue.songs[0]);
 						timer[guild.id] = Date.now();
 					})
-					.on('error', error => console.log(error));
+					.on('error', e => console.trace(e));
 					}
 			}
 			else{
-				fsPath.writeFileSync(`./Cache/${song.id}.mp4`, "");
-				ytdl(`https://www.youtube.com/watch?v=${song.id}`).pipe(fs.createWriteStream(`./Cache/${song.id}.mp4`));
+				fsPath.writeFileSync(`./cache/${song.id}.mp3`, "");
+				let stream = ytdl(`https://www.youtube.com/watch?v=${song.id}`);
+				let proc = new ffmpeg({source: stream});
+				proc.saveToFile(`./cache/${song.id}.mp3`, (stdout, stderr) => {})
 				dispatcher = serverQueue.connection.playStream(ytdl(song.url))
 				.on('end', end => {
 					if(serverQueue.loop == false){serverQueue.songs.shift();}
@@ -1136,7 +1141,7 @@
 					play(guild, serverQueue.songs[0]);
 					timer[guild.id] = Date.now();
 				})
-				.on('error', error => console.log(error));
+				.on('error', e => console.trace(e));
 			}
 
 			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
@@ -1166,7 +1171,7 @@
 		try{
 		request.get('http://worldtimeapi.org/api/timezone/Asia/Hong_Kong', {},
 		async function(error, response, rawHK){
-			if(error){console.log(error)}
+			if(error){}
 			if(!error && response.statusCode == 200){
 				var objHK = JSON.parse(rawHK);
 				var timeHK = objHK.datetime;
@@ -1183,7 +1188,7 @@
 
 		request.get('http://worldtimeapi.org/api/timezone/Asia/Tokyo', {},
 		async function(error, response, rawTK){
-			if(error){console.log(error)}
+			if(error){}
 			if(!error && response.statusCode == 200){
 				var objTK = JSON.parse(rawTK);
 				var timeTK = objTK.datetime;
