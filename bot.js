@@ -1145,7 +1145,7 @@
 			}
 
 			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
+			
 			const embed = new Discord.RichEmbed()
 			.setDescription(`🎶 開始播放: <@${song.authorid}>添加的**${song.title}**\n\n語音頻道: **${serverQueue.songs[0].guildtag}的${serverQueue.voiceChannel.name}**` + "\n\n\n**此信息將會在5秒後自動刪除**\n")
 			.setColor(0xcc0000)
@@ -1161,6 +1161,7 @@
 			if(serverQueue.loop == true){looping = "開啟"}
 			if(serverQueue.loop == false){looping = "關閉"}
 			bot.user.setPresence({ game: { name: `正在播放: ${song.title} 由 ${song.authortag} 在 ${serverQueue.songs[0].guildtag}的${serverQueue.voiceChannel.name} 添加, ||[單曲循環播放: ${looping}]||` , type: 2 } });
+			timer[guild.id] = Date.now();
 		});
 
 	}
